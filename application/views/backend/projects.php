@@ -100,11 +100,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Project Start Date</label>
-                                                <input type="text" name="startdate" class="form-control datepicker" id="recipient-name1" placeholder="">
+                                                <input type="date" name="startdate" class="form-control datepicker" id="recipient-name1" placeholder="">
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Project End Date</label>
-                                                <input type="text" name="enddate" class="form-control datepicker" id="recipient-name1" required placeholder="">
+                                                <input type="date" name="enddate" class="form-control datepicker" id="recipient-name1" required placeholder="">
                                             </div>
                                             <div class="form-group">
                                                 <label for="message-text" class="control-label">Summary</label>

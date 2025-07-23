@@ -80,11 +80,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Project Start Date</label>
-                                                <input type="text" name="startdate" value="<?php echo $details->pro_start_date; ?>" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> class="form-control mydatepicker" id="recipient-name1" required>
+                                                <input type="date" name="startdate" value="<?php echo $details->pro_start_date; ?>" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> class="form-control mydatepicker" id="recipient-name1" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Project End Date</label>
-                                                <input type="text" name="enddate" value="<?php echo $details->pro_end_date; ?>" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> class="form-control mydatepicker" id="recipient-name1" required>
+                                                <input type="date" name="enddate" value="<?php echo $details->pro_end_date; ?>" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> class="form-control mydatepicker" id="recipient-name1" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="message-text" class="control-label">Project Summary</label>
