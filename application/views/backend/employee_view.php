@@ -22,7 +22,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" style="font-size: 14px;">  Personal Info </a> </li>
-                                <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" style="font-size: 14px;"> Address </a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" style="font-size: 14px;"> Address </a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab" style="font-size: 14px;"> Education</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#experience" role="tab" style="font-size: 14px;"> Experience</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bank" role="tab" style="font-size: 14px;"> Bank Account</a> </li>
@@ -34,7 +34,7 @@
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#password" role="tab" style="font-size: 14px;"> Change Password</a> </li>
                                 <?php } else { ?>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#password1" role="tab" style="font-size: 14px;"> Change Password</a> </li>                                
-                                <?php } ?> -->
+                                <?php } ?> 
                             </ul>
                             <!-- Tab panes -->
 
@@ -83,7 +83,7 @@
 				                                    </div>
 				                                    <div class="form-group col-md-4 m-t-10">
 				                                        <label>Last Name </label>
-				                                        <input type="text" id="" name="lname" class="form-control form-control-line" value="<?php echo $basic->last_name; ?>" placeholder="Employee's LastName" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> minlength="3" required> 
+				                                        <input type="text" id="" name="lname" class="form-control form-control-line" value="<?php echo $basic->last_name; ?>" placeholder="Employee's LastName" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> minlength="3" > 
 				                                    </div>
                                                     <div class="form-group col-md-4 m-t-10">
                                                         <label>Select Country </label>
@@ -93,9 +93,9 @@
                                                             <option value="O-">Philippines</option>
                                                             <option value="A+">Cambodia</option>
                                                             <option value="A-">Malaysia</option>
-                                                            <option value="B+">B+</option>
+                                                            <!-- <option value="B+">B+</option>
                                                             <option value="B-">B-</option>
-                                                            <option value="AB+">AB+</option>
+                                                            <option value="AB+">AB+</option> -->
                                                         </select>
                                                     </div>
 				                                    <div class="form-group col-md-4 m-t-10">
@@ -166,10 +166,10 @@
 				                                        <label>Date Of Joining </label>
 				                                        <input type="date" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> id="example-email2" name="joindate" class="form-control" value="<?php echo $basic->em_joining_date; ?>" placeholder=""> 
 				                                    </div>
-				                                    <div class="form-group col-md-4 m-t-10">
+				                                    <!-- <div class="form-group col-md-4 m-t-10">
 				                                        <label>Contract End Date</label>
 				                                        <input type="date" id="example-email2" name="leavedate" class="form-control" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> value="<?php echo $basic->em_contact_end; ?>" placeholder=""> 
-				                                    </div>
+				                                    </div> -->
 				                                    <div class="form-group col-md-4 m-t-10">
 				                                        <label>Email </label>
 				                                        <input type="email" id="example-email2" name="email" class="form-control" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> value="<?php echo $basic->em_email; ?>" placeholder="email@mail.com" minlength="7" required> 

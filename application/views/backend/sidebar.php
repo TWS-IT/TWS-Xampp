@@ -40,7 +40,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Projects </a></li>
                                 <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Task List </a></li>
-                                <!--<li><a href="<?php #echo base_url(); ?>Projects/All_Tasks"> Field Visit</a></li>-->
+                                <!-- <li><a href="<?php #echo base_url(); ?>Projects/All_Tasks"> Field Visit</a></li> -->
                             </ul>
                         </li>                                                                       
                         <?php } else { ?>
@@ -57,22 +57,27 @@
                                 <!-- <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li> -->
                             </ul>
                         </li>
-                        <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Attendance </span></a>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Attendance </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>attendance/Attendance">Attendance List </a></li>
                                 <li><a href="<?php echo base_url(); ?>attendance/Save_Attendance">Add Attendance </a></li>
                                 <li><a href="<?php echo base_url(); ?>attendance/Attendance_Report">Attendance Report </a></li>
+                                <li><a href="<?php echo base_url(); ?>leave/Leave_report">Report</a></li> 
                             </ul>
-                        </li> -->
-                        <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-account-off"></i><span class="hide-menu">Leave </span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="<?php echo base_url(); ?>leave/Holidays"> Holiday </a></li>
-                                <li><a href="<?php echo base_url(); ?>leave/leavetypes"> Leave Type</a></li>
-                                <li><a href="<?php echo base_url(); ?>leave/Application"> Leave Application </a></li>
-                                <li><a href="<?php echo base_url(); ?>leave/Earnedleave"> Earned Leave </a></li>
-                                <li><a href="<?php echo base_url(); ?>leave/Leave_report"> Report </a></li>
-                            </ul>
-                        </li> -->
+                        </li>
+                       <li>
+  <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+    <i class="mdi mdi-earth"></i>
+    <span class="hide-menu">Country</span>
+  </a>
+  <ul aria-expanded="false" class="collapse">
+    <li><a href="<?php echo base_url(); ?>leave/Holidays">Sri Lanka</a></li>
+    <li><a href="<?php echo base_url(); ?>leave/leavetypes">Malaysia</a></li>
+    <li><a href="<?php echo base_url(); ?>leave/Application">Philippines</a></li>
+    <li><a href="<?php echo base_url(); ?>leave/Earnedleave">Cambodia</a></li>
+    
+  </ul>
+</li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-briefcase-check"></i><span class="hide-menu">Project </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Projects </a></li>

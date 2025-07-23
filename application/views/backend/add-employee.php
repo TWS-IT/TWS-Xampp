@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Last Name </label>
-                                        <input type="text" id="" name="lname" class="form-control form-control-line" value="" placeholder="Employee's LastName" minlength="2" required> 
+                                        <input type="text" id="" name="lname" class="form-control form-control-line" value="" placeholder="Employee's LastName" minlength="2" > 
                                     </div>
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Employee ID </label>

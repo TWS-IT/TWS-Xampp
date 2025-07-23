@@ -1,6 +1,6 @@
             </div>
 
-            <footer class="footer"> © <?php echo date('Y')?> | Developed By TWSIT Srilanka </footer>
+            <footer class="footer"> © <?php echo date('Y')?> | Developed By TWS-IT Srilanka </footer>
 
         </div>
 

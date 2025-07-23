@@ -41,24 +41,24 @@
                                                 <input type="file" value="" class="" id="img_url" name="img_url" aria-describedby="fileHelp">
                                             </div>
                                         </div>
-                                        <div class="form-group clearfix">
+                                        <!-- <div class="form-group clearfix">
                                             <label for="title" class="col-md-3">Site Title</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="title" value="<?php echo $settingsvalue->sitetitle; ?>" id="title" placeholder="Title..." required minlength="7" maxlength="120">
                                             </div>
-                                        </div>                                    
+                                        </div>                                     -->
                                         <div class="form-group clearfix">
                                             <label for="description" class="col-md-3">Description</label>
                                             <div class="col-md-9">
                                                 <textarea class="form-control" id="description" value="<?php echo $settingsvalue->description; ?>" name="description" rows="6" required minlength="20" maxlength="512"><?php echo $settingsvalue->description; ?></textarea>
                                             </div>                                        
                                         </div>                                                                
-                                        <div class="form-group clearfix">
+                                        <!-- <div class="form-group clearfix">
                                             <label for="copyright" class="col-md-3">Copyright</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="copyright" value="<?php echo $settingsvalue->copyright; ?>" id="copyright" placeholder="copyright...">
                                             </div>
-                                        </div>                                
+                                        </div>                                 -->
                                         <div class="form-group clearfix">
                                             <label for="contact" class="col-md-3">Contact</label>
                                             <div class="col-md-9">
