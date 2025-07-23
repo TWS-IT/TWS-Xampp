@@ -723,8 +723,10 @@ class Projects extends CI_Controller
 
 			if ($wasUpdated) {
 				echo "Updated successfully";
+				redirect(base_url(), 'refresh');
 			} else {
 				echo "Something went wrong. Please check again.";
+				redirect(base_url(), 'refresh');
 			}
 		}
 	}
