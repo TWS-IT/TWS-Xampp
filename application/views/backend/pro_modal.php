@@ -16,7 +16,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Project Date</label>
-                                                <input type="text" value="<?php echo $details->pro_start_date; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
+                                                <input type="text" value="<?php echo $details->employee_count; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
                                                 <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly>
                                             </div>
                                             <div class="form-group row">
@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Project Date</label>
-                                                <input type="text" value="<?php echo $details->pro_start_date; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
+                                                <input type="text" value="<?php echo $details->employee_count; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
                                                 <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly>
                                             </div>                                               
                                              <div class="form-group row">
@@ -161,7 +161,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Project Date</label>
-                                                <input type="text" value="<?php echo $details->pro_start_date; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
+                                                <input type="text" value="<?php echo $details->employee_count; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
                                                 <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly>
                                             </div>                                              
                                              <div class="form-group row">
@@ -294,7 +294,7 @@
                                                 }).done(function (response) {
                                                     console.log(response);
                                                     // Populate the form fields with the data returned from server
-													$('#tasksModalform').find('[name="prostart"]').val(response.provalue.pro_start_date).end();
+													$('#tasksModalform').find('[name="prostart"]').val(response.provalue.employee_count).end();
                                                     $('#tasksModalform').find('[name="proend"]').val(response.provalue.pro_end_date).end();
 												});
                                             });

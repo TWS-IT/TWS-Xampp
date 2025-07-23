@@ -48,8 +48,8 @@
                                             <tr>
                                                 <th>Project Title</th>
                                                 <th>Status </th>
-                                                <th>Start Date </th>
-                                                <th>End Date </th>
+                                                <th>Employee Count</th>
+                                                <!-- <th>End Date </th> -->
                                                 <th>Action </th>
                                             </tr>
                                         </thead>
@@ -67,8 +67,7 @@
                                             <tr>
                                                 <td><?php echo substr($value->pro_name,0,50).'....' ?></td>
                                                 <td><?php echo $value->pro_status ?></td>
-                                                <td><?php echo date('jS \of F Y',strtotime($value->pro_start_date)); ?></td>
-                                                <td><?php echo date('jS \of F Y',strtotime($value->pro_end_date)) ?></td>
+                                                <td><?php echo (int)$value->employee_count; ?></td>
                                                 <td class="jsgrid-align-center ">
                                                     <a href="view?P=<?php echo base64_encode($value->id); ?>" title="Edit" class="btn btn-sm btn-primary waves-effect waves-light"><i class="fa fa-pencil-square-o"></i></a>
                                                     <a href="pDelet?D=<?php echo base64_encode($value->id); ?>" title="Delete" onclick="alert('Are You Sure To Delete This Project?')" class="btn btn-sm btn-danger waves-effect waves-light projectdelet"><i class="fa fa-trash-o"></i></a>
@@ -99,13 +98,13 @@
                                                 <input type="text" name="protitle" class="form-control" id="recipient-name1" minlength="8" maxlength="250" placeholder="">
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label">Project Start Date</label>
-                                                <input type="date" name="startdate" class="form-control datepicker" id="recipient-name1" placeholder="">
+                                                <label class="control-label">Employee Count</label>
+                                                <input type="int" name="employeecount" class="form-control datepicker" id="recipient-name1" placeholder="">
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="control-label">Project End Date</label>
                                                 <input type="date" name="enddate" class="form-control datepicker" id="recipient-name1" required placeholder="">
-                                            </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <label for="message-text" class="control-label">Summary</label>
                                                 <textarea class="form-control" name="summery" id="message-text1" placeholder=""></textarea>

@@ -110,7 +110,7 @@
                                 <thead>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Start Date</th>
+                                        <th>Employee Count</th>
                                         <th>End Date</th>
                                     </tr>
                                 </thead>
@@ -118,7 +118,7 @@
                                     <?php foreach($running AS $value): ?>
                                     <tr style="vertical-align:top;">
                                         <td><a href="<?php echo base_url(); ?>Projects/view?P=<?php echo base64_encode($value->id); ?>"><?php echo substr("$value->pro_name",0,25).'...'; ?></a></td>
-                                        <td><?php echo $value->pro_start_date; ?></td>
+                                        <td><?php echo $value->employee_count; ?></td>
                                         <td><?php echo $value->pro_end_date; ?></td>
                                     </tr>
                                     <?php endforeach; ?>

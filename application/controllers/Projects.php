@@ -62,7 +62,7 @@ class Projects extends CI_Controller
 			$projectID = $this->input->post('projectID');
 			$fieldLocation = $this->input->post('fieldLocation');
 			$emid = $this->input->post('emid');
-			$startdate = $this->input->post('startdate');
+			$empcount = $this->input->post('empcount');
 			$enddate = $this->input->post('enddate');
 			$totalDays = $this->input->post('totalDays');
 			$notes = $this->input->post('notes');
@@ -82,7 +82,7 @@ class Projects extends CI_Controller
 					'project_id' => $projectID,
 					'emp_id' => $emid,
 					'field_location' => $fieldLocation,
-					'start_date' => $startdate,
+					'empcount' => $empcount,
 					'approx_end_date' => $enddate,
 					'total_days' => $totalDays,
 					'notes' => $notes,
@@ -97,7 +97,7 @@ class Projects extends CI_Controller
 						'project_id' => $projectID,
 						'emp_id' => $emid,
 						'field_location' => $fieldLocation,
-						'start_date' => $startdate,
+						'empcount' => $empcount,
 						'approx_end_date' => $enddate,
 						'total_days' => $totalDays,
 						'notes' => $notes,
@@ -120,7 +120,7 @@ class Projects extends CI_Controller
 		if ($this->session->userdata('user_login_access') != False) {
 			$id        = $this->input->post('proid');
 			$title     = $this->input->post('protitle');
-			$startdate = $this->input->post('startdate');
+			$empcount = $this->input->post('employeecount');
 			$enddate   = $this->input->post('enddate');
 			$details   = $this->input->post('details');
 			$summery   = $this->input->post('summery');
@@ -139,7 +139,7 @@ class Projects extends CI_Controller
 				$data = array();
 				$data = array(
 					'pro_name' => $title,
-					'pro_start_date' => $startdate,
+					'employee_count' => $empcount,
 					'pro_end_date' => $enddate,
 					'pro_description' => $details,
 					'pro_summary' => $summery,
@@ -172,7 +172,7 @@ class Projects extends CI_Controller
 			$title     = $this->input->post('tasktitle');
 			$head      = $this->input->post('teamhead');
 			$details   = $this->input->post('details');
-			$startdate = $this->input->post('startdate');
+			$empcount = $this->input->post('employeecount');
 			$enddate   = $this->input->post('enddate');
 			$type      = $this->input->post('type');
 			$status    = $this->input->post('status');
@@ -193,7 +193,7 @@ class Projects extends CI_Controller
 					/*'assign_to' => $head,*/
 					'task_title' => $title,
 					'description' => $details,
-					'start_date' => $startdate,
+					'empcount' => $empcount,
 					'end_date' => $enddate,
 					'create_date' => $date,
 					'task_type' => $type,
@@ -258,7 +258,7 @@ class Projects extends CI_Controller
 			$title     = $this->input->post('tasktitle');
 			$head      = $this->input->post('teamhead');
 			$details   = $this->input->post('details');
-			$startdate = $this->input->post('startdate');
+			$empcount = $this->input->post('empcount');
 			$enddate   = $this->input->post('enddate');
 			$type      = $this->input->post('type');
 			$status    = $this->input->post('status');
@@ -283,7 +283,7 @@ class Projects extends CI_Controller
 					/*'assign_to' => $head,*/
 					'task_title' => $title,
 					'description' => $details,
-					'start_date' => $startdate,
+					'empcount' => $empcount,
 					'end_date' => $enddate,
 					'create_date' => $date,
 					'task_type' => $type,
@@ -347,7 +347,7 @@ class Projects extends CI_Controller
 		$assignid  = $this->input->post('teamhead');
 		$task      = $this->input->post('taskid');
 		$logqty    = $this->input->post('qty');
-		$startdate = $this->input->post('startdate');
+		$empcount = $this->input->post('empcount');
 		$enddate   = $this->input->post('enddate');
 		$remarks   = $this->input->post('remarks');
 		$this->load->library('form_validation');
@@ -364,7 +364,7 @@ class Projects extends CI_Controller
 				'project_id' => $projectid,
 				'task_id' => $task,
 				'log_qty' => $logqty,
-				'start_date' => $startdate,
+				'empcount' => $empcount,
 				'end_date' => $enddate,
 				/*                    'back_date' => $backdate,
                 'back_qty' => $backqty,*/
@@ -768,9 +768,9 @@ class Projects extends CI_Controller
 				$start_date = $attendanceDataFromFieldVisit[0]->start_date;
 				$end_date   = $attendanceDataFromFieldVisit[0]->actual_return_date;
 
-				$startDate = strtotime($start_date);
+				$empcount = strtotime($start_date);
 				$endDate = strtotime($end_date);
-				for($i = $startDate; $i <= $endDate; $i = strtotime('+1 day', $i)){
+				for($i = $empcount; $i <= $endDate; $i = strtotime('+1 day', $i)){
 					$date = date('Y-m-d', $i);
 					$day = date("D", strtotime($date));
 					if($day == "Fri"){

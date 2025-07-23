@@ -60,7 +60,7 @@
                                 <hr> 
                             </div>
                             <div class="card-body"> <small class="text-muted">Start Date </small>
-                                <h6><?php echo $details->pro_start_date; ?></h6> <small class="text-muted p-t-30 db">End date</small>
+                                <h6><?php echo $details->employee_count; ?></h6> <small class="text-muted p-t-30 db">End date</small>
                                 <h6><?php echo $details->pro_end_date; ?></h6> <small class="text-muted p-t-30 db">Status</small>
                                 <h6><?php echo $details->pro_status; ?></h6>
                                 
@@ -79,17 +79,17 @@
                                                 <input type="text" name="protitle" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> value="<?php echo $details->pro_name; ?>" class="form-control" id="recipient-name1" minlength="8" maxlength="250" required>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label">Project Start Date</label>
-                                                <input type="date" name="startdate" value="<?php echo $details->pro_start_date; ?>" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> class="form-control mydatepicker" id="recipient-name1" required>
+                                                <label class="control-label">Employee Count</label>
+                                                <input type="int" name="empcount" value="<?php echo $details->employee_count; ?>" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> class="form-control" id="recipient-name1" required>
                                             </div>
-                                            <div class="form-group">
+                                            <!-- <div class="form-group">
                                                 <label class="control-label">Project End Date</label>
                                                 <input type="date" name="enddate" value="<?php echo $details->pro_end_date; ?>" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> class="form-control mydatepicker" id="recipient-name1" required>
-                                            </div>
-                                            <div class="form-group">
+                                            </div> -->
+                                            <!-- <div class="form-group">
                                                 <label for="message-text" class="control-label">Project Summary</label>
                                                 <textarea class="form-control" value="<?php echo $details->pro_summary; ?>" name="summery" rows="6" id="message-text1" minlength="5" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> maxlength="512" ><?php echo $details->pro_summary; ?></textarea>
-                                            </div>
+                                            </div> -->
                                             <div class="form-group">
                                                 <label for="message-text" class="control-label">Details</label>
                                                 <textarea class="form-control" rows="10" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> name="details" value="<?php echo $details->pro_description; ?>" id="message-text1" minlength="10" maxlength="1300"><?php echo $details->pro_description; ?></textarea>

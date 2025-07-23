@@ -842,7 +842,7 @@ CREATE TABLE `penalty` (
 CREATE TABLE `project` (
   `id` int(14) NOT NULL,
   `pro_name` varchar(128) DEFAULT NULL,
-  `pro_start_date` varchar(128) DEFAULT NULL,
+  `employee_count` varchar(128) DEFAULT NULL,
   `pro_end_date` varchar(128) DEFAULT NULL,
   `pro_description` varchar(1024) DEFAULT NULL,
   `pro_summary` varchar(512) DEFAULT NULL,
@@ -854,7 +854,7 @@ CREATE TABLE `project` (
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`id`, `pro_name`, `pro_start_date`, `pro_end_date`, `pro_description`, `pro_summary`, `pro_status`, `progress`) VALUES
+INSERT INTO `project` (`id`, `pro_name`, `employee_count`, `pro_end_date`, `pro_description`, `pro_summary`, `pro_status`, `progress`) VALUES
 (1, 'Project X23', 'Jan 4, 2022', 'Feb 2, 2022', ' This is just a demo project! This is just a demo project! This is just a demo project! This is just a demo project!', 'This is just a demo project!', 'upcoming', NULL),
 (2, 'Multi User Chat System', 'Jan 1, 2022', 'April 14, 2022', ' You are required to develop a system that supports multi-user chatting with the help of top level technologies.', 'Development of Multi-User Chatting System', 'running', NULL),
 (3, 'Image Enhancement Software', 'Dec 10, 2021', 'Mar 20, 2022', 'You are required to develop of computer based software where end users can receive quality results on image enhancement. This particular project requires large number of technologies with proper use and its features.', 'Development of Image Enhancement Software', 'running', NULL),

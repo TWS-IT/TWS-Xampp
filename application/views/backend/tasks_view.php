@@ -204,7 +204,7 @@
                                                 }).done(function (response) {
                                                     console.log(response);
                                                     // Populate the form fields with the data returned from server
-													$('#tasksModalform').find('[name="prostart"]').val(response.provalue.pro_start_date).end();
+													$('#tasksModalform').find('[name="prostart"]').val(response.provalue.employee_count).end();
                                                     $('#tasksModalform').find('[name="proend"]').val(response.provalue.pro_end_date).end();
 												});
                                             });
