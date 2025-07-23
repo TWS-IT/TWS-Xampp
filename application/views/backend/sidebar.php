@@ -31,7 +31,7 @@
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-rocket"></i><span class="hide-menu">Leave </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="<?php echo base_url(); ?>leave/Holidays"> Holiday </a></li>
+                                <!--<li><a href="<?php echo base_url(); ?>leave/Holidays"> Holiday </a></li>-->
                                 <li><a href="<?php echo base_url(); ?>leave/EmApplication"> Leave Application </a></li>
                                 <li><a href="<?php echo base_url(); ?>leave/EmLeavesheet"> Leave Sheet </a></li>
                             </ul>
@@ -68,13 +68,13 @@
                        <li>
   <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
     <i class="mdi mdi-earth"></i>
-    <span class="hide-menu">Country</span>
+    <span class="hide-menu">Holiday</span>
   </a>
   <ul aria-expanded="false" class="collapse">
-    <li><a href="<?php echo base_url(); ?>leave/Holidays">Sri Lanka</a></li>
-    <li><a href="<?php echo base_url(); ?>leave/leavetypes">Malaysia</a></li>
-    <li><a href="<?php echo base_url(); ?>leave/Application">Philippines</a></li>
-    <li><a href="<?php echo base_url(); ?>leave/Earnedleave">Cambodia</a></li>
+    <!-- <li><a href="<?php echo base_url(); ?>leave/Holidays">Holidays List</a></li> -->
+    <li><a href="<?php echo base_url(); ?>leave/leavetypes">Leave List</a></li>
+    <li><a href="<?php echo base_url(); ?>leave/Application">Application List</a></li>
+    <li><a href="<?php echo base_url(); ?>leave/Earnedleave">Earn Balance</a></li>
     
   </ul>
 </li>
@@ -99,8 +99,8 @@
         <span class="hide-menu">Mistakes</span>
     </a>
     <ul aria-expanded="false" class="collapse">
-        <li><a href="<?php echo base_url(); ?>Loan/View"> Grant Loan </a></li>
-        <li><a href="<?php echo base_url(); ?>Loan/installment"> Loan Installment</a></li>
+        <li><a href="<?php echo base_url(); ?>Loan/View"> IR </a></li>
+        <li><a href="<?php echo base_url(); ?>Loan/installment"> Warning Latter</a></li>
     </ul>
 </li>
                         <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-grid"></i><span class="hide-menu">Assets </span></a>

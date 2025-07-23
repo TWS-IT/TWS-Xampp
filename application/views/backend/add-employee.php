@@ -87,7 +87,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3 m-t-20">
-                                        <label>Select Country</label>
+                                        <label>Select Holiday</label>
                                         <select name="blood" class="form-control custom-select">
                                             <option>Select Country</option>
                                             <option value="O+">Srilanka</option>
