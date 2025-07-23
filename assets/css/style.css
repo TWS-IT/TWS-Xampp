@@ -10,6 +10,11 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700");
 @import url(spinners.css);
 @import url(animate.css);
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@import "https://unpkg.com/open-props/easings.min.css";
+
+
+
 .preloader {
     width: 100%;
     height: 100%;
@@ -29,15 +34,174 @@
     outline: none
 }
 
+
+html,body{
+  height: 100%;
+}
+body{
+  display: grid;
+  place-items: center;
+  background: #dde1e7;
+  text-align: center;
+}
+
+body.dark {
+  --background-color: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #ffffff;
+  --highlight-color: #f4c430;
+  --input-bg: #2a2a2a;
+  --shadow-light: #2c2c2c;
+  --shadow-dark: #000000;
+}
+
 body {
-    background: #fff;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+:root {
+  --background-color: #e0e5ec;
+  --card-bg: #f0f0f3;
+  --text-color: #333;
+  --highlight-color: #e5b800;
+  --input-bg: #ecf0f3;
+  --shadow-light: #ffffff;
+  --shadow-dark: #c8d0e7;
+}
+
+
+.header-text {
+  font-family: 'Bitcount', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700; /* Increased for bolder appearance */
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0;
+
+  font-size: 45px;
+  margin-bottom: 15px;
+  color: #daa520;
+  text-align: center; /* Center-align the text */
+}
+
+
+.header-text {
+  color: var(--highlight-color);
+}
+
+
+
+.login-box {
+  width: 400px;
+  padding: 20px 20px;
+  background: #dde1e7;
+  border-radius: 20px;
+  box-shadow: -3px -3px 7px #ffffff73,
+               2px 2px 5px rgba(94,104,121,0.288);
+}
+.login-box  .text{
+  font-size: 33px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #595959;
+}
+
+
+.login-box  {
+  background-color: var(--card-bg);
+  box-shadow: 5px 5px 15px var(--shadow-dark),
+              -5px -5px 15px var(--shadow-light);
+  transition: all 0.3s ease;
+}
+
+
+
+.col-xs-12{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+.col-xs-12:nth-child(1){
+  margin-top: 10px;
+}
+.col-xs-12 input{
+  height: 100%;
+  width: 100%;
+  padding-left: 45px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  background: #dde1e7;
+  color: #595959;
+  border-radius: 25px;
+  box-shadow: inset 2px 2px 5px #BABECC,
+              inset -5px -5px 10px #ffffff73;
+}
+.col-xs-12 input:focus{
+  box-shadow: inset 1px 1px 2px #BABECC,
+              inset -1px -1px 2px #ffffff73;
+}
+.col-xs-12 span{
+  position: absolute;
+  color: #595959;
+  width: 50px;
+  line-height: 50px;
+}
+.col-xs-12 label{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 45px;
+  pointer-events: none;
+  color: #666666;
+}
+.col-xs-12 input:valid ~ label{
+  opacity: 0;
+}
+
+
+
+button{
+  /* margin: 15px 0; */
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  line-height: 50px;
+  font-weight: 900;
+  background: #dde1e7;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #595959;
+  box-shadow: 2px 2px 5px #BABECC,
+             -5px -5px 10px #ffffff73;
+}
+button:focus{
+  color: #3498db;
+  box-shadow: inset 2px 2px 5px #BABECC,
+             inset -5px -5px 10px #ffffff73;
+}
+
+
+
+
+/* body {
+    background: #fff; */
    /*   font-family: "Poppins", sans-serif;*/
-    font-family: 'Open Sans', sans-serif
+    /* font-family: 'Open Sans', sans-serif
     margin: 0;
     overflow-x: hidden;
     color: #67757c;
     font-weight: 300
-}
+} */
 
 html {
     position: relative;
@@ -1936,9 +2100,9 @@ form label {
     margin-bottom: 0px
 }
 
-.form-control-static {
+/* .form-control-static {
     padding-top: 0px
-}
+} */
 
 .form-bordered .form-group {
     border-bottom: 1px solid rgba(120, 130, 140, 0.13);
@@ -3156,9 +3320,9 @@ html body #visitor .c3-chart-arcs-title {
     overflow: hidden
 }
 
-.form-control .fileinput-filename {
+/* .form-control .fileinput-filename {
     vertical-align: bottom
-}
+} */
 
 .fileinput.input-group>* {
     position: relative;
@@ -3210,9 +3374,9 @@ html body #visitor .c3-chart-arcs-title {
     color: #1976d2
 }
 
-.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+/* .bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
     width: 100%
-}
+} */
 
 .bootstrap-select .dropdown-menu li a {
     display: block;
@@ -3263,7 +3427,7 @@ html body #visitor .c3-chart-arcs-title {
     overflow: hidden
 }
 
-.form-material .form-control {
+/* .form-material .form-control {
     background-color: transparent;
     background-position: center bottom, center calc(100% - 1px);
     background-repeat: no-repeat;
@@ -3272,9 +3436,9 @@ html body #visitor .c3-chart-arcs-title {
     -webkit-transition: background 0s ease-out 0s;
     -o-transition: background 0s ease-out 0s;
     transition: background 0s ease-out 0s
-}
+} */
 
-.form-material .form-control,
+/* .form-material .form-control,
 .form-material .form-control.focus,
 .form-material .form-control:focus {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#1976d2), to(#1976d2)), -webkit-gradient(linear, left top, left bottom, from(rgba(120, 130, 140, 0.13)), to(rgba(120, 130, 140, 0.13)));
@@ -3286,7 +3450,7 @@ html body #visitor .c3-chart-arcs-title {
     -webkit-box-shadow: none;
     box-shadow: none;
     float: none
-}
+} */
 
 .form-material .form-control.focus,
 .form-material .form-control:focus {
@@ -3430,7 +3594,7 @@ html body #visitor .c3-chart-arcs-title {
     background: #ef5350
 }
 
-.has-warning .form-control:focus~label,
+/* .has-warning .form-control:focus~label,
 .has-warning .form-control:valid~label {
     color: #ffb22b
 }
@@ -3443,7 +3607,7 @@ html body #visitor .c3-chart-arcs-title {
 .has-error .form-control:focus~label,
 .has-error .form-control:valid~label {
     color: #ef5350
-}
+} */
 
 .has-feedback label~.t-0 {
     top: 0
@@ -6066,7 +6230,7 @@ a.mytooltip {
     position: fixed
 }
 
-.login-box {
+/* .login-box {
     width: 400px;
     margin: 0 auto
 }
@@ -6080,7 +6244,7 @@ a.mytooltip {
 .login-box .social {
     display: block;
     margin-bottom: 30px
-}
+} */
 
 #recoverform {
     display: none
@@ -6091,11 +6255,11 @@ a.mytooltip {
     margin-top: 0px
 }
 
-.login-sidebar .login-box {
+/* .login-sidebar .login-box {
     right: 0px;
     position: absolute;
     height: 100%
-}
+} */
 
 .minimal-faq .card {
     border: 0px
@@ -6211,14 +6375,14 @@ a.mytooltip {
     position: relative
 }
 
-.chat-main-box .chat-left-aside .chat-left-inner .form-control {
+/* .chat-main-box .chat-left-aside .chat-left-inner .form-control {
     height: 60px;
     padding: 15px;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#1976d2), to(#1976d2)), -webkit-gradient(linear, left top, left bottom, from(rgba(120, 130, 140, 0.13)), to(rgba(120, 130, 140, 0.13)));
     background-image: -webkit-linear-gradient(#1976d2, #1976d2), -webkit-linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13));
     background-image: -o-linear-gradient(#1976d2, #1976d2), -o-linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13));
     background-image: linear-gradient(#1976d2, #1976d2), linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13))
-}
+} */
 
 .chat-main-box .chat-left-aside .chat-left-inner .style-none {
     padding: 0px
@@ -6257,7 +6421,7 @@ a.mytooltip {
     position: relative
 }
 
-.chat-main-box .chat-right-aside .send-chat-box .form-control {
+/* .chat-main-box .chat-right-aside .send-chat-box .form-control {
     border: none;
     border-top: 1px solid rgba(120, 130, 140, 0.13);
     resize: none;
@@ -6267,7 +6431,7 @@ a.mytooltip {
 
 .chat-main-box .chat-right-aside .send-chat-box .form-control:focus {
     border-color: rgba(120, 130, 140, 0.13)
-}
+} */
 
 .chat-main-box .chat-right-aside .send-chat-box .custom-send {
     position: absolute;
@@ -7962,7 +8126,7 @@ a.mytooltip {
     align-items: normal
 }
 
-.form-control-danger,
+/* .form-control-danger,
 .form-control-success,
 .form-control-warning {
     padding-right: 2.25rem;
@@ -8002,9 +8166,9 @@ a.mytooltip {
 
 .has-warning .form-control {
     border-color: #ffb22b
-}
+} */
 
-.has-danger .col-form-label,
+/* .has-danger .col-form-label,
 .has-danger .custom-control,
 .has-danger .form-check-label,
 .has-danger .form-control-feedback,
@@ -8018,7 +8182,7 @@ a.mytooltip {
 
 .has-danger .form-control {
     border-color: #ef5350
-}
+} */
 
 .input-group-addon [type=checkbox]:checked,
 .input-group-addon [type=checkbox]:not(:checked),
@@ -8265,16 +8429,16 @@ a.mytooltip {
     .login-register {
         position: relative;
         overflow: hidden
-    }
+    /* }
     .login-box {
         width: 90%
-    }
+    } */
     .login-sidebar {
         padding: 10% 0
-    }
+    /* }
     .login-sidebar .login-box {
         position: relative
-    }
+    } */
     .chat-main-box .chat-left-aside {
         left: -250px;
         position: absolute;
@@ -9851,12 +10015,12 @@ pre {
 }
 
 /* Custom Css  */
-.dt-buttons .dt-button {border-radius: 0px;}
+/* .dt-buttons .dt-button {border-radius: 0px;}
 a.btn.btn-sm.btn-info.waves-effect.waves-light {border-radius: 0px;}
 .btn { border-radius: 0px;}
 .btn, .form-control {
     border-radius: 0px!important;
-}
+} */
 /*
 .card-no-border .left-sidebar, .card-no-border .sidebar-nav {
     background: #2c3136;

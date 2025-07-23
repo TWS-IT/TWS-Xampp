@@ -12,7 +12,7 @@ date_default_timezone_set('Asia/Dhaka');
     <meta name="author" content="GenIT Bangladesh">
     <!-- Favicon icon -->
     <?php $settingsvalue = $this->settings_model->GetSettingsValue(); ?>
-    <link rel="icon" type="image/ico" sizes="16x16" href="<?php echo base_url(); ?>assets/images/favicn.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>assets/images/favicn.png">
     <title><?php echo $settingsvalue->sitetitle; ?></title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">

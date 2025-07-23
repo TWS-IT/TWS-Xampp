@@ -17,6 +17,8 @@
     <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="<?php echo base_url(); ?>assets/css/colors/blue.css" id="theme" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -30,14 +32,14 @@
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
     <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
+        <svg class="circular" viewBox="25 25 25 25">
             <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
   
-    <section id="wrapper" class="login-register login-sidebar" style="background-image:url(<?php echo base_url(); ?>assets/images/background/hrbbg.jpg);">
+    <!-- <section id="wrapper" class="login-register login-sidebar" style="background-image:url(<?php echo base_url(); ?>assets/images/background/hrbbg.jpg);"> -->
          
         <div class="login-box card">
             <div class="card-body loginpage">
@@ -49,15 +51,17 @@
 							}
 							?>                                          
                 <form class="form-horizontal form-material" method="post" id="loginform" action="login/Login_Auth">
-                    <a href="javascript:void(0)" class="text-center db"><br/><img src="<?php echo base_url(); ?>assets/images/hrinv.png" width="175px" alt="Home" /></a>
+                    <a href="javascript:void(0)" class="text-center db"><br/><img src="<?php echo base_url(); ?>assets/images/hrinv.png" width="100px" alt="Home" /></a>
+                    <div class="header-text">
+                        Together We Success
+                    </div>
                     <div class="form-group m-t-40">
                         <div class="col-xs-12">
-                            <input class="form-control" name="email" value="<?php if(isset($_COOKIE['email'])) { echo $_COOKIE['email']; } ?>" type="text" required placeholder="Email">
+                            <input class="form-control" name="email" value="<?php if(isset($_COOKIE['email'])) { echo $_COOKIE['email']; } ?>" type="text" required placeholder="Username"><span class="fas fa-user"></span>
                         </div>
-                    </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" name="password" value="<?php if(isset($_COOKIE['password'])) { echo $_COOKIE['password']; } ?>" type="password" required placeholder="Password">
+                            <input class="form-control" name="password" value="<?php if(isset($_COOKIE['password'])) { echo $_COOKIE['password']; } ?>" type="password" required placeholder="Password"><span class="fas fa-lock"></span>
                         </div>
                     </div>
                  <div class="form-check">
@@ -66,13 +70,13 @@
                  </div>                     
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
-                            <button class="btn btn-success btn-login btn-block text-uppercase waves-effect waves-light" type="submit">Log In</button>
+                            <button type="submit">Sign in</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </section>
+    <!-- </section> -->
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
