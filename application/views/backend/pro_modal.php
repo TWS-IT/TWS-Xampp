@@ -17,7 +17,7 @@
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Project Date</label>
                                                 <input type="text" value="<?php echo $details->employee_count; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
-                                                <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly>
+                                                <!-- <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly> -->
                                             </div>
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Task List</label>
@@ -87,7 +87,7 @@
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Project Date</label>
                                                 <input type="text" value="<?php echo $details->employee_count; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
-                                                <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly>
+                                                <!-- <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly> -->
                                             </div>                                               
                                              <div class="form-group row">
                                                 <label class="control-label col-md-3">Assign To</label>
@@ -162,7 +162,7 @@
                                             <div class="form-group row">
                                                 <label class="control-label col-md-3">Project Date</label>
                                                 <input type="text" value="<?php echo $details->employee_count; ?>" name="prostart" class="form-control col-md-4" id="recipient-name1" readonly>
-                                                <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly>
+                                                <!-- <input type="text" value="<?php echo $details->pro_end_date; ?>" name="proend" class="form-control col-md-4" id="recipient-name1" readonly> -->
                                             </div>                                              
                                              <div class="form-group row">
                                                 <label class="control-label col-md-3">Assign To</label>

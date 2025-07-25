@@ -184,10 +184,9 @@
         return $result; 
     }
     public function emEarnselectByLeave($emid){
-        $sql = "SELECT * FROM `earned_leave` WHERE `em_id`='$emid'";
-        $query = $this->db->query($sql);
-        $result = $query->row();
-        return $result; 
+    $sql = "SELECT * FROM `earned_leave` WHERE `em_id` = ?";
+    $query = $this->db->query($sql, array($emid));
+    return $query->row() ?: null;  // return null if no record
     }
     public function GetallApplication($emid){
     $sql = "SELECT `emp_leave`.*,

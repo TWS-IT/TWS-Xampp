@@ -63,7 +63,7 @@ class Projects extends CI_Controller
 			$fieldLocation = $this->input->post('fieldLocation');
 			$emid = $this->input->post('emid');
 			$empcount = $this->input->post('empcount');
-			$enddate = $this->input->post('enddate');
+			// $enddate = $this->input->post('enddate');
 			$totalDays = $this->input->post('totalDays');
 			$notes = $this->input->post('notes');
 			$actualReturnDate = $this->input->post('actualReturnDate');
@@ -121,29 +121,30 @@ class Projects extends CI_Controller
 			$id        = $this->input->post('proid');
 			$title     = $this->input->post('protitle');
 			$empcount = $this->input->post('employeecount');
-			$enddate   = $this->input->post('enddate');
+			// $enddate   = $this->input->post('enddate');
 			$details   = $this->input->post('details');
 			$summery   = $this->input->post('summery');
 			$status    = $this->input->post('prostatus');
-			$progress  = $this->input->post('progress');
+			// $progress  = $this->input->post('progress');
 			$this->load->library('form_validation');
 			$this->form_validation->set_error_delimiters();
-			$this->form_validation->set_rules('protitle', 'project Title', 'trim|required|min_length[5]|max_length[220]|xss_clean');
-			$this->form_validation->set_rules('details', 'details', 'trim|min_length[10]|max_length[1024]|xss_clean');
+			$this->form_validation->set_rules('protitle', 'project Title', 'trim|required|min_length[1]|max_length[220]|xss_clean');
+			$this->form_validation->set_rules('details', 'details', 'trim|min_length[5]|max_length[1024]|xss_clean');
 			$this->form_validation->set_rules('summery', 'summery', 'trim|xss_clean');
 
 			if ($this->form_validation->run() == FALSE) {
 				echo validation_errors();
+
 				#redirect("projects/All_Projects");
 			} else {
 				$data = array();
 				$data = array(
 					'pro_name' => $title,
 					'employee_count' => $empcount,
-					'pro_end_date' => $enddate,
+					// 'pro_end_date' => $enddate,
 					'pro_description' => $details,
-					'pro_summary' => $summery,
-					'progress' => $progress,
+					// 'pro_summary' => $summery,
+					// 'progress' => $progress,
 					'pro_status' => $status
 				);
 				if (empty($id)) {
@@ -173,7 +174,7 @@ class Projects extends CI_Controller
 			$head      = $this->input->post('teamhead');
 			$details   = $this->input->post('details');
 			$empcount = $this->input->post('employeecount');
-			$enddate   = $this->input->post('enddate');
+			// $enddate   = $this->input->post('enddate');
 			$type      = $this->input->post('type');
 			$status    = $this->input->post('status');
 			$date      = date('Y-m-d');
@@ -194,7 +195,7 @@ class Projects extends CI_Controller
 					'task_title' => $title,
 					'description' => $details,
 					'empcount' => $empcount,
-					'end_date' => $enddate,
+					// 'end_date' => $enddate,
 					'create_date' => $date,
 					'task_type' => $type,
 					/*                    'location'=> $location,*/
@@ -259,7 +260,7 @@ class Projects extends CI_Controller
 			$head      = $this->input->post('teamhead');
 			$details   = $this->input->post('details');
 			$empcount = $this->input->post('empcount');
-			$enddate   = $this->input->post('enddate');
+			// $enddate   = $this->input->post('enddate');
 			$type      = $this->input->post('type');
 			$status    = $this->input->post('status');
 			$location  = $this->input->post('location');
@@ -284,7 +285,7 @@ class Projects extends CI_Controller
 					'task_title' => $title,
 					'description' => $details,
 					'empcount' => $empcount,
-					'end_date' => $enddate,
+					// 'end_date' => $enddate,
 					'create_date' => $date,
 					'task_type' => $type,
 					'location' => $location,
@@ -348,7 +349,7 @@ class Projects extends CI_Controller
 		$task      = $this->input->post('taskid');
 		$logqty    = $this->input->post('qty');
 		$empcount = $this->input->post('empcount');
-		$enddate   = $this->input->post('enddate');
+		// $enddate   = $this->input->post('enddate');
 		$remarks   = $this->input->post('remarks');
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters();
@@ -365,7 +366,7 @@ class Projects extends CI_Controller
 				'task_id' => $task,
 				'log_qty' => $logqty,
 				'empcount' => $empcount,
-				'end_date' => $enddate,
+				// 'end_date' => $enddate,
 				/*                    'back_date' => $backdate,
                 'back_qty' => $backqty,*/
 				'remarks' => $remarks

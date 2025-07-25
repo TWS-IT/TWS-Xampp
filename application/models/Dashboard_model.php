@@ -22,8 +22,8 @@
         $result = $query->result();
         return $result;
     }
-    public function GetHolidayInfo(){
-        $sql = "SELECT * FROM `holiday` ORDER BY `id` DESC LIMIT 10";
+    public function GetLeaveInfo(){
+        $sql = "SELECT * FROM `emp_leave` ORDER BY `id` DESC LIMIT 10";
         $query=$this->db->query($sql);
         $result = $query->result();
         return $result;

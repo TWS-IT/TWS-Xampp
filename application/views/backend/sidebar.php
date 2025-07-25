@@ -1,4 +1,7 @@
         <aside class="left-sidebar">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- User profile -->
@@ -7,11 +10,21 @@
                         $basicinfo = $this->employee_model->GetBasic($id); 
                         ?>                
                 <div class="user-profile">
-                    <!-- User profile image -->
-                    <div class="profile-img"> <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basicinfo->em_image ?>" alt="user" />
-                        <!-- this is blinking heartbit-->
-                        <!-- <div class="notify setpos"> <span class="heartbit"></span> <span class="point"></span> </div> -->
-                    </div>
+            <!-- User profile image -->
+            <div class="profile-img text-center">
+                        <?php
+                        $image_name = $basicinfo->em_image ?? '';
+                        $image_path = 'assets/images/users/' . $image_name;
+                        $full_path = FCPATH . $image_path;
+                        if (!empty($image_name) && file_exists($full_path)) {
+                            // Image exists — show it
+                            echo '<img src="' . base_url($image_path) . '" alt="user" />';
+                        } else {
+                            // Image missing — show Font Awesome user icon
+                            echo '<i class="fa fa-user-circle" style="font-size: 60px; color: #ccc;"></i>';
+                        }
+                        ?>
+            </div>
 
                     <!-- User profile text-->
                     <div class="profile-text">
@@ -36,13 +49,28 @@
                                 <li><a href="<?php echo base_url(); ?>leave/EmLeavesheet"> Leave Sheet </a></li>
                             </ul>
                         </li> 
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-briefcase-check"></i><span class="hide-menu">Projects </span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Projects </a></li>
-                                <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Task List </a></li>
-                                <!-- <li><a href="<?php #echo base_url(); ?>Projects/All_Tasks"> Field Visit</a></li> -->
-                            </ul>
-                        </li>                                                                       
+                        <!-- Side bar project add feature -->
+                       <li> 
+  <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+    <i class="mdi mdi-briefcase-check"></i>
+    <span class="hide-menu">Projects</span>
+  </a>
+  <ul aria-expanded="false" class="collapse">
+    <li><a href="<?php echo base_url(); ?>Projects/All_Projects">All Projects</a></li>
+    <li><a href="<?php echo base_url(); ?>Projects/All_Tasks">Task List</a></li>
+
+    <?php
+    $CI =& get_instance();
+    $CI->load->model('project_model');
+    $projects = $CI->project_model->GetProjectsValue();
+    foreach ($projects as $project) {
+        echo '<li><a href="' . base_url('Projects/view?P=' . base64_encode($project->id)) . '">' . htmlspecialchars($project->pro_name) . '</a></li>';
+    }
+    ?>
+  </ul>
+</li>
+
+                                                                       
                         <?php } else { ?>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-building-o"></i><span class="hide-menu">Organization </span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -65,18 +93,18 @@
                                 <li><a href="<?php echo base_url(); ?>leave/Leave_report">Report</a></li> 
                             </ul>
                         </li>
-                       <li>
+                       <!-- <li>
   <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
     <i class="mdi mdi-earth"></i>
     <span class="hide-menu">Holiday</span>
   </a>
   <ul aria-expanded="false" class="collapse">
-    <!-- <li><a href="<?php echo base_url(); ?>leave/Holidays">Holidays List</a></li> -->
-    <li><a href="<?php echo base_url(); ?>leave/leavetypes">Leave List</a></li>
+ <li><a href="<?php echo base_url(); ?>leave/Holidays">Holidays List</a></li> -->
+    <!-- <li><a href="<?php echo base_url(); ?>leave/leavetypes">Leave List</a></li>
     <li><a href="<?php echo base_url(); ?>leave/Application">Application List</a></li>
-    <li><a href="<?php echo base_url(); ?>leave/Earnedleave">Earn Balance</a></li>
+    <li><a href="<?php echo base_url(); ?>leave/Earnedleave">Earn Balance</a></li> -->
     
-  </ul>
+  <!-- </ul> -->
 </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-briefcase-check"></i><span class="hide-menu">Project </span></a>
                             <ul aria-expanded="false" class="collapse">
@@ -87,7 +115,7 @@
                         </li>
                         <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Payroll </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <!--<li><a href="<?php #echo base_url(); ?>Payroll/Salary_Type"> Payroll Type </a></li>-->
+                               <li><a href="<?php #echo base_url(); ?>Payroll/Salary_Type"> Payroll Type </a></li>-->
                                 <!-- <li><a href="<?php echo base_url(); ?>Payroll/Salary_List"> Payroll List </a></li> -->
                                 <!-- <li><a href="<?php echo base_url(); ?>Payroll/Generate_salary"> Generate Payslip</a></li> -->
                                 <!-- <li><a href="<?php echo base_url(); ?>Payroll/Payslip_Report"> Payslip Report</a></li> -->

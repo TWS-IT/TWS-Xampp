@@ -46,11 +46,11 @@
                                     <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Project Title</th>
-                                                <th>Status </th>
-                                                <th>Employee Count</th>
-                                                <!-- <th>End Date </th> -->
-                                                <th>Action </th>
+                                                <th style="width: 30%;">Project Title</th>
+                                                <th style="width: 15%;">Status</th>
+                                                <th style="width: 15%;">Employee Count</th>
+                                                <th style="width: 30%;">Project Description</th>
+                                                <th style="width: 10%;">Action</th>
                                             </tr>
                                         </thead>
                                         <!-- <tfoot>
@@ -65,10 +65,11 @@
                                         <tbody>
                                            <?php foreach($projects as $value): ?>
                                             <tr>
-                                                <td><?php echo substr($value->pro_name,0,50).'....' ?></td>
-                                                <td><?php echo $value->pro_status ?></td>
-                                                <td><?php echo (int)$value->employee_count; ?></td>
-                                                <td class="jsgrid-align-center ">
+                                                <td style="width: 30%;"><?php echo substr($value->pro_name,0,50).'....' ?></td>
+                                                <td style="width: 15%;"><?php echo $value->pro_status ?></td>
+                                                <td style="width: 15%;"><?php echo (int)$value->employee_count; ?></td>
+                                                <td style="width: 30%;"><?php echo substr(strip_tags($value->pro_description), 0, 60).'...'; ?></td>
+                                                <td style="width: 10%;" class="jsgrid-align-center">
                                                     <a href="view?P=<?php echo base64_encode($value->id); ?>" title="Edit" class="btn btn-sm btn-primary waves-effect waves-light"><i class="fa fa-pencil-square-o"></i></a>
                                                     <a href="pDelet?D=<?php echo base64_encode($value->id); ?>" title="Delete" onclick="alert('Are You Sure To Delete This Project?')" class="btn btn-sm btn-danger waves-effect waves-light projectdelet"><i class="fa fa-trash-o"></i></a>
                                                 </td>

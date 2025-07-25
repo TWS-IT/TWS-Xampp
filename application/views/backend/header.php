@@ -4,6 +4,10 @@
 date_default_timezone_set('Asia/Dhaka');
 ?>
 <head>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/style.css'); ?>">`
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/style.css'); ?>" />
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -38,7 +42,12 @@ date_default_timezone_set('Asia/Dhaka');
      <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
     <link href="<?php echo base_url(); ?>assets/plugins/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />   
     <link href="<?php echo base_url(); ?>assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" type="text/css" />   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
 </head>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/style.css'); ?>">
+
 
 <body class="fix-header fix-sidebar card-no-border">
         <?php 

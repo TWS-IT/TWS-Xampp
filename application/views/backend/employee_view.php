@@ -29,7 +29,7 @@
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#document" role="tab" style="font-size: 14px;"> Document</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#salary" role="tab" style="font-size: 14px;"> Salary</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#leave" role="tab" style="font-size: 14px;"> Leave</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#social" role="tab" style="font-size: 14px;"> Social Media</a> </li>
+                                <!-- <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#social" role="tab" style="font-size: 14px;"> Social Media</a> </li> -->
                                 <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#password" role="tab" style="font-size: 14px;"> Change Password</a> </li>
                                 <?php } else { ?>
@@ -185,11 +185,16 @@
                                                     </div>
                                                     <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?>
                                                     <?php } else { ?>
-				                                    <div class="form-actions col-md-12">
-                                                        <input type="hidden" name="emid" value="<?php echo $basic->em_id; ?>">
-				                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-				                                        <button type="button" class="btn btn-danger">Cancel</button>
-				                                    </div>
+				                                   <div class="form-actions col-md-12">
+    <input type="hidden" name="emid" value="<?php echo $basic->em_id; ?>">
+    <button type="submit" class="btn btn-success">
+        <i class="fa fa-check"></i> Save
+    </button>
+    <button type="button" class="btn btn-danger" onclick="window.location.href='<?php echo base_url(); ?>employee';">
+    Cancel
+</button>
+</div>
+
 				                                    <?php } ?>
 				                                </form>
                                                 </div>

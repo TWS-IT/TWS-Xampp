@@ -61,7 +61,7 @@
                             </div>
                             <div class="card-body"> <small class="text-muted">Start Date </small>
                                 <h6><?php echo $details->employee_count; ?></h6> <small class="text-muted p-t-30 db">End date</small>
-                                <h6><?php echo $details->pro_end_date; ?></h6> <small class="text-muted p-t-30 db">Status</small>
+                                <!-- <h6><?php echo $details->pro_end_date; ?></h6> <small class="text-muted p-t-30 db">Status</small> -->
                                 <h6><?php echo $details->pro_status; ?></h6>
                                 
                                 <br/>
@@ -76,7 +76,7 @@
                                         
                                             <div class="form-group">
                                                 <label class="control-label">Project Title</label>
-                                                <input type="text" name="protitle" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> value="<?php echo $details->pro_name; ?>" class="form-control" id="recipient-name1" minlength="8" maxlength="250" required>
+                                                <input type="text" name="protitle" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> value="<?php echo $details->pro_name; ?>" class="form-control" id="recipient-name1" minlength="1" maxlength="250" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Employee Count</label>

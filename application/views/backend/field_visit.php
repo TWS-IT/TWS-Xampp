@@ -111,7 +111,7 @@
 
                            <?php } elseif($value->status =='Not Approve'){ ?>
 
-                           <a href="" title="Edit" class="btn btn-sm btn-info waves-effect waves-light Status " data-id="<?php echo $value->id; ?>" data-value="Approved" data-duration="<?php echo $value->total_days; ?>">Approved
+                           <a href="" title="Edit" class="btn btn-sm btn-info waves-effect waves-light Status " data-id="<?php echo $value->id; ?>" data-value="Approve" data-duration="<?php echo $value->total_days; ?>">Approve
                            </a>
                            <br>
 
@@ -127,7 +127,7 @@
                             <i class="fa fa-pencil-square-o"></i>
                            </a>
                            
-                           <?php if ($value->attendance_updated !== 'done' AND $value->status == 'Approved'): ?>
+                           <?php if ($value->attendance_updated !== 'done' AND $value->status == 'Approve'): ?>
                                <a href="" id="closeAndUpdateFieldVisit" data-confirm="Are you sure want to close his field visit and update the attendance?" title="Mark as done" class="btn btn-sm btn-info waves-effect waves-light" data-id="<?php echo $value->id; ?>" data-employeeID="<?php echo $value->em_code; ?>">
                                 <i class="fa fa-scissors"></i> Update attendance
                                </a>

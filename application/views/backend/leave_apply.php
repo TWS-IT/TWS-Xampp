@@ -45,7 +45,7 @@
                                         <th>End Date</th>
                                         <th>Duration</th>
                                         <th>Status</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
                                 <!-- <tfoot>
@@ -80,7 +80,7 @@
                                             <?php if($value->leave_status =='Approve'){ ?>
                                             
                                             <?php } elseif($value->leave_status =='Not Approve'){ ?>
-                                            <a href="" title="Edit" class="btn btn-sm btn-success waves-effect waves-light leaveapproval" data-id="<?php echo $value->id; ?>">Approved</a>
+                                            <a href="" title="Edit" class="btn btn-sm btn-success waves-effect waves-light leaveapproval" data-id="<?php echo $value->id; ?>">Approve</a>
                                             <a href="" title="Edit" class="btn btn-sm btn-danger waves-effect waves-light  Status" data-id = "<?php echo $value->id; ?>" data-value="Rejected" >Reject</a><br>
                                             <?php } elseif($value->leave_status =='Rejected'){ ?>
                                             <?php } ?>
@@ -133,7 +133,7 @@
                             <div class="form-group">
                                 <label class="control-label">Leave Duration</label><br>
                                 <input name="type" type="radio" id="radio_1" data-value="Half" class="duration" value="Half Day" checked="">
-                                <label for="radio_1">Hourly</label>
+                                <label for="radio_1">Half Day</label>
                                 <input name="type" type="radio" id="radio_2" data-value="Full" class="type" value="Full Day">
                                 <label for="radio_2">Full Day</label>
                                 <input name="type" type="radio" class="with-gap duration" id="radio_3" data-value="More" value="More than One day">
@@ -230,7 +230,7 @@
 
             });
         </script>
-        <!-- Set leaves approved for ADMIN? -->
+        <!-- Set leaves approve for ADMIN? -->
         <script type="text/javascript">
             $(document).ready(function() {
                 $(".leaveapproval").click(function(e) {

@@ -592,7 +592,7 @@ CREATE TABLE `field_visit` (
   `total_days` varchar(64) DEFAULT NULL,
   `notes` varchar(500) NOT NULL,
   `actual_return_date` varchar(28) NOT NULL,
-  `status` enum('Approved','Not Approve','Rejected') NOT NULL DEFAULT 'Not Approve',
+  `status` enum('Approve','Not Approve','Rejected') NOT NULL DEFAULT 'Not Approve',
   `attendance_updated` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -924,7 +924,7 @@ CREATE TABLE `pro_task` (
   `return_date` varchar(128) DEFAULT NULL,
   `total_days` varchar(128) DEFAULT NULL,
   `create_date` varchar(128) DEFAULT NULL,
-  `approve_status` enum('Approved','Not Approve','Rejected') NOT NULL DEFAULT 'Not Approve'
+  `approve_status` enum('Approve','Not Approve','Rejected') NOT NULL DEFAULT 'Not Approve'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

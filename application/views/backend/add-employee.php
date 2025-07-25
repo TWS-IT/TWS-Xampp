@@ -99,15 +99,15 @@
                                             <option value="AB+">AB+</option>-->
                                         </select>
                                     </div>
-                                <!--    <div class="form-group col-md-3 m-t-20">
+                                   <!-- <div class="form-group col-md-3 m-t-20">
                                         <label></label>
                                         <input type="text" name="nid" class="form-control" value="" placeholder="(Max. 10)" minlength="10" required> 
-                                    </div> -->
-                          <!--          <div class="form-group col-md-3 m-t-20">
+                                    </div>  -->
+                              <div class="form-group col-md-3 m-t-20">
                                         <label>Contact Number </label>
                                         <input type="text" name="contact" class="form-control" value="" placeholder="1234567890" minlength="10" maxlength="15" required> 
                                     </div>
-                                            -->
+                                           
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Date Of Birth </label>
                                         <input type="date" name="dob" id="example-email2" name="example-email" class="form-control" placeholder="" required> 
@@ -126,12 +126,12 @@
                                         <input type="text" name="username" class="form-control form-control-line" value="" placeholder="Username"> 
                                     </div>
                                             -->
-                                <!--    <div class="form-group col-md-3 m-t-20">
+                                  <div class="form-group col-md-3 m-t-20">
                                         <label>Email </label>
                                         <input type="email" id="example-email2" name="email" class="form-control" placeholder="email@mail.com" minlength="7" required > 
                                     </div>
-                                            -->
-                                    <!--
+                                            
+                                    
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Password </label>
                                         <input type="text" name="password" class="form-control" value="" placeholder="**********"> 
@@ -139,14 +139,16 @@
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Confirm Password </label>
                                         <input type="text" name="confirm" class="form-control" value="" placeholder="**********"> 
-                                    </div>-->
+                                    </div>
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Image </label>
                                         <input type="file" name="image_url" class="form-control" value=""> 
                                     </div>
                                     <div class="form-actions col-md-12">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                                        <button type="button" class="btn btn-danger">Cancel</button>
+                                       <button type="button" class="btn btn-danger" onclick="window.location.href='<?php echo base_url(); ?>employee';">
+    Cancel
+</button>
                                     </div>
                                 </form>
                             </div>

@@ -183,7 +183,7 @@ class Leave extends CI_Controller
             $appstartdate = $this->input->post('startdate');
             $appenddate   = $this->input->post('enddate');
             $reason       = $this->input->post('reason');
-            /*      $type = $this->input->post('type');*/
+            $type         = $this->input->post('type');
             $duration     = $this->input->post('duration');
             $hour         = $this->input->post('hour');
             $datetime     = $this->input->post('datetime');
@@ -201,7 +201,7 @@ class Leave extends CI_Controller
                     'start_date' => $appstartdate,
                     'end_date' => $appenddate,
                     'reason' => $reason,
-                    /*'leave_type'=>$type,*/
+                    'leave_type'=>$type,
                     'leave_duration' => $duration,
                     'leave_status' => 'Approve'
                 );
@@ -220,7 +220,7 @@ class Leave extends CI_Controller
                         'dateyear' => $datetime
                     );
                     $success = $this->leave_model->Application_Apply_Approve($data);
-                    echo "Successfully Approved";
+                    echo "Successfully Approve";
                 }
             }
         } else {

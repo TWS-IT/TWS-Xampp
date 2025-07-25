@@ -31,13 +31,14 @@
 
 body {
     background: #fff;
-   /*   font-family: "Poppins", sans-serif;*/
-    font-family: 'Open Sans', sans-serif
+    /* font-family: "Poppins", sans-serif; */
+    font-family: 'Open Sans', sans-serif;
     margin: 0;
     overflow-x: hidden;
     color: #67757c;
-    font-weight: 300
+    font-weight: 300;
 }
+
 
 html {
     position: relative;
@@ -827,7 +828,24 @@ html body .bg-white {
     display: block;
     width: 100%;
     overflow-x: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar
+    -ms-overflow-style: -ms-autohiding-scrollbar; /* IE10+ */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #888 #f1f1f1; /* Firefox */
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #ddd; /* Optional: adds borders to your table cells */
+}
+
+/* Optional: Hover effects */
+.table tbody tr:hover {
+    background-color: #f5f5f5;
 }
 
 .waves-effect {
@@ -4132,7 +4150,7 @@ table.dataTable thead .sorting:after {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
-    *cursor: hand;
+    cursor: hand;
     color: #67757c;
     border: 1px solid #ddd
 }
