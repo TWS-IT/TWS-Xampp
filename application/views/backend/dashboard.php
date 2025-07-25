@@ -32,13 +32,13 @@
                         ?>
                     </h2>
                     <p>Currently Active Employees</p>
-                    <select class="form-select form-select-sm mt-2" style="width: 120px;">
+                    <!-- <select class="form-select form-select-sm mt-2" style="width: 120px;">
                         <option selected>All</option>
                         <option value="country1">Malaysia</option>
                         <option value="Country2">Sri Lanka</option>
                         <option value="Philippines">Philippines</option>
                         <option value="Combodia">Cambodia</option>
-                    </select>
+                    </select> -->
                 </div>
             </div>
 
@@ -57,10 +57,10 @@
                     <p>Total Approved Orders</p>
                     <select class="form-select form-select-sm mt-2" style="width: 120px;">
                         <option selected>All</option>
-                        <option value="today">Daily</option>
-                        <option value="week">Weekly</option>
-                        <option value="Month">Monthly</option>
-                        <option value="Year">Yearly</option>
+                        <option value="today">W Project</option>
+                        <option value="week">Atash</option>
+                        <option value="Month">K8</option>
+                        <option value="Year">TC</option>
                     </select>
                 </div>
             </div>
@@ -80,10 +80,10 @@
                     <p>Total Granted Mistakes</p>
                     <select class="form-select form-select-sm mt-2" style="width: 120px;">
                         <option selected>All</option>
-                        <option value="today">Daily</option>
-                        <option value="week">Weekly</option>
-                        <option value="Month">Monthly</option>
-                        <option value="Year">Yearly</option>
+                        <option value="today">W Project</option>
+                        <option value="week">Atash</option>
+                        <option value="Month">K8</option>
+                        <option value="Year">TC</option>
                     </select>
                 </div>
             </div>
@@ -227,7 +227,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Notice Board</h4>
-                    </div>
+                    
                     <div class="card-body">
                         <div class="table-responsive slimScrollDiv" style="height:600px;overflow-y:scroll">
                             <table class="table table-hover table-bordered earning-box">
@@ -252,12 +252,13 @@
                     </div>
                 </div>
             </div>
+        </div>
 
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Leave List</h4>
-                    </div>
+                    
                     <div class="card-body">
                         <div class="table-responsive" style="height:600px;overflow-y:scroll">
                             <table class="table table-hover table-bordered earning-box">
@@ -277,6 +278,7 @@
                                 </tbody> 
                             </table>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

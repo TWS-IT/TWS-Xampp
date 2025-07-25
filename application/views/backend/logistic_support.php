@@ -213,6 +213,16 @@
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div> 
+
+                                             <div class="form-group">
+                                                <label class="control-label">Task List</label>
+                                                <select class="form-control custom-select taskclass" data-placeholder="Choose a Category" tabindex="1" name="taskid" id="taskval" required>
+                                                  <option value="">Select Here</option>
+                                                  <?php foreach($tasks as $value): ?>
+                                                  <option value="<?php echo $value->id ?>"><?php echo $value->task_title ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                
                                              <div class="form-group">
                                                 <label class="control-label">Assign User</label>
                                                 <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1" name="assignid" id="assignval" required>

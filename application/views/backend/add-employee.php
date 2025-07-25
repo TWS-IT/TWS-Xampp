@@ -86,14 +86,14 @@
                                             <option value="FEMALE">Female</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-3 m-t-20">
+                                    <!-- <div class="form-group col-md-3 m-t-20">
                                         <label>Select Country</label>
                                         <select name="blood" class="form-control custom-select">
                                             <option>Select Country</option>
                                             <option value="O+">Srilanka</option>
                                             <option value="O-">Malaysia</option>
                                             <option value="A+">Philippines</option>
-                                            <option value="A-">Cambodia</option>
+                                            <option value="A-">Cambodia</option> -->
                                         <!--    <option value="B+">B+</option>
                                             <option value="B-">B-</option>
                                             <option value="AB+">AB+</option>-->
