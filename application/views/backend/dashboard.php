@@ -57,10 +57,10 @@
                     <p>Total Approved Orders</p>
                     <select class="form-select form-select-sm mt-2" style="width: 120px;">
                         <option selected>All</option>
-                        <option value="today">W Project</option>
-                        <option value="week">Atash</option>
-                        <option value="Month">K8</option>
-                        <option value="Year">TC</option>
+                        <option value="today">W</option>
+                        <option value="week">A</option>
+                        <option value="Month">W1W</option>
+                        <option value="Year">K</option>
                     </select>
                 </div>
             </div>
@@ -80,10 +80,10 @@
                     <p>Total Granted Mistakes</p>
                     <select class="form-select form-select-sm mt-2" style="width: 120px;">
                         <option selected>All</option>
-                        <option value="today">W Project</option>
-                        <option value="week">Atash</option>
-                        <option value="Month">K8</option>
-                        <option value="Year">TC</option>
+                        <option value="today">W</option>
+                        <option value="week">A</option>
+                        <option value="Month">W1W</option>
+                        <option value="Year">K</option>
                     </select>
                 </div>
             </div>

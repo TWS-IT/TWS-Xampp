@@ -108,25 +108,25 @@
 </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-briefcase-check"></i><span class="hide-menu">Project </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W Project </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W </span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
                                         </ul>
                                     </li>
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">Atash </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">A </span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
                                         </ul>
                                     </li>
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">K8 </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W1W </span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
                                         </ul>
                                     </li>
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">TC </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">K </span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
