@@ -45,9 +45,9 @@ class Settings extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters();
         // Validating Title Field
-        $this->form_validation->set_rules('title', 'title','trim|required|min_length[5]|max_length[60]|xss_clean');
+        $this->form_validation->set_rules('title', 'title','trim|min_length[5]|max_length[60]|xss_clean');
         // Validating description Field
-        $this->form_validation->set_rules('description', 'description', 'trim|required|min_length[20]|max_length[512]|xss_clean');
+        $this->form_validation->set_rules('description', 'description', 'trim|min_length[20]|max_length[512]|xss_clean');
         // Validating address Field
         $this->form_validation->set_rules('address', 'address', 'trim|min_length[5]|max_length[600]|xss_clean');
         $this->form_validation->set_rules('address2', 'address2', 'trim|min_length[5]|max_length[600]|xss_clean');

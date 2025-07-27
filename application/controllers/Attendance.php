@@ -1,5 +1,21 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+/**
+ * @property CI_Loader $load
+ * @property CI_DB $db
+ * @property login_model $login_model
+ * @property dashboard_model $dashboard_model
+ * @property employee_model $employee_model
+ * @property settings_model $settings_model
+ * @property leave_model $leave_model
+ * @property attendance_model $attendance_model
+ * @property project_model $project_model
+ * @property CI_Session $session
+ * @property CI_Input $input
+ * @property CI_Form_validation $form_validation
+ * @property CI_Upload $upload
+ */
+
 
 class Attendance extends CI_Controller
 {
@@ -11,7 +27,6 @@ class Attendance extends CI_Controller
         $this->load->model('login_model');
         $this->load->model('dashboard_model');
         $this->load->model('employee_model');
-        $this->load->model('loan_model');
         $this->load->model('settings_model');
         $this->load->model('leave_model');
         $this->load->model('attendance_model');
@@ -123,7 +138,6 @@ class Attendance extends CI_Controller
             
             if ($this->form_validation->run() == FALSE) {
                 echo validation_errors();
-                #redirect("loan/View");
             } else {
                 $sin  = new DateTime($new_date . $signin);
                 $sout = new DateTime($new_date . $signout);

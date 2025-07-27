@@ -9,9 +9,7 @@ class Logistice extends CI_Controller {
         $this->load->model('login_model');
         $this->load->model('dashboard_model'); 
         $this->load->model('employee_model'); 
-        $this->load->model('loan_model');
-        $this->load->model('settings_model');    
-        $this->load->model('leave_model');    
+        $this->load->model('settings_model');       
         $this->load->model('logistic_model');    
         $this->load->model('project_model');    
     }
@@ -50,29 +48,29 @@ class Logistice extends CI_Controller {
         $this->form_validation->set_error_delimiters();
         $this->form_validation->set_rules('logname', 'name details', 'trim|required|min_length[2]|max_length[220]|xss_clean');
 
-        if ($this->form_validation->run() == FALSE) {
-            echo validation_errors();
-			redirect("loan/View");
-			} else {
-            $data = array();
-                $data = array(
-                    'name' => $name,
-                    'qty' => $qty,
-                    'entry_date' => $logdate
-                );
-            if(empty($id)){
-                $success = $this->logistic_model->Add_LogisticeData($data);
-                #$this->session->set_flashdata('feedback','Successfully Added');
-                #redirect("loan/View");
-                echo "Successfully Added";
-            } else {
-                $success = $this->logistic_model->Update_LogisticeData($id,$data);
-                #$this->session->set_flashdata('feedback','Successfully Updated');
-                #redirect("loan/View");
-                echo "Successfully Updated";
-            }
+        // if ($this->form_validation->run() == FALSE) {
+        //     echo validation_errors();
+		// 	redirect("loan/View");
+		// 	} else {
+        //     $data = array();
+        //         $data = array(
+        //             'name' => $name,
+        //             'qty' => $qty,
+        //             'entry_date' => $logdate
+        //         );
+        //     if(empty($id)){
+        //         $success = $this->logistic_model->Add_LogisticeData($data);
+        //         #$this->session->set_flashdata('feedback','Successfully Added');
+        //         #redirect("loan/View");
+        //         echo "Successfully Added";
+        //     } else {
+        //         $success = $this->logistic_model->Update_LogisticeData($id,$data);
+        //         #$this->session->set_flashdata('feedback','Successfully Updated');
+        //         #redirect("loan/View");
+        //         echo "Successfully Updated";
+        //     }
                        
-        }
+        // }
         }
     else{
 		redirect(base_url() , 'refresh');

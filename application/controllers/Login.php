@@ -207,8 +207,8 @@ class Login extends CI_Controller {
          $this->email->from($from_email, 'Dotdev'); 
          $this->email->to($to_email);
          $this->email->subject('Reset your password!!Dotdev'); 
-        $message	.=	"Your or someone request to reset your password" ."<br />";
-		$message	.=	"Click  Here : ".base_url()."Reset_password?p=" . $randcode."<br />"; 
+        $message=	"Your or someone request to reset your password" ."<br />";
+		$message=	"Click  Here : ".base_url()."Reset_password?p=" . $randcode."<br />"; 
          $this->email->message($message); 
    
          //Send mail 

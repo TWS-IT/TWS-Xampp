@@ -358,7 +358,9 @@ $config['encryption_key'] = '';
 |	For the 'files' driver, it's a path to a writable directory.
 |	WARNING: Only absolute paths are supported!
 |
-|	For the 'database' driver, it's a table name.
+|	For the 'database' driver, it's a 
+
+name.
 |	Please read up the manual for the format with other session drivers.
 |
 |	IMPORTANT: You are REQUIRED to set a valid save path!
@@ -510,6 +512,9 @@ $config['time_reference'] = 'local';
 |
 */
 $config['rewrite_short_tags'] = FALSE;
+
+$config['log_threshold'] = 4;  // Show all errors and debug logs
+
 
 /*
 |--------------------------------------------------------------------------

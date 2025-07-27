@@ -55,13 +55,13 @@
                         ?>
                     </h2>
                     <p>Total Approved Orders</p>
-                    <select class="form-select form-select-sm mt-2" style="width: 120px;">
-                        <option selected>All</option>
-                        <option value="today">W</option>
-                        <option value="week">A</option>
-                        <option value="Month">W1W</option>
-                        <option value="Year">K</option>
-                    </select>
+                    <select class="form-select custom-select-sm mt-2 custom-dropdown" style="width: 120px;">
+    <option selected>All</option>
+    <option value="today">W</option>
+    <option value="week">A</option>
+    <option value="Month">W1W</option>
+    <option value="Year">K</option>
+</select>
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
                         ?>
                     </h2>
                     <p>Total Granted Mistakes</p>
-                    <select class="form-select form-select-sm mt-2" style="width: 120px;">
+                    <select class="form-select custom-select-sm mt-2 custom-dropdown" style="width: 120px;">
                         <option selected>All</option>
                         <option value="today">W</option>
                         <option value="week">A</option>
@@ -119,6 +119,8 @@
             font-size: 1.4rem;
             font-weight: 600;
             text-transform: uppercase;
+
+
         }
         .card .icon {
             grid-area: icon;
@@ -138,6 +140,34 @@
             height: 2px;
             background-image: linear-gradient(90deg, var(--grad));
         }
+        .custom-dropdown {
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+    color: #333;
+    appearance: none; /* Removes default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 10px 10px;
+    transition: border-color 0.3s ease;
+}
+
+.custom-dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+}
+
+.custom-dropdown:hover {
+    border-color: #007bff;
+    cursor: pointer;
+}
+
         </style>
     </div>
 
@@ -156,7 +186,7 @@
         <div class="card-body">
             <h4 class="card-title">Running Project/s</h4>
 
-            <div class="table-responsive" style="height:600px; overflow-y:auto; overflow-x:auto;">
+            <div class="table-responsive" style="height:400px; overflow-y:auto; overflow-x:auto;">
                 <table class="table table-bordered table-hover earning-box" style="width: 100%;">
                     <thead>
                         <tr>
@@ -186,12 +216,13 @@
                     <div class="card-body">
                         <h4 class="card-title">To Do list</h4>
                         <h6 class="card-subtitle">List of your next task to complete</h6>
-                        <div class="to-do-widget m-t-20" style="height:550px;overflow-y:auto;">
+                        <div class="to-do-widget m-t-20" style="height:330px;overflow-y:auto;">
                             <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
                                 <?php foreach($todolist as $value): ?>
                                 <li class="list-group-item d-flex align-items-start" data-role="task" style="text-align: left;">
                                     <?php if($value->value == '1'){ ?>
-                                    <div class="checkbox checkbox-info w-100">
+                                    <div class="checkbox checkbox-info w-100" style="display: flex; align-items: center; gap: 8px;">
+
                                         <input class="to-do" data-id="<?php echo $value->id?>" data-value="0" type="checkbox" id="<?php echo $value->id?>">
                                         <label for="<?php echo $value->id?>" class="mb-0 ms-2"><span><?php echo $value->to_dodata; ?></span></label>
                                     </div>
@@ -229,7 +260,7 @@
                         <h4 class="card-title">Notice Board</h4>
                     
                     <div class="card-body">
-                        <div class="table-responsive slimScrollDiv" style="height:600px;overflow-y:scroll">
+                        <div class="table-responsive slimScrollDiv" style="height:400px;overflow-y:scroll">
                             <table class="table table-hover table-bordered earning-box">
                                 <thead>
                                     <tr>
@@ -260,7 +291,7 @@
                         <h4 class="card-title">Leave List</h4>
                     
                     <div class="card-body">
-                        <div class="table-responsive" style="height:600px;overflow-y:scroll">
+                        <div class="table-responsive" style="height:400px;overflow-y:scroll">
                             <table class="table table-hover table-bordered earning-box">
                                 <thead>
                                     <tr>

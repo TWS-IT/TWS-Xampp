@@ -41,12 +41,12 @@ File: scss
 }
 
 .topbar .navbar-header {
-	background: #ffffff;
+	background: #3e515a;
 }
 
 .topbar .top-navbar .navbar-header .navbar-brand .light-logo {
 	display: none;
-	color: rgba(255, 255, 255, 0.8);
+	color: rgba(0, 0, 0, 0.8);
 }
 
 .topbar .navbar-light .navbar-nav .nav-item > a.nav-link {

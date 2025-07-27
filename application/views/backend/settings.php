@@ -41,12 +41,12 @@
                                                 <input type="file" value="" class="" id="img_url" name="img_url" aria-describedby="fileHelp">
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group clearfix">
+                                        <div class="form-group clearfix">
                                             <label for="title" class="col-md-3">Site Title</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="title" value="<?php echo $settingsvalue->sitetitle; ?>" id="title" placeholder="Title..." required minlength="7" maxlength="120">
                                             </div>
-                                        </div>                                     -->
+                                        </div>                                    
                                         <div class="form-group clearfix">
                                             <label for="description" class="col-md-3">Description</label>
                                             <div class="col-md-9">

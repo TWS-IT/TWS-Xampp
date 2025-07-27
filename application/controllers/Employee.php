@@ -79,9 +79,9 @@ class Employee extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters();
         // Validating Name Field
-        $this->form_validation->set_rules('contact', 'contact', 'trim|required|min_length[10]|max_length[15]|xss_clean');
+        $this->form_validation->set_rules('contact', 'contact', 'trim|min_length[10]|max_length[15]|xss_clean');
         /*validating email field*/
-        $this->form_validation->set_rules('email', 'Email','trim|required|min_length[7]|max_length[100]|xss_clean');
+        $this->form_validation->set_rules('email', 'Email','trim|min_length[7]|max_length[100]|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
             echo validation_errors();
@@ -166,7 +166,7 @@ class Employee extends CI_Controller {
                     'em_birthday'=>$dob,
                     'em_joining_date'=>$joindate,
                     'em_contact_end'=>$leavedate,
-                    'em_address'=>$address,
+                    // 'em_address'=>$address,
                     'em_nid'=>$nid,
                     'em_blood_group'=> $blood
                 );
@@ -325,7 +325,7 @@ class Employee extends CI_Controller {
         $data['typevalue'] = $this->payroll_model->GetsalaryType();
         $data['leavetypes'] = $this->leave_model->GetleavetypeInfo();    
         $data['salaryvalue'] = $this->employee_model->GetsalaryValue($id);
-        $data['socialmedia'] = $this->employee_model->GetSocialValue($id);
+        // $data['socialmedia'] = $this->employee_model->GetSocialValue($id);
             $year = date('Y');
         $data['Leaveinfo'] = $this->employee_model->GetLeaveiNfo($id,$year);
         $this->load->view('backend/employee_view',$data);

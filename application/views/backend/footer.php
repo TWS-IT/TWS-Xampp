@@ -224,6 +224,21 @@ $('form').each(function() {
     </script>     
 
     <script src="<?php echo base_url(); ?>assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    <script>
+  const toggle = document.getElementById('themeToggle');
+  const body = document.body;
+
+  // Load preference
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+  }
+
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+  });
+</script>
+64 0 
 </body>
 
 </html>

@@ -86,14 +86,14 @@
                                             <option value="FEMALE">Female</option>
                                         </select>
                                     </div>
-                                    <!-- <div class="form-group col-md-3 m-t-20">
+                                    <div class="form-group col-md-3 m-t-20">
                                         <label>Select Country</label>
                                         <select name="blood" class="form-control custom-select">
                                             <option>Select Country</option>
                                             <option value="O+">Srilanka</option>
                                             <option value="O-">Malaysia</option>
                                             <option value="A+">Philippines</option>
-                                            <option value="A-">Cambodia</option> -->
+                                            <option value="A-">Cambodia</option>
                                         <!--    <option value="B+">B+</option>
                                             <option value="B-">B-</option>
                                             <option value="AB+">AB+</option>-->
@@ -105,12 +105,12 @@
                                     </div>  -->
                               <div class="form-group col-md-3 m-t-20">
                                         <label>Contact Number </label>
-                                        <input type="text" name="contact" class="form-control" value="" placeholder="1234567890" minlength="10" maxlength="15" required> 
+                                        <input type="text" name="contact" class="form-control" value="" placeholder="1234567890" minlength="10" maxlength="15"> 
                                     </div>
                                            
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Date Of Birth </label>
-                                        <input type="date" name="dob" id="example-email2" name="example-email" class="form-control" placeholder="" required> 
+                                        <input type="date" name="dob" id="example-email2" name="example-email" class="form-control" placeholder=""> 
                                     </div>
                                     <div class="form-group col-md-3 m-t-20">
                                         <label>Date Of Joining </label>

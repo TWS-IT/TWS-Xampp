@@ -15,6 +15,12 @@
 	$result=$query->result();
 	return $result;
 	}
+	public function login_log_report() {
+    $this->load->model('Login_model');
+    $data['logs'] = $this->Login_model->get_login_logs();
+    $this->load->view('admin/login_log_report', $data);
+}
+
 	//**exists employee email check**//
     public function Does_email_exists($email) {
 		$user = $this->db->dbprefix('users');

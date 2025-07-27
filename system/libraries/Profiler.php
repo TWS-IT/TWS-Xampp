@@ -102,12 +102,13 @@ class CI_Profiler {
 
 		// default all sections to display
 		foreach ($this->_available_sections as $section)
-		{
-			if ( ! isset($config[$section]))
-			{
-				$this->_compile_{$section} = TRUE;
-			}
-		}
+{
+    if ( ! isset($config[$section]))
+    {
+        $this->{'_compile_'.$section} = TRUE;
+    }
+}
+
 
 		$this->set_sections($config);
 		log_message('info', 'Profiler Class Initialized');
@@ -135,7 +136,8 @@ class CI_Profiler {
 		{
 			if (in_array($method, $this->_available_sections))
 			{
-				$this->_compile_{$method} = ($enable !== FALSE);
+				$this->{'_compile_'.$method} = ($enable !== FALSE);
+
 			}
 		}
 	}
@@ -553,14 +555,15 @@ class CI_Profiler {
 		$fields_displayed = 0;
 
 		foreach ($this->_available_sections as $section)
-		{
-			if ($this->_compile_{$section} !== FALSE)
-			{
-				$func = '_compile_'.$section;
-				$output .= $this->{$func}();
-				$fields_displayed++;
-			}
-		}
+{
+    if ($this->{'_compile_' . $section} !== FALSE)
+    {
+        $func = '_compile_'.$section;
+        $output .= $this->{$func}();
+        $fields_displayed++;
+    }
+}
+
 
 		if ($fields_displayed === 0)
 		{
