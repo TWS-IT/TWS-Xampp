@@ -38,6 +38,7 @@ File: scss
 .topbar {
 	/* background: #5C4AC7; */
 	background: #3e515a;
+	height: 50px;
 }
 
 .topbar .navbar-header {

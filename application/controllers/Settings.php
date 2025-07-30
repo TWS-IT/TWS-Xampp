@@ -12,6 +12,11 @@ class Settings extends CI_Controller {
         $this->load->model('project_model'); 
         $this->load->model('settings_model'); 
         $this->load->model('leave_model'); 
+        $this->load->library('form_validation');
+        $this->load->library('upload');
+        $this->load->helper('form');
+
+
     }
     public function index(){
 		#Redirect to Admin dashboard after authentication

@@ -1,7 +1,7 @@
 <?php
 
 if ( function_exists( 'date_default_timezone_set' ) ) {
-    date_default_timezone_set('Asia/Dhaka');
+    date_default_timezone_set('Asia/Colombo');
 }
 
 /**

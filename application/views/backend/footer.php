@@ -159,7 +159,7 @@
         autoclose: true,
         'default': 'now'
     });
-    $('#single-input').clockpicker({
+    $('#single-input1').clockpicker({
         placement: 'bottom',
         align: 'left',
         autoclose: true,
@@ -238,7 +238,7 @@ $('form').each(function() {
     localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
   });
 </script>
-64 0 
+
 </body>
 
 </html>

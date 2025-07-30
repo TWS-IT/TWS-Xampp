@@ -24,7 +24,7 @@
                     
                     <?php echo validation_errors(); ?>
                     <?php echo $this->upload->display_errors(); ?>
-                    <?php echo $this->session->flashdata('feedback'); ?>
+                   
                     
 
                     <div class="card-body">
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                    <!-- <button type="button" class="btn btn-danger">Cancel</button> -->
                                 </div>
                             </form>
                     </div>
@@ -58,7 +58,7 @@
                     
                     <?php echo validation_errors(); ?>
                     <?php echo $this->upload->display_errors(); ?>
-                    <?php echo $this->session->flashdata('feedback'); ?>
+                   
                     
 
                     <div class="card-body">
@@ -77,7 +77,7 @@
                                 </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                                    <button type="button" class="btn btn-danger">Cancel</button>
+                                    <!-- <button type="button" class="btn btn-danger">Cancel</button> -->
                                 </div>
                             </form>
                     </div>
@@ -90,7 +90,7 @@
                 <div class="card-header">
                     <h4 class="m-b-0 text-white"> Designation List</h4>
                 </div>
-                <div><?php echo $this->session->flashdata('delsuccess');?></div>
+                
                 <div class="card-body">
                     <div class="table-responsive ">
                         <table class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">

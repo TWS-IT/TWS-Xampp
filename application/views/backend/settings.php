@@ -41,12 +41,12 @@
                                                 <input type="file" value="" class="" id="img_url" name="img_url" aria-describedby="fileHelp">
                                             </div>
                                         </div>
-                                        <div class="form-group clearfix">
+                                        <!-- <div class="form-group clearfix">
                                             <label for="title" class="col-md-3">Site Title</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="title" value="<?php echo $settingsvalue->sitetitle; ?>" id="title" placeholder="Title..." required minlength="7" maxlength="120">
                                             </div>
-                                        </div>                                    
+                                        </div>                                     -->
                                         <div class="form-group clearfix">
                                             <label for="description" class="col-md-3">Description</label>
                                             <div class="col-md-9">
@@ -62,39 +62,39 @@
                                         <div class="form-group clearfix">
                                             <label for="contact" class="col-md-3">Contact</label>
                                             <div class="col-md-9">
-                                                <input type="number" class="form-control" name="contact" value="<?php echo $settingsvalue->contact; ?>" id="contact" placeholder="contact...">
+                                                <input type="number" class="form-control" name="contact" value="<?php echo $settingsvalue->contact; ?>" id="contact" placeholder="012545465" readonly>
                                             </div>
                                         </div>                                    
-                                        <div class="form-group clearfix">
+                                        <!-- <div class="form-group clearfix">
                                             <label for="currency" class="col-md-3">Currency</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="currency" value="<?php echo $settingsvalue->currency; ?>" id="currency" placeholder="currency...">
                                             </div>
-                                        </div>                                    
-                                        <div class="form-group clearfix">
+                                        </div>                                     -->
+                                        <!-- <div class="form-group clearfix">
                                             <label for="currency" class="col-md-3">Symbol</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="symbol" value="<?php echo $settingsvalue->symbol; ?>" id="symbol" placeholder="symbol...">
                                             </div>
-                                        </div>                                    
-                                        <div class="form-group clearfix">
+                                        </div>                                     -->
+                                        <!-- <div class="form-group clearfix">
                                             <label for="email" class="col-md-3">System Email</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="email" id="email" value="<?php echo $settingsvalue->system_email; ?>" placeholder="email...">
                                             </div>
-                                        </div>                                    
-                                        <div class="form-group clearfix">
+                                        </div>                                     -->
+                                        <!-- <div class="form-group clearfix">
                                             <label for="address" class="col-md-3">Address</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="address" id="address" value="<?php echo $settingsvalue->address; ?>" placeholder="address...">
                                             </div>
-                                        </div>                                    
-                                        <div class="form-group clearfix">
+                                        </div>                                     -->
+                                        <!-- <div class="form-group clearfix">
                                             <label for="address" class="col-md-3">Address 2</label>
                                             <div class="col-md-9">
                                                 <input type="text" class="form-control" name="address2" id="address2" value="<?php echo $settingsvalue->address2; ?>" placeholder="address more...">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group clearfix">
                                             <div class="col-md-9 col-md-offset-3">
                                                 <input type="hidden" name="id" value="<?php echo $settingsvalue->id; ?>"/>

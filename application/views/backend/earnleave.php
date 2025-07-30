@@ -4,7 +4,7 @@
             <div class="message"></div>
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-themecolor"><i class="fa fa-bookmark-o" style="color:#1976d2"> </i> Earn Leave</h3>
+                    <h3 class="text-themecolor"><i class="fa fa-calendar" style="color:#1976d2"> </i> Assigned Restday</h3>
                 </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
@@ -16,14 +16,14 @@
             <div class="container-fluid">
                 <div class="row m-b-10"> 
                     <div class="col-12">
-                        <button type="button" class="btn btn-info"><i class="fa fa-plus"></i><a data-toggle="modal" data-target="#earnmodel" data-whatever="@getbootstrap" class="text-white TypeModal"><i class="" aria-hidden="true"></i> Assign Earned Leave </a></button>
+                        <button type="button" class="btn btn-info"><i class="fa fa-plus"></i><a data-toggle="modal" data-target="#earnmodel" data-whatever="@getbootstrap" class="text-white TypeModal"><i class="" aria-hidden="true"></i> Assign Restday</a></button>
                     </div>
                 </div> 
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-outline-info">
                             <div class="card-header">
-                                <h4 class="m-b-0 text-white"> Earn Balance                      
+                                <h4 class="m-b-0 text-white"> Restdays                     
                                 </h4>
                             </div>
                             <div class="card-body">
@@ -31,10 +31,10 @@
                                     <table id="" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Employee PIN</th>
+                                                <th>Employee ID</th>
                                                 <th>Employee Name </th>
-                                                <!--<th>Total Day </th>-->
-                                                <th>Total Hour </th>
+                                                <th>Total Day </th>
+                                                <!-- <th>Total Hour </th> -->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -52,8 +52,8 @@
                                             <tr>
                                                 <td><?php echo $value->em_code ?></td>
                                                 <td><?php echo $value->first_name.' '.$value->last_name; ?></td>
-                                                <!--<td><?php echo $value->present_date; ?></td>-->
-                                                <td><?php echo $value->hour .' Hours' ?></td>
+                                                <td><?php echo $value->present_date; ?></td>
+                                                <!-- <td><?php echo $value->hour .' Hours' ?></td> -->
                                                 <?php if($value->present_date > 0){ ?>
                                                <td class="jsgrid-align-center">
                                                     <a href="" title="Edit" class="btn btn-sm btn-primary waves-effect waves-light deductionmodel" data-id="<?php echo $value->em_id; ?>"><i class="fa fa-pencil-square-o"></i></a>
@@ -92,9 +92,9 @@
                                         <input type="text" name="startdate" class="form-control mydatepicker" value="" required>
                                         </div>
                                         <div class="form-group">
-                                        <label>End Date</label>
+                                        <!-- <label>End Date</label>
                                         <input type="text" name="enddate" class="form-control mydatepicker" value="">
-                                        </div>
+                                        </div> -->
                                         <!--<div class="form-group">
                                         <label>Number Of Days </label>
                                         <input type="text" name="days" class="form-control" value="" placeholder="number of days..." readonly>

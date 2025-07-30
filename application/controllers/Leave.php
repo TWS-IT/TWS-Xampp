@@ -203,7 +203,7 @@ class Leave extends CI_Controller
                     'reason' => $reason,
                     'leave_type'=>$type,
                     'leave_duration' => $duration,
-                    'leave_status' => 'Approve'
+                    'leave_status' => 'Approved'
                 );
                 $success = $this->leave_model->Application_Apply_Update($id, $data);
                 #$this->session->set_flashdata('feedback','Successfully Updated');
@@ -220,7 +220,7 @@ class Leave extends CI_Controller
                         'dateyear' => $datetime
                     );
                     $success = $this->leave_model->Application_Apply_Approve($data);
-                    echo "Successfully Approve";
+                    echo "Successfully Approved";
                 }
             }
         } else {
@@ -271,7 +271,7 @@ class Leave extends CI_Controller
                     'reason' => $reason,
                     'leave_type' => $type,
                     'leave_duration' => $duration,
-                    'leave_status' => 'Not Approve'
+                    'leave_status' => 'Pending'
                 );
                 if (empty($id)) {
                     $success = $this->leave_model->Application_Apply($data);
@@ -305,7 +305,7 @@ class Leave extends CI_Controller
                 'leave_status' => $value
             );
             $success = $this->leave_model->Application_Apply_Update($id, $data);
-            if ($value == 'Approve') {
+            if ($value == 'Approved') {
                 $totalday = $this->leave_model->GetTotalDay($type);
                 $total    = $totalday->total_day + $duration;
                 $data     = array();
@@ -539,7 +539,7 @@ class Leave extends CI_Controller
                 'leave_status' => $value
             );
             $success = $this->leave_model->updateAplicationAsResolved($id, $data);
-            if ($value == 'Approve') {
+            if ($value == 'Approved') {
                 $determineIfNew = $this->leave_model->determineIfNewLeaveAssign($employeeId, $type);
                 //How much taken
                 $totalHour = $this->leave_model->getLeaveTypeTotal($employeeId, $type);

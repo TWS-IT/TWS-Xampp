@@ -13,7 +13,7 @@
     @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
 
     :root {
-      --background-color: #e0e5ec;
+      background-image: linear-gradient(to bottom left, #e0e4e5, #f2f6f9);
       --card-bg: #f0f0f3;
       --text-color: #333;
       --highlight-color: #e5b800;
@@ -183,7 +183,8 @@
     }
   </style>
 </head>
-<body>
+<body
+>
   <!-- Dark/Light Mode Toggle -->
   <button class="theme-switch" id="theme-switch" title="Toggle light & dark">
     <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
@@ -226,9 +227,9 @@
         <input type="password" name="password" required placeholder="Password" value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
       </div>
 
-      <div class="forgot-pass">
+      <!-- <div class="forgot-pass">
         <a href="#">Forgot Password?</a>
-      </div>
+      </div> -->
 
       <div class="form-check">
         <input type="checkbox" name="remember" class="form-check-input" id="remember-me">

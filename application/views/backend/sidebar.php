@@ -21,7 +21,7 @@
                             // Image exists — show it
                             echo '<img src="' . base_url($image_path) . '" alt="user" />';
                         } else {
-                            // Image missing — show Font Awesome user icon
+                           
                             echo '<i class="fa fa-user-circle" style="font-size: 60px; color: #ccc;"></i>';
                         }
                         ?>
@@ -36,6 +36,7 @@
                 </div>
                 <!-- End User profile text-->
                 <!-- Sidebar navigation-->
+                 <div class="nav-scroll">
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="nav-devider"></li>
@@ -83,54 +84,61 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>employee/Employees">Employees </a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Disciplinary">Disciplinary </a></li>
-                                <!-- <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li> -->
+                                <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li>
                             </ul>
                         </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Attendance </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>attendance/Attendance">Attendance List </a></li>
-                                <li><a href="<?php echo base_url(); ?>attendance/Save_Attendance">Add Attendance </a></li>
+                                <!-- <li><a href="<?php echo base_url(); ?>attendance/Save_Attendance">Add Attendance </a></li> -->
                                 <li><a href="<?php echo base_url(); ?>attendance/Attendance_Report">Attendance Report </a></li>
+                                <!-- <li><a href="<?php echo base_url(); ?>leave/Earnedleave">Earn Balance</a></li> -->
                                 <li><a href="<?php echo base_url(); ?>leave/Leave_report">Report</a></li> 
                             </ul>
                         </li>
-                       <!-- <li>
-  <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-    <i class="mdi mdi-earth"></i>
-    <span class="hide-menu">Holiday</span>
-  </a>
-  <ul aria-expanded="false" class="collapse">
- <li><a href="<?php echo base_url(); ?>leave/Holidays">Holidays List</a></li> -->
-    <!-- <li><a href="<?php echo base_url(); ?>leave/leavetypes">Leave List</a></li>
-    <li><a href="<?php echo base_url(); ?>leave/Application">Application List</a></li>
-    <li><a href="<?php echo base_url(); ?>leave/Earnedleave">Earn Balance</a></li> -->
-    
-  <!-- </ul> -->
-</li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-clipboard-text"></i><span class="hide-menu">Leaves </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a  href="<?php echo base_url(); ?>leave/leavetypes">Leave List</a></li>
+                                <li><a href="<?php echo base_url(); ?>leave/Application">Application List</a></li>
+                                
+                            </ul>
+                        </li>
                         <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-briefcase-check"></i><span class="hide-menu">Project </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W Project</span></a>
                                         <ul aria-expanded="false" class="collapse">
-                                            <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
-                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Projects/w_order">Order Report</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                         </ul>
                                     </li>
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">A </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">Atas Project</span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
-                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                         </ul>
                                     </li>
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W1W </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W1W Deposit</span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
-                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                         </ul>
                                     </li>
-                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">K </span></a>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W1W Withdrawal</span></a>
                                         <ul aria-expanded="false" class="collapse">
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
-                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Sortage</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
+                                        </ul>
+                                    </li>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">K8 Deposit </span></a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
+                                        </ul>
+                                    </li>
+                                    <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">K8 Withdrawal </span></a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
+                                            <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                         </ul>
                                     </li>
                             </ul>
@@ -166,14 +174,32 @@
                        
                         <?php } ?> <li> <a href="<?php echo base_url()?>notice/All_notice" ><i class="mdi mdi-clipboard"></i><span class="hide-menu">Notice <span class="hide-menu"></a></li>
                         <li> <a href="<?php echo base_url(); ?>settings/Settings" ><i class="mdi mdi-settings"></i><span class="hide-menu">Settings <span class="hide-menu"></a></li>
-                        <li>
-  <a href="<?php echo base_url('Login_Auth/view_logs'); ?>">
-    <i class="mdi mdi-history"></i>
-    <span class="hide-menu">Login Logs</span>
-  </a>
-</li>
+                      <?php
+$user_type = $this->session->userdata('user_type');
+
+if ($user_type === 'SUPER ADMIN'): ?>
+  <li>
+    <a href="<?php echo base_url('login/Sup_logs1'); ?>">
+      <i class="mdi mdi-history"></i>
+      <span class="hide-menu">Login Logs</span>
+    </a>
+  </li>
+
+<?php elseif ($user_type === 'ADMIN'): ?>
+  <li>
+    <a href="<?php echo base_url('login/view_logs'); ?>">
+      <i class="mdi mdi-history"></i>
+      <span class="hide-menu">Login Logs</span>
+    </a>
+  </li>
+<?php endif; ?>
+
+
+
+
 
                     </ul>
+                    </div>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -199,6 +225,28 @@
 body {
     background-color: #f5f9fc;  
 }
+.scroll-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.nav-scroll {
+    flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.nav-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.nav-scroll::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
 
 /* Adjust main layout */
 .main-wrapper,

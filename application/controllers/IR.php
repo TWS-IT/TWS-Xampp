@@ -47,7 +47,8 @@ class IR extends CI_Controller {
     $emp_id = $this->input->post('emid');
 
     // Fetch full name from employee table
-    $employee = $this->db->get_where('employee', ['em_id' => $emp_id])->row();
+    $this->db->where(['em_id' => $emp_id]);
+$employee = $this->db->get('employee')->row();
     $full_name = '';
     if ($employee) {
         $full_name = $employee->first_name . ' ' . $employee->last_name;
@@ -62,13 +63,18 @@ class IR extends CI_Controller {
         'prevent'     => $this->input->post('prevent')
     );
 
-    if ($id) {
-        $this->IR_model->updateIR($id, $data);
-        $this->session->set_flashdata('feedback', 'Updated Successfully');
-    } else {
-        $this->IR_model->addIR($data);  // or insert_IR($data), whichever you use
+   if ($id) {
+    $this->IR_model->updateIR($id, $data);
+    $this->session->set_flashdata('feedback', 'Updated Successfully');
+} else {
+    $result = $this->IR_model->insertIR($data); // ✅ uses correct method
+    if ($result) {
         $this->session->set_flashdata('feedback', 'Added Successfully');
+    } else {
+        $this->session->set_flashdata('error', 'Invalid Position or Data Missing');
     }
+}
+
 
     redirect('IR');
 }

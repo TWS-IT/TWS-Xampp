@@ -5,7 +5,7 @@ class Dashboard extends CI_Controller {
 
 	    function __construct() {
         parent::__construct();
-        date_default_timezone_set('Asia/Dhaka');
+        date_default_timezone_set('Asia/Colombo');
         $this->load->database();
         $this->load->model('login_model');
         $this->load->model('dashboard_model'); 
@@ -16,6 +16,21 @@ class Dashboard extends CI_Controller {
         $this->load->model('leave_model');    
     }
     
+   public function mistake_count() {
+    $department = $this->input->post('position');
+    date_default_timezone_set('Asia/Colombo');
+    $today = date('Y-m-d');
+
+    $this->db->from("ir");
+
+    if (!empty($department)) {
+        $this->db->where("position", $department); 
+    }
+
+    echo $this->db->count_all_results();
+}
+
+
 	public function index()
 	{
 		#Redirect to Admin dashboard after authentication

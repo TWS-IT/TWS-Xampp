@@ -3,7 +3,7 @@
 class Organization_model extends CI_Model{
 
 
-    	function __consturct(){
+    	function __construct(){
     	   parent::__construct();
     	
     	}
@@ -16,9 +16,14 @@ class Organization_model extends CI_Model{
         $this->db->insert('department',$data);
       }
 
-      public function department_delete($dep_id){
-        $this->db->delete('department',array('id' => $dep_id ));
-      }
+      public function department_delete($dep_id) {
+        $department = $this->db->get_where('department', array('id' => $dep_id))->row();
+        $dep_name = $department->dep_name;
+        $this->db->delete('department', array('id' => $dep_id));
+        return $dep_name;
+        return false;
+}
+
 
       public function department_edit($dep){
           $sql    = "SELECT * FROM `department` WHERE `id`='$dep'";

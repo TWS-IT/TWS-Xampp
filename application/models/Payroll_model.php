@@ -3,7 +3,7 @@
 	class Payroll_model extends CI_Model{
 
 
-	function __consturct(){
+	function __construct(){
 	parent::__construct();
 	
 	}
@@ -41,30 +41,14 @@
         $result = $query->row();
         return $result;         
     } 
-    public function GetLoanValueByID($id){
-        $sql = "SELECT * FROM `loan` WHERE `loan`.`emp_id`= '$id' AND `status`='Granted' AND `status` != 'Done'";
-        $query = $this->db->query($sql);
-        $result = $query->row();
-        return $result;         
-    } 
-    public function hasLoanOrNot($id){
-        $sql = "SELECT * FROM `loan` WHERE `loan`.`emp_id`= '$id' AND `status`='Granted' AND `status` != 'Done'";
-        $query = $this->db->query($sql);
-        $result = $query->row();
-        return $result ? 1 : 0;    
-    } 
+
     public function GetHolidayByYear($dateval){
         $sql = "SELECT * FROM `holiday` WHERE `holiday`.`year`= '$dateval'";
         $query = $this->db->query($sql);
         $result = $query->result();
         return $result;         
     } 
-    public function GetloanInfo($emid){
-        $sql = "SELECT * FROM `loan` WHERE `loan`.`emp_id`= '$emid'";
-        $query = $this->db->query($sql);
-        $result = $query->row();
-        return $result;         
-    }
+    
     public function Update_typeInfo($id,$data){
         $this->db->where('id', $id);
         $this->db->update('salary_type', $data);        

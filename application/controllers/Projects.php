@@ -16,6 +16,7 @@ class Projects extends CI_Controller
 		$this->load->model('leave_model');
 		$this->load->model('logistic_model');
 		$this->load->model('attendance_model');
+		
 	}
 
 	public function index()
@@ -55,6 +56,25 @@ class Projects extends CI_Controller
 			redirect(base_url(), 'refresh');
 		}
 	}
+
+
+function w_order()
+	{
+		if ($this->session->userdata('user_login_access') != False) {
+			$data['employee'] = $this->employee_model->emselect();
+			if ($this->session->userdata('user_type') == 'EMPLOYEE') {
+				$id               = $this->session->userdata('user_login_id');
+				$data['projects'] = $this->project_model->GetEmProjectsValue($id);
+			} else {
+				$data['projects'] = $this->project_model->GetProjectsValue();
+			}
+
+			$this->load->view('backend/w_order', $data);
+		} else {
+			redirect(base_url(), 'refresh');
+		}
+	}
+
 	public function Field_Application(){
 
 		if($this->session->userdata('user_login_access') != False) { 
@@ -83,11 +103,11 @@ class Projects extends CI_Controller
 					'emp_id' => $emid,
 					'field_location' => $fieldLocation,
 					'empcount' => $empcount,
-					'approx_end_date' => $enddate,
+					// 'approx_end_date' => $enddate,
 					'total_days' => $totalDays,
 					'notes' => $notes,
 					'actual_return_date' => $actualReturnDate,
-					'status' => 'Not Approve'
+					'status' => 'Pending'
 				);
 				if(empty($id)){
 					$success = $this->project_model->Add_FieldData($data);
@@ -98,7 +118,7 @@ class Projects extends CI_Controller
 						'emp_id' => $emid,
 						'field_location' => $fieldLocation,
 						'empcount' => $empcount,
-						'approx_end_date' => $enddate,
+						// 'approx_end_date' => $enddate,
 						'total_days' => $totalDays,
 						'notes' => $notes,
 						'actual_return_date' => $actualReturnDate
@@ -200,7 +220,7 @@ class Projects extends CI_Controller
 					'task_type' => $type,
 					/*                    'location'=> $location,*/
 					'status' => $status,
-					'approve_status' => 'Approve'
+					'approve_status' => 'Approved'
 				);
 				if (empty($id)) {
 					$success  = $this->project_model->Add_Tasks($data);
@@ -217,7 +237,7 @@ class Projects extends CI_Controller
 					foreach ($emid as $dataarray) {
 						$data    = array();
 						$data    = array(
-							'task_id' => $insertid,
+							'task_id' => $id,
 							'project_id' => $proid,
 							'assign_user' => $dataarray,
 							'user_type' => 'Collaborators'
@@ -297,7 +317,7 @@ class Projects extends CI_Controller
 					$insertid = $this->db->insert_id();
 					$data     = array();
 					$data     = array(
-						'task_id' => $insertid,
+						'task_id' => $id,
 						'project_id' => $proid,
 						'assign_user' => $head,
 						'user_type' => 'Team Head'
@@ -307,7 +327,7 @@ class Projects extends CI_Controller
 					foreach ($emid AS $dataarray) {
 						$data    = array();
 						$data    = array(
-							'task_id' => $insertid,
+							'task_id' => $id,
 							'project_id' => $proid,
 							'assign_user' => $dataarray,
 							'user_type' => 'Collaborators'
@@ -322,7 +342,7 @@ class Projects extends CI_Controller
 					foreach ($emid AS $dataarray) {
 						$data = array();
 						$data = array(
-							'task_id' => $insertid,
+							'task_id' => $id,
 							'project_id' => $proid,
 							'assign_user' => $dataarray,
 							'user_type' => 'Collaborators'
@@ -354,6 +374,7 @@ class Projects extends CI_Controller
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters();
 		$this->form_validation->set_rules('taskid', 'task', 'trim|required|xss_clean');
+		$backqty = $this->input->post('backqty');
 		if ($this->form_validation->run() == FALSE) {
 			echo validation_errors();
 			#redirect("loan/View");

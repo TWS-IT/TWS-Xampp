@@ -62,6 +62,14 @@
                                                 <td><?php echo $value->em_role; ?></td>
                                                 <td class="jsgrid-align-center ">
                                                     <a href="<?php echo base_url(); ?>employee/view?I=<?php echo base64_encode($value->em_id); ?>" title="Edit" class="btn btn-sm btn-primary waves-effect waves-light"><i class="fa fa-pencil-square-o"></i></a>
+                                                   <a onclick="return confirm('Are you sure to delete this data?')" href="<?php echo base_url('employee/Delete_Employee?I='.base64_encode($value->em_id)); ?>" 
+   title="Delete" 
+   class="btn btn-sm btn-danger waves-effect waves-light">
+    <i class="fa fa-trash-o"></i>
+</a>
+
+
+
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>

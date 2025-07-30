@@ -3,7 +3,7 @@
 	class logistic_model extends CI_Model{
 
 
-	function __consturct(){
+	function __construct(){
 	parent::__construct();
 	
 	}

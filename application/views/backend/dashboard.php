@@ -1,4 +1,5 @@
 <?php $this->load->view('backend/header'); ?>
+
 <?php $this->load->view('backend/sidebar'); ?>
 <div class="page-wrapper">
     <div class="message"></div>
@@ -49,7 +50,7 @@
                 <div class="content">
                     <h2>
                         <?php 
-                            $this->db->where('leave_status','Approve');
+                            $this->db->where('leave_status','Approved');
                             $this->db->from("emp_leave");
                             echo $this->db->count_all_results();
                         ?>
@@ -71,20 +72,24 @@
                 <div class="icon"><i class="fa fa-exclamation-triangle"></i></div>
                 <div class="content">
                     <h2>
-                        <?php 
-                            $this->db->where('status','Granted');
-                            $this->db->from("loan");
-                            echo $this->db->count_all_results();
-                        ?>
-                    </h2>
+    <?php 
+        $this->db->from("ir");
+        echo $this->db->count_all_results();
+    ?>
+</h2>
+
+
                     <p>Total Granted Mistakes</p>
-                    <select class="form-select custom-select-sm mt-2 custom-dropdown" style="width: 120px;">
-                        <option selected>All</option>
-                        <option value="today">W</option>
-                        <option value="week">A</option>
-                        <option value="Month">W1W</option>
-                        <option value="Year">K</option>
-                    </select>
+                    <!-- Mistakes position filter dropdown -->
+<select id="positionFilter" class="form-select custom-select-sm mt-2 custom-dropdown" style="width: 120px;">
+    <option value="">All</option>
+    <option value="W">W</option>
+    <option value="Atas">Atas</option>
+    <option value="K8 deposit">K8 deposit</option>
+    <option value="K8 withdrawal">K8 withdrawal</option>
+    <option value="TC">TC</option>
+</select>
+
                 </div>
             </div>
         </div>
@@ -99,6 +104,18 @@
             gap: 2rem;
             margin-top: 2rem;
         }
+         @keyframes shake {
+    0% { transform: translate(0px, 0px); }
+    20% { transform: translate(-2px, 0px); }
+    40% { transform: translate(2px, 0px); }
+    60% { transform: translate(-2px, 0px); }
+    80% { transform: translate(2px, 0px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+.card:hover {
+    animation: shake 0.5s ease-in-out;
+}
         .card {
             --grad: red, blue;
             padding: 2rem;
@@ -334,5 +351,34 @@
                 });
             });
         });
+
+
+
+        $(document).ready(function() {
+    function loadMistakeCount(position = '') {
+        $.ajax({
+            url: "<?php echo base_url('Dashboard/mistake_count'); ?>",
+            type: "POST",
+            data: { position: position },
+            success: function(response) {
+                $('.card .title:contains("Mistakes")').siblings('.content').find('h2').text(response);
+            },
+            error: function(xhr) {
+                console.log("Error:", xhr.responseText);
+            }
+        });
+    }
+
+    // Initial load
+    loadMistakeCount();
+
+    // Update count when position is changed
+    $('#positionFilter').on('change', function() {
+        const selectedPosition = $(this).val();
+        loadMistakeCount(selectedPosition);
+    });
+});
         </script>
+
+        
 <?php $this->load->view('backend/footer'); ?>

@@ -53,6 +53,10 @@ class Login_Auth extends CI_Controller {
         $data['logs'] = $this->db->order_by('login_time', 'DESC')->get('login_log')->result();
         $this->load->view('log_report', $data);
     }
+     public function Sup_logs() {
+        $data['logs'] = $this->db->order_by('login_time', 'DESC')->get('login_log')->result();
+        $this->load->view('log_report', $data);
+    }
 }
 
 

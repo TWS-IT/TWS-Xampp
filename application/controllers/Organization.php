@@ -13,6 +13,11 @@ class Organization extends CI_Controller {
         $this->load->model('organization_model');
         $this->load->model('settings_model');
         $this->load->model('leave_model');
+        $this->load->library('form_validation');
+        $this->load->library('upload');
+        $this->load->helper('log');
+
+
     }
     
 	public function index()
@@ -47,6 +52,7 @@ class Organization extends CI_Controller {
         $data = array('dep_name' => $dep);
         $success = $this->organization_model->Add_Department($data);
         $this->session->set_flashdata('feedback','Successfully Added');
+       log_action($this, 'Save', "Department '{$dep}' Successfully Added");
            echo "Successfully Added";
        }
         }
@@ -54,16 +60,23 @@ class Organization extends CI_Controller {
 		redirect(base_url() , 'refresh');
 	}        
     }
-    public function Delete_dep($dep_id){
-        if($this->session->userdata('user_login_access') != False) { 
-        $this->organization_model->department_delete($dep_id);
-        $this->session->set_flashdata('delsuccess', 'Successfully Deleted');
-        redirect('organization/Department');
+    public function Delete_dep($dep_id) {
+    if ($this->session->userdata('user_login_access') != false) {
+        // Get deleted department name from model
+        $dep_name = $this->organization_model->department_delete($dep_id);
+        if ($dep_name) {
+            log_action($this, 'delete_department', "Department '{$dep_name}' successfully deleted");
+            $this->session->set_flashdata('delsuccess', 'Successfully Deleted');
+        } else {
+            $this->session->set_flashdata('error', 'Department not found');
         }
-    else{
-		redirect(base_url() , 'refresh');
-	}            
+
+        redirect('organization/Department');
+    } else {
+        redirect(base_url(), 'refFresh');
     }
+}
+
     public function Dep_edit($dep){
         if($this->session->userdata('user_login_access') != False) { 
         $data['department'] = $this->organization_model->depselect();
@@ -75,18 +88,23 @@ class Organization extends CI_Controller {
 	}        
     }
     public function Update_dep(){
-        if($this->session->userdata('user_login_access') != False) { 
+    if ($this->session->userdata('user_login_access') != false) { 
         $id = $this->input->post('id');
-        $department = $this->input->post('department');
-        $data =  array('dep_name' => $department );
+        $new_department = $this->input->post('department');
+        $old_dep = $this->organization_model->department_edit($id);
+        $data = array('dep_name' => $new_department);
         $this->organization_model->Update_Department($id, $data);
-        #$this->session->set_flashdata('feedback','Updated Successfully');
-        echo "Successfully Added";
+        if ($old_dep) {
+            $old_name = $old_dep->dep_name;
+            log_action($this, 'update_department', "Department '{$old_name}' changed to '{$new_department}'");
         }
-    else{
-		redirect(base_url() , 'refresh');
-	}            
-    }
+
+        echo "Successfully Updated";
+    } else {
+        redirect(base_url(), 'refresh');
+    }            
+}
+
     public function Designation(){
         if($this->session->userdata('user_login_access') != False) { 
         $data['designation'] = $this->organization_model->desselect();

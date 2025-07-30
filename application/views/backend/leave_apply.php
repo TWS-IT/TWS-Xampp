@@ -4,7 +4,7 @@
     <div class="message"></div>
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-themecolor"><i class="fa fa-fighter-jet" style="color:#1976d2"> </i> Application</h3>
+            <h3 class="text-themecolor"><i class="fa fa-file-alt" style="color:#1976d2"> </i> Application</h3>
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
@@ -77,10 +77,10 @@
                                         
                                         <?php } else { ?>
                                         <td class="jsgrid-align-center">
-                                            <?php if($value->leave_status =='Approve'){ ?>
+                                            <?php if($value->leave_status =='Approved'){ ?>
                                             
-                                            <?php } elseif($value->leave_status =='Not Approve'){ ?>
-                                            <a href="" title="Edit" class="btn btn-sm btn-success waves-effect waves-light leaveapproval" data-id="<?php echo $value->id; ?>">Approve</a>
+                                            <?php } elseif($value->leave_status =='Pending'){ ?>
+                                            <a href="" title="Edit" class="btn btn-sm btn-success waves-effect waves-light leaveapproval" data-id="<?php echo $value->id; ?>">Approved</a>
                                             <a href="" title="Edit" class="btn btn-sm btn-danger waves-effect waves-light  Status" data-id = "<?php echo $value->id; ?>" data-value="Rejected" >Reject</a><br>
                                             <?php } elseif($value->leave_status =='Rejected'){ ?>
                                             <?php } ?>

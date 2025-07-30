@@ -27,6 +27,10 @@ class Employee extends CI_Controller {
         $this->load->model('payroll_model');
         $this->load->model('settings_model');
         $this->load->model('leave_model');
+         $this->load->library('form_validation');
+        $this->load->library('Upload');
+
+
   
     }
     
@@ -102,7 +106,7 @@ class Employee extends CI_Controller {
                 'upload_path' => "./assets/images/users",
                 'allowed_types' => "gif|jpg|png|jpeg",
                 'overwrite' => False,
-                'max_size' => "20240000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+                'max_size' => "20240000", 
                 'max_height' => "0",
                 'max_width' => "0"
             );
@@ -135,7 +139,7 @@ class Employee extends CI_Controller {
                     'em_contact_end'=>$leavedate,
                     'em_image'=>$img_url,
                     'em_nid'=>$nid,
-                    'em_blood_group'=> $blood
+                    // 'em_blood_group'=> $blood
                 );
                 if($id){
             $success = $this->employee_model->Update($data,$id); 
@@ -168,7 +172,7 @@ class Employee extends CI_Controller {
                     'em_contact_end'=>$leavedate,
                     // 'em_address'=>$address,
                     'em_nid'=>$nid,
-                    'em_blood_group'=> $blood
+                    // 'em_blood_group'=> $blood
                 );
                 if($id){
             $success = $this->employee_model->Update($data,$id); 
@@ -272,7 +276,7 @@ class Employee extends CI_Controller {
                     'em_image'=>$img_url,
                     'em_address'=>$address,
                     'em_nid'=> $nid,
-                    'em_blood_group'=> $blood
+                    // 'em_blood_group'=> $blood
                 );
                 if($id){
             $success = $this->employee_model->Update($data,$id); 
@@ -298,7 +302,7 @@ class Employee extends CI_Controller {
                     'em_contact_end'=>$leavedate,
                     'em_address'=>$address,
                     'em_nid'=>$nid,
-                    'em_blood_group'=> $blood
+                    // 'em_blood_group'=> $blood
                 );
                 if($id){
             $success = $this->employee_model->Update($data,$id); 
@@ -312,6 +316,40 @@ class Employee extends CI_Controller {
 		redirect(base_url() , 'refresh');
 	       }        
 		}
+      public function Delete_Employee() {
+    if ($this->session->userdata('user_login_access') != False) {
+        $encoded_id = $this->input->get('I');
+        $id = base64_decode($encoded_id);
+        $employee = $this->employee_model->GetBasic($id);
+        
+        if ($employee) {
+            if (!empty($employee->em_image)) {
+                $checkimage = "./assets/images/users/{$employee->em_image}";
+                if (file_exists($checkimage) && is_file($checkimage)) {
+                    unlink($checkimage);
+                }
+            }
+
+            $success = $this->employee_model->DeleteEmployee($id);
+
+            if ($success) {
+                $this->session->set_flashdata('msg', 'Successfully Deleted');
+            } else {
+                $this->session->set_flashdata('error', 'Error occurred while deleting the record');
+            }
+            redirect('employee/Employees');
+        } else {
+            $this->session->set_flashdata('error', 'Employee not found');
+            redirect('employee/Employees');
+        }
+    } else {
+        redirect(base_url(), 'refresh');
+    }
+}
+
+
+
+
     public function view(){
         if($this->session->userdata('user_login_access') != False) {
         $id = base64_decode($this->input->get('I'));

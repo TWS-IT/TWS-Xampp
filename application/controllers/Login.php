@@ -35,74 +35,118 @@ class Login extends CI_Controller {
             #$data['settingsvalue'] = $this->dashboard_model->GetSettingsValue();
 			$this->load->view('login');
 	}
-	public function Login_Auth(){	
-	$response = array();
-    //Recieving post input of email, password from request
+	public function Login_Auth() {
+    $response = array();
+
+    // Recieving post input of email, password from request
     $email = $this->input->post('email');
     $password = sha1($this->input->post('password'));
-	$remember = $this->input->post('remember');
-	#Login input validation\
-	$this->load->library('form_validation');
+    $remember = $this->input->post('remember');
+
+    // Load form validation library
+    $this->load->library('form_validation');
     $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-	$this->form_validation->set_rules('email', 'User Email', 'trim|xss_clean|required|min_length[7]');
-	$this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required|min_length[6]');
-	
-	if($this->form_validation->run() == FALSE){
-		$this->session->set_flashdata('feedback','UserEmail or Password is Invalid');
-		redirect(base_url() . 'login', 'refresh');		
-	}
-	else{
-        //Validating login
+    $this->form_validation->set_rules('email', 'User Email', 'trim|xss_clean|required|min_length[7]');
+    $this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required|min_length[6]');
+
+    // Validation fails
+    if ($this->form_validation->run() == FALSE) {
+        $this->session->set_flashdata('feedback', 'UserEmail or Password is Invalid');
+        redirect(base_url() . 'login', 'refresh');
+    } else {
+        // Validating login
         $login_status = $this->validate_login($email, $password);
         $response['login_status'] = $login_status;
+
         if ($login_status == 'success') {
-        	if($remember){
-        		setcookie('email',$email,time() + (86400 * 30));
-        		setcookie('password',$this->input->post('password'),time() + (86400 * 30));
-        		redirect(base_url() . 'login', 'refresh');
-        		
-        	} else {
-        		if(isset($_COOKIE['email']))
-        		{
-        			setcookie('email',' ');
-        		}
-        		if(isset($_COOKIE['password']))
-        		{
-        			setcookie('password',' ');
-        		}        		
-        		redirect(base_url() . 'login', 'refresh');
-        	}
-        
-        }
-		else{
-			$this->session->set_flashdata('feedback','UserEmail or Password is Invalid');
-			redirect(base_url() . 'login', 'refresh');
-		}
-	}
-	}
-    //Validating login from request
-    function validate_login($email = '', $password = '') {
-        $credential = array('em_email' => $email, 'em_password' => $password,'status' => 'ACTIVE');
+            // Remember me cookie
+            if ($remember) {
+                setcookie('email', $email, time() + (86400 * 30));
+                setcookie('password', $this->input->post('password'), time() + (86400 * 30));
+                redirect(base_url() . 'login', 'refresh');
+            } else {
+                // Clear cookie if not remembering
+                if (isset($_COOKIE['email'])) {
+                    setcookie('email', '', time() - 3600);
+                }
+                if (isset($_COOKIE['password'])) {
+                    setcookie('password', '', time() - 3600);
+                }
+                redirect(base_url() . 'login', 'refresh');
+            }
+        } 
+		else {
+            // ✅ Log failed login attempt
+            $this->load->helper('log');
+            $data = array(
+                'emp_id'       => 'UNKNOWN',
+                'emp_name'     => 'UNKNOWN',
+                'role'         => 'UNKNOWN',
+                'action'       => 'failed_login',
+                'details'      => "Failed login attempt with email: $email",
+                'ip_address'   => $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN',
+                'browser_info' => $_SERVER['HTTP_USER_AGENT'] ?? 'UNKNOWN',
+                'created_at'   => date('Y-m-d H:i:s')
+            );
+            $this->db->insert('logs', $data);
 
-
-        $query = $this->login_model->getUserForLogin($credential);
-        if ($query->num_rows() > 0) {
-            $row = $query->row();
-            $this->session->set_userdata('user_login_access', '1');
-            $this->session->set_userdata('user_login_id', $row->em_id);
-            $this->session->set_userdata('name', $row->first_name);
-            $this->session->set_userdata('email', $row->em_email);
-            $this->session->set_userdata('user_image', $row->em_image);
-            $this->session->set_userdata('user_type', $row->em_role);
-            return 'success';
+            $this->session->set_flashdata('feedback', 'UserEmail or Password is Invalid');
+            redirect(base_url() . 'login', 'refresh');
         }
-	}
-    /*Logout method*/
-    function logout() {
-        $this->session->sess_destroy();
-        $this->session->set_flashdata('feedback', 'logged_out');
-        redirect(base_url(), 'refresh');
     }
+}
+private function validate_login($email = '', $password = '') {
+    $credential = array(
+        'em_email' => $email,
+        'em_password' => $password,
+        'status' => 'ACTIVE'
+    );
+
+    $query = $this->login_model->getUserForLogin($credential);
+
+    if ($query->num_rows() > 0) {
+        $row = $query->row();
+
+        // Set session
+        $this->session->set_userdata('user_login_access', '1');
+        $this->session->set_userdata('user_login_id', $row->em_id);
+        $this->session->set_userdata('name', $row->first_name);
+        $this->session->set_userdata('email', $row->em_email);
+        $this->session->set_userdata('user_image', $row->em_image);
+        $this->session->set_userdata('user_type', $row->em_role);
+
+        // Set user session for logging
+        $user_data = array(
+            'em_id'      => $row->em_id,
+            'first_name' => $row->first_name,
+            'last_name'  => $row->last_name,
+            'em_role'    => $row->em_role
+        );
+        $this->session->set_userdata('user', $user_data);
+
+        // Log successful login
+        $this->load->helper('log');
+        log_action($this, 'login', 'User logged in successfully');
+
+        return 'success';
+    }
+
+    // If no user found
+    return 'failed';
+}
+
+
+    /*Logout method*/
+   function logout() {
+    $this->load->helper('log');
+    log_action($this, 'logout', 'User logged out');
+
+  
+    $this->session->sess_destroy();
+    $this->session->set_flashdata('feedback', 'logged_out');
+    redirect(base_url(), 'refresh');
+}
+
     /*User signup*/
 /*	public function viewSignUp()
 	{
@@ -258,5 +302,78 @@ class Login extends CI_Controller {
          	redirect('Reset_password?p='.$key);
 		}
 	}	
-	
+  
+
+	public function view_logs() {
+    
+    if ($this->session->userdata('user_login_access') != 1) {
+        redirect(base_url(), 'refresh');
+    }
+    
+
+    // Get user role
+    $user_type = $this->session->userdata('user_type');
+
+    // Allow only SUPER ADMIN and ADMIN
+    if (!in_array($user_type, ['SUPER ADMIN', 'ADMIN'])) {
+        show_error('You are not authorized to view this page.', 403, 'Access Denied');
+        return;
+    }
+
+    // If user is authorized, fetch all logs
+    $this->load->database();
+    $query = $this->db->order_by('id', 'DESC')->get('logs');
+    $data['logs'] = $query->result();
+
+    $this->load->view('backend/logs_view', $data);
+}
+
+public function Sup_logs() {
+    
+    if ($this->session->userdata('user_login_access') != 1) {
+        redirect(base_url(), 'refresh');
+    }
+    
+
+    // Get user role
+    $user_type = $this->session->userdata('user_type');
+
+    // Allow only SUPER ADMIN and ADMIN
+    if (!in_array($user_type, ['SUPER ADMIN', 'ADMIN'])) {
+        show_error('You are not authorized to view this page.', 403, 'Access Denied');
+        return;
+    }
+
+    // If user is authorized, fetch all logs
+    $this->load->database();
+    $query = $this->db->order_by('id', 'DESC')->get('logs');
+    $data['logs'] = $query->result();
+
+    $this->load->view('backend/logs_view', $data);
+}
+
+
+	public function Sup_logs1() {
+    
+    if ($this->session->userdata('user_login_access') != 1) {
+        redirect(base_url(), 'refresh');
+    }
+
+    
+    $user_type = $this->session->userdata('user_type');
+
+    
+    if (!in_array($user_type, ['SUPER ADMIN', 'ADMIN'])) {
+        show_error('You are not authorized to view this page.', 403, 'Access Denied');
+        return;
+    }
+
+    
+    $this->load->database();
+    $query = $this->db->order_by('id', 'DESC')->get('logs');
+    $data['logs'] = $query->result();
+
+    $this->load->view('backend/sup_logsViews.php', $data);
+}
+
 }

@@ -38,7 +38,7 @@
                                     <tr>
                                         <th>Full Name</th>
                                         <th>Employee ID</th>
-                                        <th>Position</th>
+                                        <th>Department</th>
                                         <th>Details of Incident</th>
                                         <th>Date of Incident</th>
                                         <th>Description of Incident</th>
@@ -81,18 +81,26 @@
 
                     <div class="modal-body">
                         <div class="form-group row">
-                            <label class="col-md-3 control-label">Full Name</label>
-                            <select class="form-control custom-select col-md-8" name="emid" required>
-                                <option value="">Select Here</option>
-                                <?php foreach($employee as $value): ?>
-                                    <option value="<?php echo $value->em_id; ?>"><?php echo $value->first_name . ' ' . $value->last_name; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+    <label class="col-md-3 control-label">Full Name</label>
+    <select class="form-control custom-select col-md-8" name="emid" required>
+        <option value="">Select Here</option>
+        <?php foreach($employee as $value): ?>
+            <option value="<?php echo $value->em_id; ?>"><?php echo $value->first_name . ' ' . $value->last_name; ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
+                        
                         <div class="form-group row">
-                            <label class="col-md-3 control-label">Position</label>
-                            <input type="text" name="position" class="form-control col-md-8" required>
-                        </div>
+    <label class="col-md-3 control-label">Department</label>
+    <select class="form-control custom-select col-md-8" name="position" required>
+        <option value="">Select Department</option>
+        <option value="W">W</option>
+        <option value="Atas">Atas</option>
+        <option value="K8 deposit">K8 deposit</option>
+        <option value="K8 withdrawal">K8 withdrawal</option>
+        <option value="TC">TC</option>
+    </select>
+</div>
                         <div class="form-group row">
                             <label class="col-md-3 control-label">Date of Incident</label>
                             <input type="date" name="ir_date" class="form-control col-md-8" required>

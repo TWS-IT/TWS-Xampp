@@ -38,6 +38,7 @@
     <!-- jQuery -->
     <script src="<?php echo base_url(); ?>assets/plugins/jquery/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    
 </head>
 
 <!-- Dynamic theme class -->
@@ -54,7 +55,9 @@
 ?>
 
 <div class="preloader">
+    
     <svg class="circular" viewBox="25 25 50 50">
+        
         <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
     </svg>
 </div>
@@ -65,8 +68,9 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="<?php echo base_url(); ?>">
                     <b></b>
+                    
                     <span>
-                        <img src="<?php echo base_url(); ?>assets/images/<?php echo $settingsvalue->sitelogo; ?>" alt="homepage" class="dark-logo" height="70px" width="70px" />
+                        <img src="<?php echo base_url(); ?>assets/images/<?php echo $settingsvalue->sitelogo; ?>" alt="homepage" class="dark-logo" height="50px" width="70px" />
                     </span>
                 </a>
             </div>
@@ -84,14 +88,14 @@
                         </a>
                     </li>
                    <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown">
-        <i class="mdi mdi-clipboard-text"></i> <!-- Changed icon here -->
+    <!-- <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown">
+        <i class="mdi mdi-clipboard-text"></i> 
         <div class="notify"><span class="heartbit"></span> <span class="point"></span></div>
-    </a>
+    </a> -->
     <div class="dropdown-menu mailbox scale-up-left">
         <ul>
             <li>
-                <div class="drop-title">Log Reports</div> <!-- Changed title here -->
+                <div class="drop-title">Log Reports</div> 
             </li>
             <li>
                 <div class="message-center">
@@ -109,14 +113,11 @@
             </li>
             <li>
                 <a class="nav-link text-center" href="javascript:void(0);">
-                    <strong>Check all logs</strong> <i class="fa fa-angle-right"></i> <!-- Changed label -->
+                    <strong>Check all logs</strong> <i class="fa fa-angle-right"></i> 
                 </a>
             </li>
         </ul>
-    </div>
-</li>
-
-                </ul>
+        </ul>
 
                 <ul class="navbar-nav my-lg-0">
                   
@@ -147,6 +148,11 @@
                         </div>
                     </li>
                 </ul>
+    </div>
+</li>
+
+                
             </div>
         </nav>
+        
     </header>

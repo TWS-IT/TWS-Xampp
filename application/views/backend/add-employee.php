@@ -35,7 +35,7 @@
                                <?php echo $this->upload->display_errors(); ?>
                                
                                <?php echo $this->session->flashdata('formdata'); ?>
-                               <?php echo $this->session->flashdata('feedback'); ?>
+                              
                             <div class="card-body">
 
                                 <form class="row" method="post" action="Save" enctype="multipart/form-data">
@@ -86,19 +86,19 @@
                                             <option value="FEMALE">Female</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-3 m-t-20">
+                                    <!-- <div class="form-group col-md-3 m-t-20">
                                         <label>Select Country</label>
                                         <select name="blood" class="form-control custom-select">
                                             <option>Select Country</option>
                                             <option value="O+">Srilanka</option>
                                             <option value="O-">Malaysia</option>
                                             <option value="A+">Philippines</option>
-                                            <option value="A-">Cambodia</option>
+                                            <option value="A-">Cambodia</option> -->
                                         <!--    <option value="B+">B+</option>
                                             <option value="B-">B-</option>
                                             <option value="AB+">AB+</option>-->
-                                        </select>
-                                    </div>
+                                        <!-- </select>
+                                    </div> -->
                                    <!-- <div class="form-group col-md-3 m-t-20">
                                         <label></label>
                                         <input type="text" name="nid" class="form-control" value="" placeholder="(Max. 10)" minlength="10" required> 

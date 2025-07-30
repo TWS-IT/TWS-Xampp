@@ -3,14 +3,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class IR_model extends CI_Model {
 
+
+     protected $valid_positions = ['W', 'Atas', 'K8 deposit', 'K8 withdrawal', 'TC'];
     public function __construct() {
         parent::__construct();
     }
 
     // Insert a new Incident Report
-    public function addIR($data) {
-        return $this->db->insert('ir', $data);
+   
+
+// ✅ Insert new IR
+public function insertIR($data) {
+    if (!in_array($data['position'], $this->valid_positions)) {
+        return false; // Invalid position
     }
+
+    return $this->db->insert('ir', $data); // Save to DB
+}
 
     // Get all Incident Reports with employee details
     public function getAllIRs() {

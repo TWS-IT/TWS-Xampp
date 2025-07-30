@@ -108,10 +108,10 @@
                                          <?php } else { ?> 
                                         <td class="jsgrid-align-center">
                                             
-                                           <?php if($value->leave_status =='Approve'){ ?>
+                                           <?php if($value->leave_status =='Approved'){ ?>
                                            
-                                             <?php } elseif($value->leave_status =='Not Approve'){ ?>
-                                            <a href="" title="Edit" class="btn btn-sm btn-success waves-effect waves-light Status" data-employeeId=<?php echo $value->em_id; ?>  data-id="<?php echo $value->id; ?>" data-value="Approve" data-duration="<?php echo $value->leave_duration; ?>" data-type="<?php echo $value->typeid; ?>">Approve</a>       
+                                             <?php } elseif($value->leave_status =='Pending'){ ?>
+                                            <a href="" title="Edit" class="btn btn-sm btn-success waves-effect waves-light Status" data-employeeId=<?php echo $value->em_id; ?>  data-id="<?php echo $value->id; ?>" data-value="Approved" data-duration="<?php echo $value->leave_duration; ?>" data-type="<?php echo $value->typeid; ?>">Approved</a>       
                                             <a href="" title="Edit" class="btn btn-sm btn-danger waves-effect waves-light  Status" data-id = "<?php echo $value->id; ?>" data-value="Rejected" >Reject</a>
                                             <br> 
 

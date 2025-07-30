@@ -3,7 +3,7 @@
 	class Employee_model extends CI_Model{
 
 
-	function __consturct(){
+	function __construct(){
 	parent::__construct();
 	
 	}
@@ -24,6 +24,21 @@
     	$result = $query->result();
 	return $result;
 }
+public function DeleteEmployee($id) {
+    // Delete employee image if it exists
+    $employee = $this->GetBasic($id);
+    if (!empty($employee->em_image)) {
+        $image_path = './assets/images/users/' . $employee->em_image;
+        if (file_exists($image_path)) {
+            unlink($image_path); 
+        }
+    }
+
+    // Delete record from database
+    $this->db->where('em_id', $id);
+    return $this->db->delete('employee');
+}
+
 
     public function emselect(){
     $sql = "SELECT * FROM `employee` WHERE `status`='ACTIVE'";
@@ -300,6 +315,10 @@
   }
     public function DeletDisiplinary($id){
       $this->db->delete('desciplinary',array('id'=> $id));
-  }        
+  }  
+  public function Employeedelete($id){
+        $this->db->delete('employee',array('id'=> $id));
+    }
+      
     }
 ?>

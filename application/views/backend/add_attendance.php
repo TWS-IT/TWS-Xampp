@@ -58,9 +58,9 @@
                                         </div>
                                         <div class="form-group">
                                         <label class="m-t-20">Sign Out Time</label>
-                                        <div class="input-group clockpicker">
-                                            <input type="text" name="signout" class="form-control" value="<?php if(!empty($attval->signout_time)) { echo  $attval->signout_time;} ?>">
-                                        </div>
+                                        <!-- <div class="input-group clockpicker"> -->
+                                            <input type="text" name="signout" class="form-control" id="single-input1" value="<?php if(!empty($attval->signout_time)) { echo  $attval->signout_time;} ?>">
+                                        <!-- </div> -->
                                         </div> 
                                         <div class="form-group">
                                                     <label>Place</label>

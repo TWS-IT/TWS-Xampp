@@ -43,8 +43,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package		CodeIgniter
  * @subpackage	Helpers
  * @category	Helpers
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/helpers/url_helper.html
  */
 
 // ------------------------------------------------------------------------
@@ -156,25 +154,26 @@ if ( ! function_exists('anchor'))
 	 * @return	string
 	 */
 	function anchor($uri = '', $title = '', $attributes = '')
+{
+	$title = (string) $title;
+
+	$site_url = is_array($uri)
+		? site_url(implode('/', $uri)) // ✅ FIXED HERE
+		: (preg_match('#^(\w+:)?//#i', $uri) ? $uri : site_url($uri));
+
+	if ($title === '')
 	{
-		$title = (string) $title;
-
-		$site_url = is_array($uri)
-			? site_url($uri)
-			: (preg_match('#^(\w+:)?//#i', $uri) ? $uri : site_url($uri));
-
-		if ($title === '')
-		{
-			$title = $site_url;
-		}
-
-		if ($attributes !== '')
-		{
-			$attributes = _stringify_attributes($attributes);
-		}
-
-		return '<a href="'.$site_url.'"'.$attributes.'>'.$title.'</a>';
+		$title = $site_url;
 	}
+
+	if ($attributes !== '')
+	{
+		$attributes = _stringify_attributes($attributes);
+	}
+
+	return '<a href="'.$site_url.'"'.$attributes.'>'.$title.'</a>';
+}
+
 }
 
 // ------------------------------------------------------------------------
