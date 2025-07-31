@@ -5,6 +5,7 @@
 
 	function __construct(){
 	parent::__construct();
+  $this->load->model('Employee_model');
 	
 	}
 
@@ -13,6 +14,14 @@
 	$result = $query->result();
 	return $result;
 	}
+public function search_by_name($keyword) {
+    $this->db->like('first_name', $keyword);
+    $this->db->or_like('last_name', $keyword);
+    $query = $this->db->get('employee');
+    return $query->result();
+}
+
+
     public function getdepartment(){
 	$query = $this->db->get('department');
 	$result = $query->result();

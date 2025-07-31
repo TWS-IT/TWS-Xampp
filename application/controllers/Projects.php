@@ -58,22 +58,7 @@ class Projects extends CI_Controller
 	}
 
 
-function w_order()
-	{
-		if ($this->session->userdata('user_login_access') != False) {
-			$data['employee'] = $this->employee_model->emselect();
-			if ($this->session->userdata('user_type') == 'EMPLOYEE') {
-				$id               = $this->session->userdata('user_login_id');
-				$data['projects'] = $this->project_model->GetEmProjectsValue($id);
-			} else {
-				$data['projects'] = $this->project_model->GetProjectsValue();
-			}
 
-			$this->load->view('backend/w_order', $data);
-		} else {
-			redirect(base_url(), 'refresh');
-		}
-	}
 
 	public function Field_Application(){
 

@@ -1,6 +1,16 @@
 <?php $this->load->view('backend/header'); ?>
 <?php $this->load->view('backend/sidebar'); ?>
 
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Select2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
       <div class="page-wrapper">
             <div class="message"></div>
             <div class="row page-titles">
@@ -29,54 +39,74 @@
 
                 
                         <!-- sample modal content -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content ">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="exampleModalLabel1"><i class="fa fa-braille"></i> Add Project</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <form method="post" action="Add_Projects" id="btnSubmit" enctype="multipart/form-data">
-                                    <div class="modal-body">
-                                        <div class="row">
-                                           <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label">Project Title</label>
-                                                <input type="text" name="protitle" class="form-control" id="recipient-name1" minlength="8" maxlength="250" placeholder="">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Employee Count</label>
-                                                <input type="int" name="employeecount" class="form-control datepicker" id="recipient-name1" placeholder="">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="message-text" class="control-label">Summary</label>
-                                                <textarea class="form-control" name="summery" id="message-text1" placeholder=""></textarea>
-                                            </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="message-text" class="control-label">Details</label>
-                                                <textarea class="form-control" name="details" id="message-text1" minlength="10" maxlength="1300" rows="8" placeholder=""> </textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label">Status</label>
-                                                <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1" name="prostatus" required>
-                                                    <option value="upcoming">Upcoming</option>
-                                                    <option value="complete">Complete</option>
-                                                    <option value="running">Running</option>
-                                                </select>
-                                            </div>
-                                        </div>                                            
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel1">
+          <i class="fa fa-braille"></i> Add Order
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Form Starts -->
+      <form method="post" action="<?= base_url('W_Order/Save_W') ?>" id="btnSubmit" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="row">
+            <!-- Left Column -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Employee Position</label>
+                <input type="text" name="emp_position" class="form-control" id="emp-positionid" maxlength="20" placeholder="AAA203C" required>
+              </div>
+              <div class="form-group">
+                <label class="control-label">Employee Name</label>
+                 <select id="employee-select" name="employee_id" style="width: 100%;" required>
+
+    <?php if (!empty($attval->em_code)) { ?>
+        <option value="<?= $attval->em_code ?>"><?= htmlspecialchars($attval->first_name . ' ' . $attval->last_name) ?></option>           
+    <?php } else { ?>
+        <option value="">Select Here</option>
+        <?php foreach ($employee as $value): ?>
+            <option value="<?= $value->em_code ?>"><?= htmlspecialchars($value->first_name . ' ' . $value->last_name) ?></option>
+        <?php endforeach; ?>
+    <?php } ?>
+</select>
+
+              </div>
+              <div class="form-group">
+                <label class="control-label">Order Date</label>
+                <input type="date" name="emp_date" class="form-control datepicker" id="emp-dateid">
+              </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Shift</label>
+                <select class="form-control custom-select" name="shift_name" required>
+                  <option value="">Select Shift</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Noon">Noon</option>
+                  <option value="Night">Night</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
                          <div class="container-fluid">
         <!-- New Modern Dashboard Cards -->
         <div class="grid-container" style="margin-top: 20px;">
@@ -286,7 +316,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- ApexCharts -->
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -555,6 +585,34 @@
 
     
   </script>
+
+  <script>
+$(document).ready(function() {
+  $('#employee-select').select2({
+    placeholder: 'Search employee name',
+    minimumInputLength: 1, 
+    ajax: {
+      url: '<?php echo base_url("W_Order/search"); ?>', 
+      dataType: 'json',
+      delay: 250,
+      data: function (params) {
+        return {
+          q: params.term 
+        };
+      },
+      processResults: function (data) {
+        return {
+          results: data
+        };
+      },
+      cache: true
+    }
+  });
+});
+
+</script>
+
+
 </body>
 </html>
 

@@ -107,7 +107,7 @@
                             <ul aria-expanded="false" class="collapse">
                                     <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span class="hide-menu">W Project</span></a>
                                         <ul aria-expanded="false" class="collapse">
-                                            <li><a href="<?php echo base_url(); ?>Projects/w_order">Order Report</a></li>
+                                            <li><a href="<?php echo base_url(); ?>W_Order/w_order">Order Report</a></li>
                                             <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                         </ul>
                                     </li>
