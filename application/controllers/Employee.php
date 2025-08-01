@@ -194,22 +194,7 @@ class Employee extends CI_Controller {
 	       }        
 		}
 
-        public function search() {
-    $q = $this->input->get('q');
-
-    $this->load->model('Employee_model');
-    $employees = $this->Employee_model->search_by_name($q);
-
-    $results = [];
-    foreach ($employees as $emp) {
-        $results[] = [
-            'id' => $emp->em_code,
-            'text' => $emp->first_name . ' ' . $emp->last_name
-        ];
-    }
-
-    echo json_encode($results);
-}
+        
 
 
 	public function Update(){

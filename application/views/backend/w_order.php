@@ -1,13 +1,11 @@
 <?php $this->load->view('backend/header'); ?>
 <?php $this->load->view('backend/sidebar'); ?>
 
-<!-- Select2 CSS -->
+
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Select2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
@@ -38,7 +36,7 @@
                 </div>
 
                 
-                        <!-- sample modal content -->
+                 
                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -51,15 +49,15 @@
         </button>
       </div>
 
-      <!-- Form Starts -->
+ 
       <form method="post" action="<?= base_url('W_Order/Save_W') ?>" id="btnSubmit" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="row">
-            <!-- Left Column -->
+ 
             <div class="col-md-6">
               <div class="form-group">
                 <label class="control-label">Employee Position</label>
-                <input type="text" name="emp_position" class="form-control" id="emp-positionid" maxlength="20" placeholder="AAA203C" required>
+                <input type="text" name="pc_position" class="form-control" id="emp-positionid" maxlength="20" placeholder="AAA203C" required>
               </div>
               <div class="form-group">
                 <label class="control-label">Employee Name</label>
@@ -76,25 +74,29 @@
 </select>
 
               </div>
-              <div class="form-group">
-                <label class="control-label">Order Date</label>
-                <input type="date" name="emp_date" class="form-control datepicker" id="emp-dateid">
-              </div>
-            </div>
+             <div class="form-group">
+  <label class="control-label">Order Date</label>
+  <input type="date" name="order_date" class="form-control datepicker" id="order-dateid" required>
+</div>
 
-            <!-- Right Column -->
-            <div class="col-md-6">
-              <div class="form-group">
-                <label class="control-label">Shift</label>
-                <select class="form-control custom-select" name="shift_name" required>
-                  <option value="">Select Shift</option>
-                  <option value="Morning">Morning</option>
-                  <option value="Noon">Noon</option>
-                  <option value="Night">Night</option>
-                </select>
-              </div>
-            </div>
+<div class="form-group">
+  <label class="control-label">Shift</label>
+  <select class="form-control custom-select" name="shift" required>
+  <option value="">Select Shift</option>
+  <option value="Morning">Morning</option>
+  <option value="Noon">Noon</option>
+  <option value="Night">Night</option>
+</select>
+</div>
+
+<div class="form-group">
+  <label class="control-label">Order Count</label>
+  <input type="text" name="order_count" class="form-control" id="ordercount" placeholder="Enter the Order Count" required>
+</div>
+
           </div>
+            </div>
+             
         </div>
 
         <!-- Footer -->
@@ -595,6 +597,7 @@ $(document).ready(function() {
       url: '<?php echo base_url("W_Order/search"); ?>', 
       dataType: 'json',
       delay: 250,
+      search: yes,
       data: function (params) {
         return {
           q: params.term 

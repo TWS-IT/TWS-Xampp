@@ -23,8 +23,10 @@ class W_Order extends CI_Controller {
     $this->load->model('employee_model');
     $this->load->model('settings_model');
     $this->load->model('W_model');
-    $this->load->model('leave_model'); // <- ADD THIS LINE
-    $this->load->library('csvimport');
+    $this->load->model('leave_model');
+    // $this->load->library('csvimport');
+    // $this->load->library('form_validation');
+    $this->load->helper('log');
     }
     
     public function index()
@@ -52,29 +54,32 @@ public function Save_W() {
         $this->form_validation->set_rules('pc_position', 'pc_position', 'trim|required|xss_clean');
         $this->form_validation->set_rules('employee_id', 'employee_id', 'trim|required|xss_clean');
         $this->form_validation->set_rules('order_date', 'order_date', 'required');
-        $this->form_validation->set_rules('shift', 'shift', 'required');
+$this->form_validation->set_rules('shift', 'shift', 'required');
+$this->form_validation->set_rules('order_count', 'order_count', 'required');
+
 
         if ($this->form_validation->run() == FALSE) {
             echo validation_errors();
         } else {
             $data = array(
-                'pc_position' => $this->input->post('emp_position'),
-                'employee_id'     => $this->input->post('emp_name'),
-                'order_date'   => $this->input->post('emp_date'),
-                'shift'        => $this->input->post('shift_name'),
+                'pc_position' => $this->input->post('pc_position'),
+                'employee_id' => $this->input->post('employee_id'),
+                'order_date'   => $this->input->post('order_date'),
+                'shift'        => $this->input->post('shift'),
+                'order_count' => $this->input->post('order_count'),
             );
 
             $this->W_model->Add_w($data);  // Make sure your model handles this
             $this->session->set_flashdata('feedback', 'Successfully Added');
-            log_action($this, 'Save', "Order for employee '{$data['emp_name']}' added.");
-            echo "Successfully Added";
+            log_action($this, 'Save', "Order for employee '{$data['employee_id']}' added.");
+            redirect('W_Order/W_order'); 
         }
     } else {
         redirect(base_url(), 'refresh');
     }        
 }
 
-    function w_order()
+    function W_order()
 	{
 		if ($this->session->userdata('user_login_access') != False) {
 			$data['employee'] = $this->employee_model->emselect();
