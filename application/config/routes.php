@@ -52,3 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['W_Order/get_mistake_chart_data'] = 'W_Order/get_mistake_chart_data';
+$route['W_Order/get_all_orders_barline_chart_se'] = 'W_Order/get_all_orders_barline_chart_se';
+

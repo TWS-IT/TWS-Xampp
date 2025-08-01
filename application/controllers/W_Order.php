@@ -95,8 +95,80 @@ $this->form_validation->set_rules('order_count', 'order_count', 'required');
 			redirect(base_url(), 'refresh');
 		}
 	}
+    public function update_W() {
+    if ($this->session->userdata('user_login_access') != False) {
+        $id = $this->input->post('order_id');
 
-   
+        $data = array(
+            'pc_position' => $this->input->post('pc_position'),
+            'employee_id' => $this->input->post('employee_id'),
+            'order_date'  => $this->input->post('order_date'),
+            'shift'       => $this->input->post('shift'),
+            'order_count' => $this->input->post('order_count'),
+        );
+
+        $this->W_model->update_W($id, $data);
+        $this->session->set_flashdata('feedback', 'Order Updated Successfully');
+        redirect('W_Order/W_order');
+    } else {
+        redirect(base_url(), 'refresh');
+    }
+}
+
+public function Edit_W($id) {
+    if ($this->session->userdata('user_login_access') != False) {
+        $data['employee'] = $this->employee_model->emselect();
+        $data['order'] = $this->W_model->get_order_by_id($id);
+
+        $this->load->view('backend/edit_w_order', $data); 
+    } else {
+        redirect(base_url(), 'refresh');
+    }
+}
+
+public function Delete_W($id) {
+    if ($this->session->userdata('user_login_access') != False) {
+        $this->W_model->DeleteWOrder($id);
+        $this->session->set_flashdata('feedback', 'Order Deleted Successfully');
+        redirect('W_Order/W_order');
+    } else {
+        redirect(base_url(), 'refresh');
+    }
+}
+
+public function get_all_orders_barline_chart_se() {
+    if ($this->session->userdata('user_login_access') != False) {
+        $start_date = $this->input->get('start_date');
+        $end_date   = $this->input->get('end_date');
+        $name       = $this->input->get('employee_name');
+
+        if (!$start_date || !$end_date) {
+            echo json_encode(['error' => 'Start and end dates are required.']);
+            return;
+        }
+
+        $data = $this->W_model->get_filtered_barline_chart_se($start_date, $end_date, $name);
+        echo json_encode($data);
+    } else {
+        echo json_encode(['error' => 'Unauthorized']);
+    }
+}
+
+
+// 2nd
+
+public function get_all_orders_barline_chart() {
+    if ($this->session->userdata('user_login_access') != False) {
+        $data = $this->W_model->get_all_orders_for_barline_chart();
+        echo json_encode($data);
+    } else {
+        show_error("Unauthorized access", 403);
+    }
+}
+
+
+
+
 
 
 }

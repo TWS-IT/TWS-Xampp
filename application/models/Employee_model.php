@@ -34,7 +34,7 @@ public function search_by_name($keyword) {
 	return $result;
 }
 public function DeleteEmployee($id) {
-    // Delete employee image if it exists
+    
     $employee = $this->GetBasic($id);
     if (!empty($employee->em_image)) {
         $image_path = './assets/images/users/' . $employee->em_image;
@@ -43,7 +43,7 @@ public function DeleteEmployee($id) {
         }
     }
 
-    // Delete record from database
+    
     $this->db->where('em_id', $id);
     return $this->db->delete('employee');
 }

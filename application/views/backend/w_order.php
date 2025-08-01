@@ -1,12 +1,30 @@
 <?php $this->load->view('backend/header'); ?>
 <?php $this->load->view('backend/sidebar'); ?>
 
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<!-- JSZip for Excel Export -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
 
 
       <div class="page-wrapper">
@@ -27,143 +45,181 @@
             <div class="container-fluid">
                 <div class="row m-b-10"> 
                     <div class="col-12">
-                        <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?>
-                        
-                        <?php } else { ?>
-                        <button type="button" class="btn btn-info"><i class="fa fa-plus"></i><a data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap" class="text-white"><i class="" aria-hidden="true"></i> Add Order </a></button>
-                        <?php } ?>
+                       <?php if($this->session->userdata('user_type') != 'EMPLOYEE'){ ?>
+  <button type="button" class="btn btn-info text-white" data-toggle="modal" data-target="#orderModal" onclick="resetOrderForm()">
+    <i class="fa fa-plus"></i> Add Order
+  </button>
+<?php } ?>
+
                     </div>
                 </div>
 
                 
                  
-                       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
+                       <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel1">
-          <i class="fa fa-braille"></i> Add Order
+        <h4 class="modal-title" id="orderModalLabel">
+          <i class="fa fa-braille"></i> <span id="modalTitle">Add Order</span>
         </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
- 
-      <form method="post" action="<?= base_url('W_Order/Save_W') ?>" id="btnSubmit" enctype="multipart/form-data">
+      <form method="post" action="<?= base_url('W_Order/Save_W') ?>" id="orderForm">
         <div class="modal-body">
+          <input type="hidden" name="order_id" id="order_id">
+          
+
           <div class="row">
- 
             <div class="col-md-6">
+
               <div class="form-group">
-                <label class="control-label">Employee Position</label>
-                <input type="text" name="pc_position" class="form-control" id="emp-positionid" maxlength="20" placeholder="AAA203C" required>
+                <label>Employee Position</label>
+                <input type="text" name="pc_position" id="pc_position" class="form-control" placeholder="AAA203C" required>
               </div>
+
               <div class="form-group">
-                <label class="control-label">Employee Name</label>
-                 <select id="employee-select" name="employee_id" style="width: 100%;" required>
-
-    <?php if (!empty($attval->em_code)) { ?>
-        <option value="<?= $attval->em_code ?>"><?= htmlspecialchars($attval->first_name . ' ' . $attval->last_name) ?></option>           
-    <?php } else { ?>
-        <option value="">Select Here</option>
-        <?php foreach ($employee as $value): ?>
-            <option value="<?= $value->em_code ?>"><?= htmlspecialchars($value->first_name . ' ' . $value->last_name) ?></option>
-        <?php endforeach; ?>
-    <?php } ?>
-</select>
-
+                <label>Employee Name</label>
+                <select id="employee_id" name="employee_id" class="form-control" required>
+                  <option value="">Select Here</option>
+                  <?php foreach ($employee as $value): ?>
+                    <option value="<?= $value->em_code ?>"><?= htmlspecialchars($value->first_name . ' ' . $value->last_name) ?></option>
+                  <?php endforeach; ?>
+                </select>
               </div>
-             <div class="form-group">
-  <label class="control-label">Order Date</label>
-  <input type="date" name="order_date" class="form-control datepicker" id="order-dateid" required>
-</div>
 
-<div class="form-group">
-  <label class="control-label">Shift</label>
-  <select class="form-control custom-select" name="shift" required>
-  <option value="">Select Shift</option>
-  <option value="Morning">Morning</option>
-  <option value="Noon">Noon</option>
-  <option value="Night">Night</option>
-</select>
-</div>
+              <div class="form-group">
+                <label>Order Date</label>
+                <input type="date" name="order_date" id="order_date" class="form-control" required>
+              </div>
 
-<div class="form-group">
-  <label class="control-label">Order Count</label>
-  <input type="text" name="order_count" class="form-control" id="ordercount" placeholder="Enter the Order Count" required>
-</div>
+              <div class="form-group">
+                <label>Shift</label>
+                <select class="form-control" name="shift" id="shift" required>
+                  <option value="">Select Shift</option>
+                  <option value="Morning">Morning</option>
+                  <option value="Noon">Noon</option>
+                  <option value="Night">Night</option>
+                </select>
+              </div>
 
-          </div>
+              <div class="form-group">
+                <label>Order Count</label>
+                <input type="text" name="order_count" id="order_count" class="form-control" placeholder="Enter the Order Count" required>
+              </div>
+
             </div>
-             
+          </div>
         </div>
 
-        <!-- Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Submit</button>
+          <button type="submit" class="btn btn-success">Save</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+ <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Order Report</h4>
+                                <div class="form-material row">
+                                    <div class="form-group col-md-3">
+                                        <input type="text" name="date_from" id="date_from" class="form-control mydatetimepickerFull" placeholder="from">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <input type="text" name="date_to" id="date_to" class="form-control mydatetimepickerFull" placeholder="to">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <select id="employee_id" name="employee_id" class="form-control" required>
+                  <option value="">Select Here</option>
+                  <?php foreach ($employee as $value): ?>
+                    <option value="<?= $value->em_code ?>"><?= htmlspecialchars($value->first_name . ' ' . $value->last_name) ?></option>
+                  <?php endforeach; ?>
+                </select>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+            <button onclick="loadFilteredBarLineChart()" class="btn btn-success">Filter</button>
+          </div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                          <div class="container-fluid">
         <!-- New Modern Dashboard Cards -->
         <div class="grid-container" style="margin-top: 20px;">
             <div class="card" style="--grad: #FFC107, #FF9800;">
-                <div class="title">Total Employees</div>
-                <div class="icon"><i class="fa fa-users"></i></div>
+               <center>
+    <div class="title">
+        <i class="fas fa-users" style="color: #FF9800;"></i> W Project Employees
+    </div>
+</center>
+
+
+               <br>
+               <br>
                 <div class="content">
-                    <h2>
+                    <center><h2>
                         <?php 
                             $this->db->where('status','ACTIVE');
                             $this->db->from("employee");
                             echo $this->db->count_all_results();
                         ?>
                     </h2>
+                    </center>
                 </div>
             </div>
 
             <!-- ORDERS -->
             <div class="card" style="--grad: #2196F3, #03A9F4;">
-                <div class="title">Orders</div>
-                <div class="icon"><i class="fa fa-list-alt"></i></div>
+               <center> <div class="title"> <i class="fa fa-list-alt" style="color: #03A9F4;"></i> Total Orders</div> </center>
+              <br>
+              <br>
                 <div class="content">
-                    <h2>
+                   <center> <h2>
                         <?php 
                             $this->db->where('leave_status','Approved');
                             $this->db->from("emp_leave");
                             echo $this->db->count_all_results();
                         ?>
                     </h2>
+                    </center>
                 </div>
             </div>
 
             <!-- MISTAKES -->
             <div class="card" style="--grad: #F44336, #E91E63;">
-                <div class="title">Mistakes</div>
-                <div class="icon"><i class="fa fa-exclamation-triangle"></i></div>
-                <div class="content">
+               <center> <div class="title"> <i class="fa fa-exclamation-triangle" style="color: #E91E63;"></i> Mistakes</div></center>
+               <br>
+               <br>
+            <div class="content">
+                  <center>
                     <h2>
     <?php 
         $this->db->from("ir");
         echo $this->db->count_all_results();
     ?>
 </h2>
+</center>
 
 
-                    <p>Total Granted Mistakes</p>
+                    <!-- <p>Total Granted Mistakes</p> -->
                     <!-- Mistakes position filter dropdown -->
-<select id="positionFilter" class="form-select custom-select-sm mt-2 custom-dropdown" style="width: 120px;">
+<!-- <select id="positionFilter" class="form-select custom-select-sm mt-2 custom-dropdown" style="width: 120px;">
     <option value="">All</option>
     <option value="W">W</option>
     <option value="Atas">Atas</option>
     <option value="K8 deposit">K8 deposit</option>
     <option value="K8 withdrawal">K8 withdrawal</option>
     <option value="TC">TC</option>
-</select>
+</select> -->
 
                 </div>
             </div>
@@ -379,74 +435,11 @@
 </head>
 
 <body>
-  <!-- <div class="container-fluid p-4"> -->
+  
 
-    <!-- Row 1: Stats -->
-    <!-- <div class="row">
-      <div class="col-md-3">
-        <div class="card">
-        <div class="card-body">
-          <h6>Total Employees</h6>
-          <div class="card">150</div>
-        </div>
-      </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h6>Today Orders</h6>
-          <div>1250</div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h6>Project Name</h6>
-          <div class="highlight">Atas Project</div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h6>Mistakes</h6>
-          <div class="highlight">3550</div>
-        </div>
-      </div>
-    </div>
-
-   
     <div class="row">
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h6>Growth</h6>
-          <div class="highlight">600</div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card p-3">
-          <h6>All Order Percentage</h6>
-          <div class="highlight">89%</div>
-        </div>
-      </div>
-    </div>
 
-    < Row 3: Charts -->
-    <div class="row">
-      <div class="col-md-6">
-        <div class="card p-3">
-          <h6 class="section-title">Mistakes Rate</h6>
-          <div class="highlight">53.94%</div>
-          <div class="chart-box" id="areaChart"></div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card p-3">
-          <h6 class="section-title">Complete Orders</h6>
-          <div class="highlight">5432</div>
-          <div class="chart-box" id="barChart"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Row 4: Line Chart -->
-    <div class="row">
+<!-- Row 4: Line Chart -->
       <div class="col-md-6">
         <div class="card p-3">
           <h6 class="section-title">Project wise monthly Order report</h6>
@@ -454,73 +447,100 @@
           <div id="lineChart" style="height: 300px;"></div>
         </div>
       </div>
+
+      <div class="col-md-6">
+  <div class="card p-3 text-center">
+    <h6 class="section-title">Mistakes Rate</h6>
+    <div class="highlight">53.94%</div>
+    <p class="text-muted small">Total mistakes of the employees</p>
+    
+    <div class="chart-box" id="areaChart"></div>
+
+    <div class="d-flex justify-content-around mt-3">
+      <div>
+        <h6 class="mb-0">10</h6>
+        <small class="text-muted">2022</small>
+      </div>
+      <div>
+        <h6 class="mb-0">15</h6>
+        <small class="text-muted">2024</small>
+      </div>
+      <div>
+        <h6 class="mb-0">13</h6>
+        <small class="text-muted">2025</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+      
+    </div>
+
+    
+    <!-- <div class="row"> -->
+
+
+      <!-- <div class="col-md-6">
+        <div class="card p-3">
+          <h6 class="section-title">Complete Orders</h6>
+          <div class="highlight">5432</div>
+          <div class="chart-box" id="barChart"></div>
+        </div>
+      </div> -->
    
 
     <!-- Row 5: Pie Chart -->
    
-      <div class="col-md-6">
+      <!-- <div class="col-md-6">
         <div class="card p-3">
           <h6 class="section-title">Customer Satisfaction</h6>
           <div id="pieChart" style="height: 400px;"></div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Row 6: Employee List -->
     <div class="row">
       <div class="col-12">
         <div class="card p-3">
           <h6 class="section-title">Employee List</h6>
-          <div class="table-responsive">
-            <table class="table align-middle">
-              <thead>
-                <tr>
-                  <th>Employee Name</th>
-                  <th>Status</th>
-                  <th>Total Orders</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>John Doe</td>
-                  <td><span class="badge bg-success">Active</span></td>
-                  <td>125 Orders</td>
-                  <td>
-                    <button class="btn btn-outline-success btn-sm me-1"><i class="bi bi-pencil-square"></i></button>
-                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Jane Smith</td>
-                  <td><span class="badge bg-danger">Resigned</span></td>
-                  <td>98 Orders</td>
-                  <td>
-                    <button class="btn btn-outline-success btn-sm me-1"><i class="bi bi-pencil-square"></i></button>
-                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Ahmed Khan</td>
-                  <td><span class="badge bg-warning text-dark">Suspended</span></td>
-                  <td>40 Orders</td>
-                  <td>
-                    <button class="btn btn-outline-success btn-sm me-1"><i class="bi bi-pencil-square"></i></button>
-                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Maria Garcia</td>
-                  <td><span class="badge bg-success">Active</span></td>
-                  <td>190 Orders</td>
-                  <td>
-                    <button class="btn btn-outline-success btn-sm me-1"><i class="bi bi-pencil-square"></i></button>
-                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          
+         <table id="ordersTable" class="display nowrap" style="width:100%; border: 1px solid #ccc;">
+
+    <thead>
+        <tr>
+            
+            <th>Employee Name</th>
+            <th>Order Date</th>
+            <th>Shift</th>
+            <th>Order Count</th>
+            <th>PC Position</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+       <?php foreach ($w_order as $order): ?>
+    <tr>
+       
+        <td><?= htmlspecialchars($order->first_name . ' ' . $order->last_name) ?></td>
+        <td><?= $order->order_date ?></td>
+        <td><?= $order->shift ?></td>
+        <td><?= $order->order_count ?></td>
+        <td><?= $order->pc_position ?></td>
+        <td>
+         <button class="btn btn-outline-success btn-sm me-1"onclick='editOrder(<?= json_encode($order) ?>)'> <i class="bi bi-pencil-square"></i> </button>
+
+
+            <a href="<?= base_url("W_Order/Delete_W/{$order->order_id}") ?>" onclick="return confirm('Are you sure you want to delete this order?')" class="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i> </a>
+
+        </td>
+    </tr>
+<?php endforeach; ?>
+
+    </tbody>
+</table>
+        
         </div>
       </div>
     </div>
@@ -528,51 +548,52 @@
 
   <!-- Charts Script -->
   <script>
-    new ApexCharts(document.querySelector("#areaChart"), {
-      chart: { type: 'area', height: 160, sparkline: { enabled: true } },
-      stroke: { curve: 'smooth', width: 2 },
-      colors: ['#7267EF'],
-      series: [{ data: [0, 20, 10, 45, 30, 55, 20, 30, 0] }],
-      tooltip: { enabled: false },
-    }).render();
+    // new ApexCharts(document.querySelector("#areaChart"), {
+    //   chart: { type: 'area', height: 160, sparkline: { enabled: true } },
+    //   stroke: { curve: 'smooth', width: 2 },
+    //   colors: ['#7267EF'],
+    //   series: [{ data: [0, 20, 10, 45, 30, 55, 20, 30, 0] }],
+    //   tooltip: { enabled: false },
+    //   tooltip: { shared: true, intersect: false },
+    // }).render();
 
-    new ApexCharts(document.querySelector("#barChart"), {
-      chart: { type: 'bar', height: 160, sparkline: { enabled: true } },
-      plotOptions: { bar: { columnWidth: '70%' } },
-      colors: ['#7267EF'],
-      series: [{ data: [25, 66, 41, 89, 63, 25, 44, 12, 36] }],
-      tooltip: { enabled: false },
-    }).render();
+    // new ApexCharts(document.querySelector("#barChart"), {
+    //   chart: { type: 'bar', height: 160, sparkline: { enabled: true } },
+    //   plotOptions: { bar: { columnWidth: '70%' } },
+    //   colors: ['#7267EF'],
+    //   series: [{ data: [25, 66, 41, 89, 63, 25, 44, 12, 36] }],
+    //   tooltip: { enabled: false },
+    // }).render();
 
-    new ApexCharts(document.querySelector("#lineChart"), {
-      chart: { height: 300, type: 'line', background: 'transparent' },
-      stroke: { width: [0, 3], curve: 'smooth' },
-      colors: ['#7267EF', '#c7d9ff'],
-      series: [
-        { name: 'Total Sales', type: 'column', data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 40] },
-        { name: 'Average', type: 'line', data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51] }
-      ],
-      labels: ['Jan 01', 'Feb 01', 'Mar 01', 'Apr 01', 'May 01', 'Jun 01', 'Jul 01', 'Aug 01', 'Sep 01', 'Oct 01', 'Nov 01', 'Dec 01'],
-      tooltip: { shared: true, intersect: false },
-    }).render();
+    // new ApexCharts(document.querySelector("#lineChart"), {
+    //   chart: { height: 300, type: 'line', background: 'transparent' },
+    //   stroke: { width: [0, 3], curve: 'smooth' },
+    //   colors: ['#7267EF', '#c7d9ff'],
+    //   series: [
+    //     { name: 'Total Orders', type: 'column', data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30, 40] },
+    //     { name: 'Average Orders', type: 'line', data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39, 51] }
+    //   ],
+    //   labels: ['Jan 01', 'Feb 01', 'Mar 01', 'Apr 01', 'May 01', 'Jun 01', 'Jul 01', 'Aug 01', 'Sep 01', 'Oct 01', 'Nov 01', 'Dec 01'],
+    //   tooltip: { shared: true, intersect: false },
+    // }).render();
 
-    new ApexCharts(document.querySelector("#pieChart"), {
-      chart: { type: 'pie', height: 260 },
-      labels: ['TWS', 'K8 Withdrawal', 'K8 Deposit', 'Atas', 'W1W Deposit', 'W1W Withdrawal'],
-      series: [20, 15, 18, 12, 22, 13],
-      colors: ['#7267EF', '#8e86f8', '#a69ffc', '#bfb8ff', '#d8d2ff', '#edeaff'],
-      dataLabels: {
-        style: { fontSize: '14px' },
-        formatter: function (val) {
-          return val.toFixed(1) + "%";
-        }
-      },
-      legend: {
-        show: true,
-        position: 'bottom',
-        fontSize: '13px'
-      }
-    }).render();
+    // new ApexCharts(document.querySelector("#pieChart"), {
+    //   chart: { type: 'pie', height: 260 },
+    //   labels: ['TWS', 'K8 Withdrawal', 'K8 Deposit', 'Atas', 'W1W Deposit', 'W1W Withdrawal'],
+    //   series: [20, 15, 18, 12, 22, 13],
+    //   colors: ['#7267EF', '#8e86f8', '#a69ffc', '#bfb8ff', '#d8d2ff', '#edeaff'],
+    //   dataLabels: {
+    //     style: { fontSize: '14px' },
+    //     formatter: function (val) {
+    //       return val.toFixed(1) + "%";
+    //     }
+    //   },
+    //   legend: {
+    //     show: true,
+    //     position: 'bottom',
+    //     fontSize: '13px'
+    //   }
+    // }).render();
 
     document.addEventListener("DOMContentLoaded", function () {
   const toggleButton = document.getElementById("toggleButton");
@@ -589,31 +610,366 @@
   </script>
 
   <script>
-$(document).ready(function() {
-  $('#employee-select').select2({
-    placeholder: 'Search employee name',
-    minimumInputLength: 1, 
-    ajax: {
-      url: '<?php echo base_url("W_Order/search"); ?>', 
-      dataType: 'json',
-      delay: 250,
-      search: yes,
-      data: function (params) {
-        return {
-          q: params.term 
-        };
-      },
-      processResults: function (data) {
-        return {
-          results: data
-        };
-      },
-      cache: true
-    }
-  });
+var select_box = document.querySelector('#employee-select');
+dselect(select_box,{
+  search: true
 });
 
 </script>
+
+<script>
+$(document).ready(function() {
+    $('#ordersTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'print'
+        ],
+        responsive: true,
+        pageLength: 10,
+        order: [[0, 'desc']]
+    });
+});
+
+function editOrder(order) {
+  $('#orderModal').modal('show');
+  $('#modalTitle').text('Edit Order');
+  $('#orderForm').attr('action', '<?= base_url("W_Order/Update_W") ?>');
+  
+  $('#order_id').val(order.order_id);
+  $('#pc_position').val(order.pc_position);
+  $('#employee_id').val(order.employee_id);
+  $('#order_date').val(order.order_date);
+  $('#shift').val(order.shift);
+  $('#order_count').val(order.order_count);
+}
+
+
+</script>
+<style>
+    table.dataTable {
+        border-collapse: collapse !important;
+    }
+
+    table.dataTable th, table.dataTable td {
+        border: 1px solid #ccc !important;
+        padding: 8px;
+    }
+    
+
+    .highlight {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .section-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .chart-box {
+    margin-top: 10px;
+  }
+</style>
+
+
+
+
+<script>
+  const options = {
+    chart: {
+      type: 'area',
+      height: 195,
+      sparkline: {
+        enabled: true
+      }
+    },
+    stroke: {
+      curve: 'smooth',
+      width: 2
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shade: 'light',
+        type: "vertical",
+        shadeIntensity: 0.4,
+        gradientToColors: ["#7267EF"],
+        inverseColors: false,
+        opacityFrom: 0.5,
+        opacityTo: 0,
+        stops: [0, 100]
+      }
+    },
+    colors: ['#7267EF'],
+    series: [{
+      name: 'Mistakes',
+      data: [0, 20, 10, 45, 30, 55, 20, 30, 0]
+    }],
+    tooltip: {
+      enabled: false
+    }
+  };
+
+  const chart = new ApexCharts(document.querySelector("#areaChart"), options);
+  chart.render();
+</script>
+
+<script>
+function loadFilteredBarLineChart() {
+  const startDate = $('#date_from').val();
+  const endDate = $('#date_to').val();
+  const employeeName = $('#employee_name').val(); // ← INPUT for name
+
+  if (!startDate || !endDate) {
+    alert('Please select both From and To dates.');
+    return;
+  }
+
+  $.ajax({
+    url: "<?= base_url('W_Order/get_all_orders_barline_chart_se') ?>",
+    method: "GET",
+    data: {
+      start_date: startDate,
+      end_date: endDate,
+      employee_name: employeeName
+    },
+    success: function (response) {
+      const data = JSON.parse(response);
+
+      
+
+      if (data.error) {
+        alert(data.error);
+        return;
+      }
+
+      if (window.employeeChart) {
+        window.employeeChart.destroy();
+      }
+
+      window.employeeChart = new ApexCharts(document.querySelector("#lineChart"), {
+        chart: {
+          type: 'line',
+          height: 350,
+          zoom: {
+            enabled: true,
+            type: 'x',
+            autoScaleYaxis: true
+          },
+          toolbar: {
+            tools: {
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: true,
+              reset: true
+            }
+          }
+        },
+        colors: ['#7267EF', '#c7d9ff'],
+        stroke: { width: [0, 3], curve: 'smooth' },
+        plotOptions: {
+          bar: { columnWidth: '60%' }
+        },
+        xaxis: {
+          type: 'datetime',
+          title: { text: 'Date' },
+          tooltip: { format: 'dd MMM yyyy' }
+        },
+        yaxis: {
+          title: { text: 'Order Count' }
+        },
+        series: [
+          {
+            name: 'Total Orders',
+            type: 'column',
+            data: data.total_orders
+          },
+          {
+            name: 'Average Orders',
+            type: 'line',
+            data: data.avg_orders
+          }
+        ],
+        tooltip: {
+          shared: true,
+          intersect: false
+        }
+      });
+
+      window.employeeChart.render();
+    },
+    error: function () {
+      alert("Error loading filtered chart data.");
+    }
+  });
+}
+
+</script>
+
+
+
+<!-- 2ns -->
+<!-- <script>
+$(document).ready(function () {
+  $.ajax({
+    url: "<?= base_url('W_Order/get_all_orders_barline_chart') ?>",
+    method: "GET",
+    success: function (response) {
+      const data = JSON.parse(response);
+
+      const chartOptions = {
+        chart: {
+          type: 'line',
+          height: 350,
+          zoom: {
+            enabled: true,
+            type: 'x',
+            autoScaleYaxis: true
+          },
+          toolbar: {
+            autoSelected: 'zoom',
+            tools: {
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: true,
+              reset: true
+            }
+          }
+        },
+        colors: ['#7267EF', '#c7d9ff'],
+        stroke: {
+          width: [0, 3],
+          curve: 'smooth'
+        },
+        xaxis: {
+          type: 'datetime',
+          title: { text: 'Date' }
+        },
+        yaxis: {
+          title: { text: 'Order Count' },
+        },
+        series: [
+          {
+            name: 'Total Orders',
+            type: 'column',
+            data: data.total_orders
+          },
+          {
+            name: 'Average Orders',
+            type: 'line',
+            data: data.avg_orders
+          }
+        ],
+        tooltip: {
+          shared: true,
+          x: {
+            format: 'dd MMM yyyy'
+          }
+        }
+      };
+
+      const chart = new ApexCharts(document.querySelector("#lineChart"), chartOptions);
+      chart.render();
+    },
+    error: function () {
+      alert("Failed to load chart data.");
+    }
+  });
+});
+</script> -->
+
+
+<script>
+$(document).ready(function () {
+  $.ajax({
+    url: "<?= base_url('W_Order/get_all_orders_barline_chart') ?>",
+    method: "GET",
+    success: function (response) {
+      const data = JSON.parse(response);
+
+      const chartOptions = {
+        chart: {
+          type: 'line',
+          height: 350,
+          zoom: {
+            enabled: true,
+            type: 'x',
+            autoScaleYaxis: true
+          },
+          toolbar: {
+            autoSelected: 'zoom',
+            tools: {
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: true,
+              reset: true
+            }
+          },
+          events: {
+            zoomed: function (chartContext, { xaxis }) {
+              const oneDay = 24 * 60 * 60 * 1000; // 1 day in ms
+              
+              const zoomRange = xaxis.max - xaxis.min;
+
+              if (zoomRange < oneDay) {
+                chartContext.updateOptions({
+                  xaxis: {
+                    min: xaxis.min,
+                    max: xaxis.min + oneDay
+                  }
+                }, false, false);
+              }
+            }
+          }
+        },
+        colors: ['#7267EF', '#c7d9ff'],
+        stroke: {
+          width: [0, 3],
+          curve: 'smooth'
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: '60%'
+          }
+        },
+        xaxis: {
+          type: 'datetime',
+          title: { text: 'Date' }
+        },
+        yaxis: {
+          title: { text: 'Order Count' }
+        },
+        series: [
+          {
+            name: 'Total Orders',
+            type: 'column',
+            data: data.total_orders
+          },
+          {
+            name: 'Average Orders',
+            type: 'line',
+            data: data.avg_orders
+          }
+        ],
+        tooltip: {
+          shared: true,
+          x: {
+            format: 'dd MMM yyyy'
+          }
+        }
+      };
+
+      const chart = new ApexCharts(document.querySelector("#lineChart"), chartOptions);
+      chart.render();
+    },
+    error: function () {
+      alert("Failed to load chart data.");
+    }
+  });
+});
+</script>
+
 
 
 </body>

@@ -67,7 +67,7 @@
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
             <div class="navbar-header">
                 <a class="navbar-brand" href="<?php echo base_url(); ?>">
-                    <b></b>
+                   
                     
                     <span>
                         <img src="<?php echo base_url(); ?>assets/images/<?php echo $settingsvalue->sitelogo; ?>" alt="homepage" class="dark-logo" height="50px" width="70px" />
@@ -87,67 +87,41 @@
                             <i class="ti-menu"></i>
                         </a>
                     </li>
-                   <li class="nav-item dropdown">
-    <!-- <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown">
-        <i class="mdi mdi-clipboard-text"></i> 
-        <div class="notify"><span class="heartbit"></span> <span class="point"></span></div>
-    </a> -->
-    <div class="dropdown-menu mailbox scale-up-left">
-        <ul>
-            <li>
-                <div class="drop-title">Log Reports</div> 
-            </li>
-            <li>
-                <div class="message-center">
-                    <?php foreach($leavetoday as $value): ?>
-                        <a href="#">
-                            <div class="btn btn-danger btn-circle"><i class="fa fa-link"></i></div>
-                            <div class="mail-contnet">
-                                <h5><?php echo $value->first_name; ?></h5>
-                                <span class="mail-desc"><?php echo $value->reason; ?></span>
-                                <span class="time"><?php echo $value->start_date; ?></span>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
-                </div>
-            </li>
-            <li>
-                <a class="nav-link text-center" href="javascript:void(0);">
-                    <strong>Check all logs</strong> <i class="fa fa-angle-right"></i> 
-                </a>
-            </li>
-        </ul>
-        </ul>
+                  <li class="nav-item dropdown">
+    
+   
+</li>
 
-                <ul class="navbar-nav my-lg-0">
-                  
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown">
-                            <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basicinfo->em_image; ?>" class="profile-pic" style="height:40px;width:40px;border-radius:50px" />
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right scale-up">
-                            <ul class="dropdown-user">
-                                <li>
-                                    <div class="dw-user-box">
-                                        <div class="u-img">
-                                            <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basicinfo->em_image; ?>" alt="user">
-                                        </div>
-                                        <div class="u-text">
-                                            <h4><?php echo $basicinfo->first_name.' '.$basicinfo->last_name; ?></h4>
-                                            <p class="text-muted"><?php echo $basicinfo->em_email; ?></p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="<?php echo base_url(); ?>employee/view?I=<?php echo base64_encode($basicinfo->em_id); ?>"><i class="ti-user"></i> My Profile</a></li>
-                                <?php if($this->session->userdata('user_type')!='EMPLOYEE'){ ?>
-                                <li><a href="<?php echo base_url(); ?>settings/Settings"><i class="ti-settings"></i> Account Setting</a></li>
-                                <?php } ?>
-                                <li><a href="<?php echo base_url(); ?>login/logout"><i class="fa fa-power-off"></i> Logout</a></li>
-                            </ul>
+<!-- Then next nav items -->
+<ul class="navbar-nav my-lg-0">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="#" data-toggle="dropdown">
+            <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basicinfo->em_image; ?>" class="profile-pic" style="height:40px;width:40px;border-radius:100px" />
+        </a>
+        <div class="dropdown-menu dropdown-menu-right scale-up">
+            <ul class="dropdown-user">
+                <li>
+                    <div class="dw-user-box">
+                        <div class="u-img">
+                            <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basicinfo->em_image; ?>" alt="user">
                         </div>
-                    </li>
-                </ul>
+                        <div class="u-text">
+                            <h4><?php echo $basicinfo->first_name.' '.$basicinfo->last_name; ?></h4>
+                            <p class="text-muted"><?php echo $basicinfo->em_email; ?></p>
+                        </div>
+                    </div>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li><a href="<?php echo base_url(); ?>employee/view?I=<?php echo base64_encode($basicinfo->em_id); ?>"><i class="ti-user"></i> My Profile</a></li>
+                <?php if($this->session->userdata('user_type')!='EMPLOYEE'){ ?>
+                <li><a href="<?php echo base_url(); ?>settings/Settings"><i class="ti-settings"></i> Account Setting</a></li>
+                <?php } ?>
+                <li><a href="<?php echo base_url(); ?>login/logout"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>
+
     </div>
 </li>
 

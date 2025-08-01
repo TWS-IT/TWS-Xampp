@@ -46,16 +46,23 @@
                                                 <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <center class="m-t-30">
-                                   <?php if(!empty($basic->em_image)){ ?>
-                                    <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basic->em_image; ?>" class="img-circle" width="100" />
-                                    <?php } else { ?>
-                                    <img src="<?php echo base_url(); ?>assets/images/users/user.png" class="img-circle" width="100" alt="<?php echo $basic->first_name ?>" title="<?php echo $basic->first_name ?>"/>                                   
-                                    <?php } ?>
-                                    <h4 class="card-title m-t-10"><?php echo $basic->first_name .' '.$basic->last_name; ?></h4>
-                                    <h6 class="card-subtitle"><?php echo $basic->des_name; ?></h6>
-                                </center>
-                            </div>
+    <div class="text-center">
+        <?php if (!empty($basic->em_image)) { ?>
+            <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basic->em_image; ?>" 
+                 alt="<?php echo $basic->first_name ?>" 
+                 title="<?php echo $basic->first_name ?>"
+                 class="img-fluid profile-square" />
+        <?php } else { ?>
+            <img src="<?php echo base_url(); ?>assets/images/users/user.png" 
+                 alt="<?php echo $basic->first_name ?>" 
+                 title="<?php echo $basic->first_name ?>"
+                 class="img-fluid profile-square" />
+        <?php } ?>
+        <h4 class="card-title mt-3"><?php echo $basic->first_name . ' ' . $basic->last_name; ?></h4>
+        <h6 class="card-subtitle"><?php echo $basic->des_name; ?></h6>
+    </div>
+</div>
+
                             <div>
                                 <hr> </div>
                             <div class="card-body"> <small class="text-muted">Email address </small>
@@ -157,12 +164,8 @@
 				                                        <input type="email" id="example-email2" name="email" class="form-control" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> value="<?php echo $basic->em_email; ?>" placeholder="email@mail.com" minlength="7" required> 
 				                                    </div>
 				                                    <div class="form-group col-md-12 m-t-10">
-                                   <?php if(!empty($basic->em_image)){ ?>
-                                    <img src="<?php echo base_url(); ?>assets/images/users/<?php echo $basic->em_image; ?>" class="img-circle" width="100" />
-                                    <?php } else { ?>
-                                    <img src="<?php echo base_url(); ?>assets/images/users/user.png" class="img-circle" width="100" alt="<?php echo $basic->first_name ?>" title="<?php echo $basic->first_name ?>"/>                                   
-                                    <?php } ?>
-                                                        <label>Image </label>
+
+                                                        <label>Select Images </label>
                                                         <input type="file" <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?> readonly <?php } ?> name="image_url" class="form-control" value=""> 
                                                     </div>
                                                     <?php if($this->session->userdata('user_type')=='EMPLOYEE'){ ?>
@@ -802,6 +805,16 @@
 												});
                                             });
                                         });
-</script>                
+</script>   
+<style>
+    .profile-square {
+    width: 100%;
+    max-width: 200px; /* control size */
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px; /* small rounding for card-style */
+}
+
+</style>             
 
 <?php $this->load->view('backend/footer'); ?>
