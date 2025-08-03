@@ -10,7 +10,6 @@ class Login_Auth extends CI_Controller {
         $this->load->helper(['url', 'security']);
     }
 
-    // 🔐 Login Handler
     public function index() {
     $email = $this->input->post('email');
     $password = $this->input->post('password');
@@ -27,7 +26,7 @@ class Login_Auth extends CI_Controller {
 
     $login_status = $user ? 'SUCCESS' : 'FAILED';
 
-    // ✅ Insert login log with timestamp
+    
     $this->db->set([
         'em_email' => $email,
         'ip_address' => $ip_address,
@@ -48,7 +47,7 @@ class Login_Auth extends CI_Controller {
 }
 
 
-    // 📄 Log Report Viewer (optional)
+
  public function view_logs() {
         $data['logs'] = $this->db->order_by('login_time', 'DESC')->get('login_log')->result();
         $this->load->view('log_report', $data);

@@ -185,7 +185,7 @@
 </head>
 <body
 >
-  <!-- Dark/Light Mode Toggle -->
+ 
   <button class="theme-switch" id="theme-switch" title="Toggle light & dark">
     <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
       <mask class="moon" id="moon-mask">
@@ -206,17 +206,17 @@
     </svg>
   </button>
 
-  <!-- Login Card -->
+
   <div class="content">
     <div class="header-text">Together We Success</div>
     <div class="login-title">Login</div>
 
-    <!-- Flash message -->
+ 
     <?php if(!empty($this->session->flashdata('feedback'))): ?>
       <div class="message"><?php echo $this->session->flashdata('feedback'); ?></div>
     <?php endif; ?>
 
-    <form method="post" action="<?php echo base_url('login/Login_Auth'); ?>">
+    <form method="post" action="<?php echo base_url('Login/Login_Auth'); ?>">
       <div class="field">
         <span class="fas fa-user"></span>
         <input type="text" name="email" required placeholder="Email or Phone" value="<?php echo isset($_COOKIE['email']) ? $_COOKIE['email'] : ''; ?>">
@@ -227,9 +227,7 @@
         <input type="password" name="password" required placeholder="Password" value="<?php echo isset($_COOKIE['password']) ? $_COOKIE['password'] : ''; ?>">
       </div>
 
-      <!-- <div class="forgot-pass">
-        <a href="#">Forgot Password?</a>
-      </div> -->
+  
 
       <div class="form-check">
         <input type="checkbox" name="remember" class="form-check-input" id="remember-me">

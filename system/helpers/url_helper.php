@@ -158,7 +158,7 @@ if ( ! function_exists('anchor'))
 	$title = (string) $title;
 
 	$site_url = is_array($uri)
-		? site_url(implode('/', $uri)) // ✅ FIXED HERE
+		? site_url(implode('/', $uri)) 
 		: (preg_match('#^(\w+:)?//#i', $uri) ? $uri : site_url($uri));
 
 	if ($title === '')

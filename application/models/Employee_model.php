@@ -47,6 +47,16 @@ public function DeleteEmployee($id) {
     $this->db->where('em_id', $id);
     return $this->db->delete('employee');
 }
+public function get_employees_with_orders()
+{
+    $this->db->select("employee.em_code, CONCAT(employee.first_name, ' ', employee.last_name) AS employee_name", false);
+    $this->db->from('employee');
+    $this->db->join('w_order', 'employee.em_code = w_order.employee_id');
+    $this->db->group_by('employee.em_code');
+    $query = $this->db->get();
+    return $query->result();
+}
+
 
 
     public function emselect(){
@@ -55,6 +65,43 @@ public function DeleteEmployee($id) {
   	$result = $query->result();
   	return $result;
 	}
+
+  public function emselectW() {
+    $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE' AND `project` = 'W'";
+    $query=$this->db->query($sql);
+  	$result = $query->result();
+  	return $result;
+}
+
+  public function emselect_Mis() {
+    $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE'";
+    $query=$this->db->query($sql);
+  	$result = $query->result();
+  	return $result;
+}
+public function emselectAtas() {
+    $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE' AND `project` = 'Atas'";
+    $query=$this->db->query($sql);
+  	$result = $query->result();
+  	return $result;
+}
+
+public function emselectW1WDeposit() {
+    $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE' AND `project` = 'W1W Deposit'";
+    $query=$this->db->query($sql);
+  	$result = $query->result();
+  	return $result;
+}
+
+public function emselectW1WWithdrawal() {
+    $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE' AND `project` = 'W1W Withdrawal'";
+    $query=$this->db->query($sql);
+  	$result = $query->result();
+  	return $result;
+}
+
+
+
     public function emselectByID($emid){
     $sql = "SELECT * FROM `employee`
       WHERE `em_id`='$emid'";

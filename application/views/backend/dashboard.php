@@ -2,6 +2,16 @@
 
 <?php $this->load->view('backend/sidebar'); ?>
 
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
 <div class="page-wrapper">
     <div class="message"></div>
     <div class="row page-titles">
@@ -198,74 +208,32 @@
         $leaveinfo = $this->dashboard_model->GetLeaveInfo();                 
         ?>
 
+
+        <!-- Pie Chart With Body -->
         <div class="row">
             <div class="col-md-8">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Running Project/s</h4>
-
-            <div class="table-responsive" style="height:400px; overflow-y:auto; overflow-x:auto;">
-                <table class="table table-bordered table-hover earning-box" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Employee Count</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($running AS $value): ?>
-                        <tr style="vertical-align:top;">
-                            <td><a href="<?php echo base_url(); ?>Projects/view?P=<?php echo base64_encode($value->id); ?>"><?php echo substr("$value->pro_name",0,25).'...'; ?></a></td>
-                            <td><?php echo $value->employee_count; ?></td>
-                            <td><?php echo $value->pro_description; ?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">All Project order Count</h4>
+                        <div class="table-responsive" style="height:400px; overflow-y:auto; overflow-x:auto;">                              
+<div id="orderChart" style="height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-
 
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">To Do list</h4>
-                        <h6 class="card-subtitle">List of your next task to complete</h6>
+                        <h4 class="card-title">Employee perfomance</h4>
                         <div class="to-do-widget m-t-20" style="height:330px;overflow-y:auto;">
-                            <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
-                                <?php foreach($todolist as $value): ?>
-                                <li class="list-group-item d-flex align-items-start" data-role="task" style="text-align: left;">
-                                    <?php if($value->value == '1'){ ?>
-                                    <div class="checkbox checkbox-info w-100" style="display: flex; align-items: center; gap: 8px;">
+                            
 
-                                        <input class="to-do" data-id="<?php echo $value->id?>" data-value="0" type="checkbox" id="<?php echo $value->id?>">
-                                        <label for="<?php echo $value->id?>" class="mb-0 ms-2"><span><?php echo $value->to_dodata; ?></span></label>
-                                    </div>
-                                    <?php } else { ?>
-                                    <div class="checkbox checkbox-info w-100">
-                                        <input class="to-do" data-id="<?php echo $value->id?>" data-value="1" type="checkbox" id="<?php echo $value->id?>" checked>
-                                        <label for="<?php echo $value->id?>" class="task-done mb-0 ms-2"><span><?php echo $value->to_dodata; ?></span></label>
-                                    </div>
-                                    <?php } ?>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>                                    
-                        </div>
+                            <h1>Need to add Employee perfomance</h1>
 
-                        <div class="new-todo">
-                            <form method="post" action="add_todo" enctype="multipart/form-data" id="add_todo">
-                                <div class="input-group">
-                                    <input type="text" name="todo_data" class="form-control" style="border: 1px solid #fff !IMPORTANT;" placeholder="Enter New Task...">
-                                    <span class="input-group-btn">
-                                        <input type="hidden" name="userid" value="<?php echo $this->session->userdata('user_login_id'); ?>">
-                                        <button type="submit" class="btn btn-success todo-submit"><i class="fa fa-plus"></i></button>
-                                    </span> 
-                                </div>
-                            </form>
-                        </div>                                
+
+
+                        </div>                               
                     </div>
                 </div>
             </div>
@@ -380,6 +348,56 @@
     });
 });
         </script>
+
+
+
+<script>
+$(document).ready(function () {
+  $.ajax({
+    url: "<?= base_url('Dashboard/get_order_comparison_chart') ?>",
+    method: "GET",
+    success: function (res) {
+      const data = JSON.parse(res);
+
+      const categories = data.map(row => row.order_date);
+      const w = data.map(row => parseInt(row.w_order_count));
+      const w1w = data.map(row => parseInt(row.w1w_order_count));
+    //   const k8 = data.map(row => parseInt(row.k8_order_count));
+      const atas = data.map(row => parseInt(row.atas_order_count));
+
+      const options = {
+        chart: {
+          type: 'line',
+          height: 400
+        },
+        series: [
+          { name: 'W', data: w },
+          { name: 'W1W', data: w1w },
+        //   { name: '
+        // K8', data: k8 },
+          { name: 'Atas', data: atas }
+        ],
+        xaxis: {
+          categories: categories,
+          title: { text: 'Date' }
+        },
+        yaxis: {
+          title: { text: 'Order Count' }
+        },
+        stroke: { curve: 'smooth' },
+        legend: {
+          position: 'top'
+        }
+      };
+
+      new ApexCharts(document.querySelector("#orderChart"), options).render();
+    }
+  });
+});
+</script>
+
+
+
 
         
 <?php $this->load->view('backend/footer'); ?>

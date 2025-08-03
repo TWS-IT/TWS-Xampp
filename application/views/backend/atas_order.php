@@ -1,10 +1,6 @@
 <?php $this->load->view('backend/header'); ?>
 <?php $this->load->view('backend/sidebar'); ?>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-
-
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
@@ -72,7 +68,7 @@
         </button>
       </div>
 
-      <form method="post" action="<?= base_url('W_Order/Save_W') ?>" id="orderForm">
+      <form method="post" action="<?= base_url('Atas_Order/Save_W') ?>" id="orderForm">
         <div class="modal-body">
           <input type="hidden" name="order_id" id="order_id">
           
@@ -177,13 +173,12 @@
             <select id="employee_id" class="form-control">
               <option value="">All Employees</option>
               <?php foreach ($employee as $value): ?>
-                <option value="<?= $value->em_code ?>"><?= htmlspecialchars($value->em_code) ?></option>
+                <option value="<?= $value->em_code ?>"><?= htmlspecialchars($value->first_name . ' ' . $value->last_name) ?></option>
               <?php endforeach; ?>
             </select>
           </div>
           <div class="col-md-3 form-group">
-            <button id="applyFilter" class="btn btn-success">Apply Filter</button>
-
+            <button onclick="filterChart()" class="btn btn-success">Apply Filter</button>
           </div>
         </div>
       </div>
@@ -559,7 +554,7 @@
         </tr>
     </thead>
     <tbody>
-       <?php foreach ($w_order as $order): ?>
+       <?php foreach ($atas_order as $order): ?>
     <tr>
        
         <td><?= htmlspecialchars($order->first_name . ' ' . $order->last_name) ?></td>
@@ -571,7 +566,7 @@
          <button class="btn btn-outline-success btn-sm me-1"onclick='editOrder(<?= json_encode($order) ?>)'> <i class="bi bi-pencil-square"></i> </button>
 
 
-            <a href="<?= base_url("W_Order/Delete_W/{$order->order_id}") ?>" onclick="return confirm('Are you sure you want to delete this order?')" class="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i> </a>
+            <a href="<?= base_url("Atas_Order/Delete_W/{$order->order_id}") ?>" onclick="return confirm('Are you sure you want to delete this order?')" class="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i> </a>
 
         </td>
     </tr>
@@ -676,7 +671,7 @@
   function editOrder(order) {
     $('#orderModal').modal('show');
     $('#modalTitle').text('Edit Order');
-    $('#orderForm').attr('action', '<?= base_url("W_Order/Update_W") ?>');
+    $('#orderForm').attr('action', '<?= base_url("Atas_Order/Update_W") ?>');
 
     $('#order_id').val(order.order_id);
     $('#pc_position').val(order.pc_position);
@@ -758,10 +753,33 @@
 
 
 <!-- Initial Chart Loader -->
-
 <script>
-let chart;
+$(document).ready(function () {
+  $.ajax({
+    url: "<?= base_url('Atas_Order/get_all_orders_barline_chart') ?>",
+    method: "GET",
+    success: function (response) {
+      const data = JSON.parse(response);
 
+      if (window.employeeChart) {
+        window.employeeChart.destroy();
+      }
+
+      window.employeeChart = new ApexCharts(document.querySelector("#lineChart"), getChartOptions(data));
+      window.employeeChart.render();
+    },
+    error: function () {
+      alert("Failed to load chart data.");
+    }
+  });
+});
+</script>
+
+
+
+<!-- Shared Chart Options Function -->
+<!-- 2nd -->
+<script>
 function getChartOptions(data) {
   return {
     chart: {
@@ -785,6 +803,7 @@ function getChartOptions(data) {
         zoomed: function (chartContext, { xaxis }) {
           const oneDay = 24 * 60 * 60 * 1000;
           const zoomRange = xaxis.max - xaxis.min;
+
           if (zoomRange < oneDay) {
             chartContext.updateOptions({
               xaxis: {
@@ -809,7 +828,9 @@ function getChartOptions(data) {
     xaxis: {
       type: 'datetime',
       title: { text: 'Date' },
-      labels: { datetimeUTC: false },
+      labels: {
+    datetimeUTC: true  
+  },
       tooltip: { format: 'dd MMM yyyy' }
     },
     yaxis: {
@@ -830,82 +851,125 @@ function getChartOptions(data) {
     tooltip: {
       shared: true,
       intersect: false,
-      x: { format: 'dd MMM yyyy' }
+      x: {
+        format: 'dd MMM yyyy'
+      }
     }
   };
 }
 </script>
-<script>
-function fetchChartData() {
-  fetch(`<?= base_url('W_Order/get_all_orders_barline_chart') ?>`)
-    .then(res => res.json())
-    .then(data => {
-      data.total_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
-      data.avg_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
-      chart = new ApexCharts(document.querySelector("#lineChart"), getChartOptions(data));
-      chart.render();
-    })
-    .catch(() => alert("Failed to load chart data."));
-}
-
-document.addEventListener("DOMContentLoaded", fetchChartData);
-</script>
 
 
-<script>
+<!-- filter Script -->
+<!-- <script>
+let chart;
 
 function filterChart() {
-  let startDate = document.getElementById('date_from').value;
-  let endDate = document.getElementById('date_to').value;
-  let employeeId = document.getElementById('employee_id').value;
+  const startDate = document.getElementById('date_from').value;
+  const endDate = document.getElementById('date_to').value;
 
   if (!startDate || !endDate) {
     alert("Please select both start and end dates.");
     return;
   }
-  
-  if (!employeeId) {
-    alert("Please select an employee.");
-    return;
-  }
 
-  let params = new URLSearchParams({
-    date_from: startDate,
-    date_to: endDate,
-    employee_id: employeeId
-  });
-
-  let url = `<?= base_url('W_Order/get_all_orders_barline_chart') ?>?${params.toString()}`;
-
-  fetch(url)
-    .then(response => response.json())
+  fetch(`<?= base_url('Atas_Order/get_all_orders_barline_chart') ?>?date_from=${startDate}&date_to=${endDate}`)
+    .then(res => res.json())
     .then(data => {
-      if (!data.total_orders || !data.avg_orders) {
-        alert("No valid chart data received.");
-        return;
-      }
-
-      data.total_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
-      data.avg_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
-
       if (chart) {
         chart.updateOptions(getChartOptions(data));
       } else {
         chart = new ApexCharts(document.querySelector("#lineChart"), getChartOptions(data));
         chart.render();
       }
-    })
-    .catch(error => {
-      console.error("Error fetching chart data:", error);
-      alert("Something went wrong while fetching chart data.");
     });
 }
 
+// 🔧 This was missing!
+function fetchChartData() {
+  fetch(`<?= base_url('Atas_Order/get_all_orders_barline_chart') ?>`)
+    .then(res => res.json())
+    .then(data => {
+      if (chart) {
+        chart.updateOptions(getChartOptions(data));
+      } else {
+        chart = new ApexCharts(document.querySelector("#lineChart"), getChartOptions(data));
+        chart.render();
+      }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  fetchChartData(); // ✅ Load chart with default data
+});
+</script> -->
+
+
+
+<script>
+let chart;
+
+function filterChart() {
+  const startDate = document.getElementById('date_from').value;
+  const endDate = document.getElementById('date_to').value;
+  const employeeSelect = document.getElementById('employee_id');
+  const employeeId = employeeSelect.value;
+  const employeeName = employeeSelect.options[employeeSelect.selectedIndex].text;
+
+  const params = new URLSearchParams();
+
+  if (startDate) params.append('date_from', startDate);
+  if (endDate)   params.append('date_to', endDate);
+  if (employeeId) params.append('employee_id', employeeId);
+
+  fetch(`<?= base_url('Atas_Order/get_all_orders_barline_chart') ?>?${params.toString()}`)
+    .then(res => res.json())
+    .then(data => {
+      const employeeLabel = data.names?.[0] || (employeeId ? employeeName : 'All Employees');
+      const options = getChartOptions(data);
+      options.title = {
+        text: `Orders for ${employeeLabel}`
+      };
+
+      if (chart) {
+        chart.updateOptions(options);
+      } else {
+        chart = new ApexCharts(document.querySelector("#lineChart"), options);
+        chart.render();
+      }
+    })
+    .catch(() => alert("Failed to load filtered data"));
+}
+
+
+// 🔧 This was missing!
+function fetchChartData() {
+  fetch(`<?= base_url('Atas_Order/get_all_orders_barline_chart') ?>`)
+    .then(res => res.json())
+    .then(data => {
+      if (chart) {
+        chart.updateOptions(getChartOptions(data));
+      } else {
+        chart = new ApexCharts(document.querySelector("#lineChart"), getChartOptions(data));
+        chart.render();
+      }
+    });
+}
+
+document.getElementById("applyFilter").addEventListener("click", filterChart);
 
 </script>
 
+<script>
+$(document).ready(function() {
+  $('#employee_id').on('change', function() {
+    console.log('Selected employee_id:', $(this).val());
 
-
+    // Here you can call your function to update the chart or data
+    // For example: updateChart();
+  });
+});
+</script>
 
 
 

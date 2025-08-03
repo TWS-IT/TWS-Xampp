@@ -21,7 +21,7 @@
     $this->load->view('admin/login_log_report', $data);
 }
 
-	//**exists employee email check**//
+	
     public function Does_email_exists($email) {
 		$user = $this->db->dbprefix('users');
         $sql = "SELECT `email` FROM $user
@@ -48,7 +48,7 @@
 		$this->db->where('confirm_code',$verifycode);
 		$this->db->update('users',$data);	    
 	}
-	//**exists employee email check**//
+	
     public function Does_Key_exists($reset_key) {
 		$user = $this->db->dbprefix('users');
         $sql = "SELECT `forgotten_code` FROM $user

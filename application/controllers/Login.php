@@ -22,7 +22,7 @@ class Login extends CI_Controller {
         parent::__construct();
         $this->load->database();
         $this->load->model('login_model');
-        $this->load->model('dashboard_model');
+        $this->load->model('Dashboard_model');
   
     }
     
@@ -38,34 +38,34 @@ class Login extends CI_Controller {
 	public function Login_Auth() {
     $response = array();
 
-    // Recieving post input of email, password from request
+    
     $email = $this->input->post('email');
     $password = sha1($this->input->post('password'));
     $remember = $this->input->post('remember');
 
-    // Load form validation library
+    
     $this->load->library('form_validation');
     $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
     $this->form_validation->set_rules('email', 'User Email', 'trim|xss_clean|required|min_length[7]');
     $this->form_validation->set_rules('password', 'Password', 'trim|xss_clean|required|min_length[6]');
 
-    // Validation fails
+    
     if ($this->form_validation->run() == FALSE) {
         $this->session->set_flashdata('feedback', 'UserEmail or Password is Invalid');
         redirect(base_url() . 'login', 'refresh');
     } else {
-        // Validating login
+       
         $login_status = $this->validate_login($email, $password);
         $response['login_status'] = $login_status;
 
         if ($login_status == 'success') {
-            // Remember me cookie
+            
             if ($remember) {
                 setcookie('email', $email, time() + (86400 * 30));
                 setcookie('password', $this->input->post('password'), time() + (86400 * 30));
                 redirect(base_url() . 'login', 'refresh');
             } else {
-                // Clear cookie if not remembering
+               
                 if (isset($_COOKIE['email'])) {
                     setcookie('email', '', time() - 3600);
                 }
@@ -76,7 +76,7 @@ class Login extends CI_Controller {
             }
         } 
 		else {
-            // ✅ Log failed login attempt
+       
             $this->load->helper('log');
             $data = array(
                 'emp_id'       => 'UNKNOWN',
@@ -107,7 +107,7 @@ private function validate_login($email = '', $password = '') {
     if ($query->num_rows() > 0) {
         $row = $query->row();
 
-        // Set session
+     
         $this->session->set_userdata('user_login_access', '1');
         $this->session->set_userdata('user_login_id', $row->em_id);
         $this->session->set_userdata('name', $row->first_name);
@@ -115,7 +115,7 @@ private function validate_login($email = '', $password = '') {
         $this->session->set_userdata('user_image', $row->em_image);
         $this->session->set_userdata('user_type', $row->em_role);
 
-        // Set user session for logging
+       
         $user_data = array(
             'em_id'      => $row->em_id,
             'first_name' => $row->first_name,
@@ -124,19 +124,19 @@ private function validate_login($email = '', $password = '') {
         );
         $this->session->set_userdata('user', $user_data);
 
-        // Log successful login
+      
         $this->load->helper('log');
         log_action($this, 'login', 'User logged in successfully');
 
         return 'success';
     }
 
-    // If no user found
+
     return 'failed';
 }
 
 
-    /*Logout method*/
+ 
    function logout() {
     $this->load->helper('log');
     log_action($this, 'logout', 'User logged out');
@@ -167,7 +167,7 @@ private function validate_login($email = '', $password = '') {
          $from_email = "imojenpay@imojenpay.com"; 
          $to_email = $email; 
    
-         //Load email library 
+    
          $this->load->library('email',$config); 
    
          $this->email->from($from_email, 'Dotdev'); 
@@ -177,7 +177,7 @@ private function validate_login($email = '', $password = '') {
 		 $message	.=	"Click Here : ".base_url()."Confirm_Account?C=" . $randcode.'</br>'; 
          $this->email->message($message); 
    
-         //Send mail 
+
          if($this->email->send()){ 
          	$this->session->set_flashdata('feedback','Kindly check your email To reset your password');
 		 }
@@ -245,7 +245,7 @@ private function validate_login($email = '', $password = '') {
          $from_email = "imojenpay@imojenpay.com"; 
          $to_email = $email; 
    
-         //Load email library 
+   
          $this->load->library('email',$config); 
    
          $this->email->from($from_email, 'Dotdev'); 
@@ -254,8 +254,7 @@ private function validate_login($email = '', $password = '') {
         $message=	"Your or someone request to reset your password" ."<br />";
 		$message=	"Click  Here : ".base_url()."Reset_password?p=" . $randcode."<br />"; 
          $this->email->message($message); 
-   
-         //Send mail 
+  
          if($this->email->send()){ 
          	$this->session->set_flashdata('feedback','Kindly check your email To reset your password');
 		 }
@@ -311,16 +310,16 @@ private function validate_login($email = '', $password = '') {
     }
     
 
-    // Get user role
+
     $user_type = $this->session->userdata('user_type');
 
-    // Allow only SUPER ADMIN and ADMIN
+   
     if (!in_array($user_type, ['SUPER ADMIN', 'ADMIN'])) {
         show_error('You are not authorized to view this page.', 403, 'Access Denied');
         return;
     }
 
-    // If user is authorized, fetch all logs
+  
     $this->load->database();
     $query = $this->db->order_by('id', 'DESC')->get('logs');
     $data['logs'] = $query->result();
@@ -335,16 +334,16 @@ public function Sup_logs() {
     }
     
 
-    // Get user role
+
     $user_type = $this->session->userdata('user_type');
 
-    // Allow only SUPER ADMIN and ADMIN
+
     if (!in_array($user_type, ['SUPER ADMIN', 'ADMIN'])) {
         show_error('You are not authorized to view this page.', 403, 'Access Denied');
         return;
     }
 
-    // If user is authorized, fetch all logs
+
     $this->load->database();
     $query = $this->db->order_by('id', 'DESC')->get('logs');
     $data['logs'] = $query->result();

@@ -90,6 +90,41 @@ class Dashboard extends CI_Controller {
 			$message="Something went wrong";
 			echo $message;			
 		}
-	}    
+	}
+    
+  public function get_order_comparison_chart()
+{
+    $query = $this->db->query("
+        SELECT 
+            d.order_date,
+            IFNULL(w.total_orders, 0) AS w_order_count,
+            IFNULL(w1w.total_orders, 0) AS w1w_order_count,
+            IFNULL(atas.total_orders, 0) AS atas_order_count
+        FROM (
+            SELECT DISTINCT order_date FROM (
+                SELECT order_date FROM w_order
+                UNION 
+                SELECT order_date FROM w1w_order
+                UNION 
+                SELECT order_date FROM atas_order
+            ) AS all_dates
+        ) d
+        LEFT JOIN (
+            SELECT order_date, SUM(order_count) AS total_orders FROM w_order GROUP BY order_date
+        ) w ON w.order_date = d.order_date
+        LEFT JOIN (
+            SELECT order_date, SUM(order_count) AS total_orders FROM w1w_order GROUP BY order_date
+        ) w1w ON w1w.order_date = d.order_date
+        LEFT JOIN (
+            SELECT order_date, SUM(order_count) AS total_orders FROM atas_order GROUP BY order_date
+        ) atas ON atas.order_date = d.order_date
+        ORDER BY d.order_date
+    ");
+
+    echo json_encode($query->result());
+}
+
+
+
     
 }
