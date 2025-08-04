@@ -31,13 +31,13 @@
             <div class="message"></div>
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h5 class="text-themecolor"><i class="fa fa-archive" aria-hidden="true"></i> W Order Report</h>
+                    <h5 class="text-themecolor"><i class="fa fa-archive" aria-hidden="true"></i> W1W Deposit Order Report</h>
                 </div>
                 
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">W Order</li>
+                        <li class="breadcrumb-item active">W Deposit Order</li>
                     </ol>
                 </div>
             </div>

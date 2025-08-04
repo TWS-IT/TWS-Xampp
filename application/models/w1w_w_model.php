@@ -82,7 +82,7 @@ public function get_all_orders_for_barline_chart($startDate = null, $endDate = n
     $lineData = [];
 
     foreach ($result as $row) {
-        $timestamp = strtotime($row->order_date) * 1000; // JavaScript uses ms
+        $timestamp = strtotime($row->order_date) * 1000; 
         $barData[] = [$timestamp, (int)$row->total_orders];
         $lineData[] = [$timestamp, round($row->avg_orders, 2)];
     }

@@ -17,6 +17,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                <div style="overflow-x:auto;">
                 <table id="employees123" class="display nowrap table table-hover table-striped table-bordered"
                     cellspacing="0" width="100%">
                     <thead>
@@ -27,6 +28,7 @@
                             <th>Total Orders</th>
                             <th>Mistakes</th>
                             <th>Efficiency</th>
+                            <th class="text-center">More Details</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,6 +41,13 @@
                                     <td><?= $row['total_orders'] ?></td>
                                     <td><?= $row['mistakes'] ?></td>
                                     <td><?= $row['efficiency'] ?>%</td>
+                                    <td class="text-center">
+                                        <a href="#" class="btn btn-outline-info btn-sm" title="View Performance">
+                                            <i class="mdi mdi-chart-line"></i>
+                                        </a>
+                                    </td>
+
+
                                 </tr>
                             <?php endforeach;
                         } else {
@@ -46,6 +55,7 @@
                         } ?>
                     </tbody>
                 </table>
+                </div>
 
 
             </div>
@@ -57,11 +67,17 @@
     <?php $this->load->view('backend/footer'); ?>
 
     <script>
-        $('#employees123').DataTable({
-            "aaSorting": [[1, 'asc']],
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
+       if ($.fn.DataTable.isDataTable('#employees123')) {
+    $('#employees123').DataTable().clear().destroy();
+}
+
+$('#employees123').DataTable({
+    paging: false,         // disables pagination
+    lengthChange: false,   // hides "Show X entries"
+    info: false,           // hides "Showing X of Y"
+    aaSorting: [[1, 'asc']],
+    dom: 'Bfrtip',
+    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+});
+
     </script>

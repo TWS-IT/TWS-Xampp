@@ -30,8 +30,8 @@
             <!-- User profile text-->
             <div class="profile-text">
                 <h5><?php echo $basicinfo->first_name . ' ' . $basicinfo->last_name; ?></h5>
-                <a href="<?php echo base_url(); ?>settings/Settings" class="dropdown-toggle u-dropdown" role="button"
-                    aria-haspopup="true" aria-expanded="true"><i class="mdi mdi-settings"></i></a>
+                <!-- <a href="<?php echo base_url(); ?>settings/Settings" class="dropdown-toggle u-dropdown" role="button"
+                    aria-haspopup="true" aria-expanded="true"><i class="mdi mdi-settings"></i></a> -->
                 <a href="<?php echo base_url(); ?>login/logout" class="" data-toggle="tooltip" title="Logout"><i
                         class="mdi mdi-power"></i></a>
             </div>
@@ -93,6 +93,9 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>employee/Employees">Employees </a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Disciplinary">Disciplinary </a></li>
+                                  <li> <a href="<?php echo base_url() ?>Perfomance/index"><i
+                                class="mdi mdi-speedometer"></i><span class="hide-menu">Perfomance<span
+                                    class="hide-menu"></a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li>
                             </ul>
                         </li>
@@ -184,9 +187,7 @@
 
 
                     <?php } ?>
-                    <li> <a href="<?php echo base_url() ?>Perfomance/index"><i
-                                class="mdi mdi-speedometer"></i><span class="hide-menu">Perfomance<span
-                                    class="hide-menu"></a></li>
+                  
                     <li> <a href="<?php echo base_url() ?>notice/All_notice"><i class="mdi mdi-clipboard"></i><span
                                 class="hide-menu">Notice <span class="hide-menu"></a></li>
                     <!-- <li> <a href="<?php echo base_url(); ?>settings/Settings" ><i class="mdi mdi-settings"></i><span class="hide-menu">Settings <span class="hide-menu"></a></li> -->

@@ -93,10 +93,10 @@ public function DeleteWOrder($id) {
 //     ];
 // }
 
-
-public function get_all_orders_for_barline_chart($startDate = null, $endDate = null, $employee_id = null)
+public function get_all_orders_for_barline_chart($startDate = null, $endDate = null)
 {
-    $this->db->select('order_date, SUM(order_count) as total_orders');
+    // Fetch raw order data
+    $this->db->select('order_date, SUM(order_count) AS total_orders');
     $this->db->from('w_order');
 
     if (!empty($startDate) && !empty($endDate)) {
@@ -104,33 +104,46 @@ public function get_all_orders_for_barline_chart($startDate = null, $endDate = n
         $this->db->where('order_date <=', $endDate);
     }
 
-    if (!empty($employee_id)) {
-        $this->db->where('employee_id', $employee_id); // ✅ Filter by employee
-    }
-
     $this->db->group_by('order_date');
+    $this->db->order_by('order_date', 'ASC');
     $query = $this->db->get();
 
-    $orders = $query->result();
+    $rawOrders = $query->result();
 
-    // Format for chart
-    $total_orders = array_map(function ($row) {
-        return [
-            'x' => $row->order_date,
-            'y' => (int)$row->total_orders,
-        ];
-    }, $orders);
+    // Step 1: Build a map of results
+    $orderMap = [];
+    foreach ($rawOrders as $row) {
+        $orderMap[$row->order_date] = (int) $row->total_orders;
+    }
 
-    $avg_orders = array_map(function ($row) {
-        return [
-            'x' => $row->order_date,
-            'y' => (int)$row->total_orders, // same as total if single employee
-        ];
-    }, $orders);
+    // Step 2: Fill all dates in the range
+    $filledOrders = [];
+    if (!empty($startDate) && !empty($endDate)) {
+        $start = new DateTime($startDate);
+        $end = new DateTime($endDate);
+        $end = $end->modify('+1 day'); // include the end date
+
+        while ($start < $end) {
+            $dateStr = $start->format('Y-m-d');
+            $filledOrders[] = [
+                'x' => $dateStr,
+                'y' => isset($orderMap[$dateStr]) ? $orderMap[$dateStr] : 0
+            ];
+            $start->modify('+1 day');
+        }
+    } else {
+        // No date filter: just return what was queried
+        foreach ($rawOrders as $row) {
+            $filledOrders[] = [
+                'x' => $row->order_date,
+                'y' => (int) $row->total_orders
+            ];
+        }
+    }
 
     return [
-        'total_orders' => $total_orders,
-        'avg_orders' => $avg_orders,
+        'total_orders' => $filledOrders,
+        'avg_orders'   => $filledOrders  // Duplicate for now, or compute real average later
     ];
 }
 
