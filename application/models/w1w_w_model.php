@@ -1,14 +1,14 @@
 <?php
-class w1w_w_model extends CI_Model{
+class w1w_w_Model extends CI_Model{
      function __construct()
     {
         parent::__construct();
         
     }
-  public function Get_w() {
-    $this->db->select('w1w_withdrawal.*, employee.first_name, employee.last_name');
-    $this->db->from('w1w_withdrawal');
-    $this->db->join('employee', 'employee.em_code = w1w_withdrawal.employee_id', 'left');
+  public function Get_w1w_w() {
+    $this->db->select('w1w_w.*, employee.first_name, employee.last_name');
+    $this->db->from('w1w_w');
+    $this->db->join('employee', 'employee.em_code = w1w_w.employee_id', 'left');
     $query = $this->db->get();
     return $query->result();
 }
@@ -21,15 +21,15 @@ class w1w_w_model extends CI_Model{
       $result = $query->row();
       return $result;
     } 
-     public function Add_w($data)
+     public function Add_W1W_W($data)
     {
-        $this->db->insert('w1w_withdrawal', $data);
+        $this->db->insert('w1w_w', $data);
     }
 
     public function get_orders_with_employee_names() {
-    $this->db->select('w1w_withdrawal.order_id, w1w_withdrawal.employee_id, employee.employee_name, w1w_withdrawal.order_date, w1w_withdrawal.shift, w1w_withdrawal.order_count, w1w_withdrawal.pc_position');
-    $this->db->from('w1w_withdrawal');
-    $this->db->join('employee', 'employee.employee_id = w1w_withdrawal.employee_id', 'left');
+    $this->db->select('w1w_w.order_id, w1w_w.employee_id, employee.employee_name, w1w_w.order_date, w1w_w.shift, w1w_w.order_count, w1w_w.pc_position');
+    $this->db->from('w1w_w');
+    $this->db->join('employee', 'employee.employee_id = w1w_w.employee_id', 'left');
     $query = $this->db->get();
     return $query->result();
 }
@@ -43,105 +43,128 @@ class w1w_w_model extends CI_Model{
     $query = $this->db->get('employee');
     return $query->result();
 }
-public function update_W($id,$data) {
+public function update_W1W_W($id,$data) {
         $this->db->where('order_id', $id);
-		$this->db->update('w1w_withdrawal',$data);  
+		$this->db->update('w1w_w',$data);  
 }
 public function get_order_by_id($id) {
-    $this->db->select('w1w_withdrawal.*, employee.first_name, employee.last_name');
-    $this->db->from('w1w_withdrawal');
-    $this->db->join('employee', 'employee.em_code = w1w_withdrawal.employee_id', 'left');
-    $this->db->where('w1w_withdrawal.order_id', $id);
+    $this->db->select('w1w_w.*, employee.first_name, employee.last_name');
+    $this->db->from('w1w_w');
+    $this->db->join('employee', 'employee.em_code = w1w_w.employee_id', 'left');
+    $this->db->where('w1w_w.order_id', $id);
     return $this->db->get()->row();
 }
-public function DeleteWOrder($id) {
+public function DeleteW1W_W($id) {
     $this->db->where('order_id', $id);
-    return $this->db->delete('w1w_withdrawal');
+    return $this->db->delete('w1w_w');
+}
+
+public function get_sum_order_count()
+{
+    $sql = "SELECT SUM(order_count) AS total FROM atas_order";
+    $query = $this->db->query($sql);
+    $result = $query->row_array();
+
+    return ($result && $result['total'] !== null) ? $result['total'] : 0;
+}
+public function get_orders_by_date_range($startDate, $endDate)
+{
+    $this->db->select('w1w_w.*, employee.full_name as employee_name');
+    $this->db->from('w1w_w');
+    $this->db->join('employee', 'employee.em_id = w1w_w.employee_id', 'left');
+
+    if (!empty($startDate) && !empty($endDate)) {
+        $this->db->where('order_date >=', $startDate);
+        $this->db->where('order_date <=', $endDate);
+    }
+
+    $query = $this->db->get();
+    return $query->result();
+}
+public function get_sum_order_count_by_date($startDate, $endDate)
+{
+    $this->db->select_sum('order_count');
+    $this->db->from('w1w_w');
+
+    if (!empty($startDate) && !empty($endDate)) {
+        $this->db->where('order_date >=', $startDate);
+        $this->db->where('order_date <=', $endDate);
+    }
+
+    $query = $this->db->get();
+    return $query->row()->order_count ?? 0;
 }
 
 
-// 2nd
-public function get_all_orders_for_barline_chart($startDate = null, $endDate = null) {
-    $this->db->select("order_date, SUM(order_count) as total_orders, AVG(order_count) as avg_orders");
-    $this->db->from("w1w_withdrawal");
-    
-    if ($startDate && $endDate) {
-        $this->db->where("order_date >=", $startDate);
-        $this->db->where("order_date <=", $endDate);
-    } else {
-        $this->db->where("order_date >=", "2025-01-01");
+
+
+public function get_all_orders_for_barline_chart($startDate = null, $endDate = null)
+{
+
+    $this->db->select('order_date, employee_id, SUM(order_count) AS total_orders');
+    $this->db->from('w_order');
+
+    if (!empty($startDate) && !empty($endDate)) {
+        $this->db->where('order_date >=', $startDate);
+        $this->db->where('order_date <=', $endDate);
     }
-    
-    $this->db->group_by("order_date");
-    $this->db->order_by("order_date", "ASC");
 
+    $this->db->group_by(['order_date', 'employee_id']);
     $query = $this->db->get();
-    $result = $query->result();
+    $rows = $query->result();
 
-    $barData = [];
-    $lineData = [];
+    $datewiseOrders = [];
 
-    foreach ($result as $row) {
-        $timestamp = strtotime($row->order_date) * 1000; 
-        $barData[] = [$timestamp, (int)$row->total_orders];
-        $lineData[] = [$timestamp, round($row->avg_orders, 2)];
+    foreach ($rows as $row) {
+        $date = $row->order_date;
+        if (!isset($datewiseOrders[$date])) {
+            $datewiseOrders[$date] = [
+                'total_orders' => 0,
+                'employee_ids' => []
+            ];
+        }
+        $datewiseOrders[$date]['total_orders'] += (int) $row->total_orders;
+        $datewiseOrders[$date]['employee_ids'][$row->employee_id] = true;
+    }
+
+    $filledTotal = [];
+    $filledAverage = [];
+
+    if (!empty($startDate) && !empty($endDate)) {
+        $start = new DateTime($startDate);
+        $end = new DateTime($endDate);
+        $end = $end->modify('+1 day'); 
+
+        while ($start < $end) {
+            $dateStr = $start->format('Y-m-d');
+            $totalOrders = isset($datewiseOrders[$dateStr]) ? $datewiseOrders[$dateStr]['total_orders'] : 0;
+            $employeeCount = isset($datewiseOrders[$dateStr]) ? count($datewiseOrders[$dateStr]['employee_ids']) : 0;
+            $avgOrders = $employeeCount > 0 ? round($totalOrders / $employeeCount, 2) : 0;
+
+            $filledTotal[] = ['x' => $dateStr, 'y' => $totalOrders];
+            $filledAverage[] = ['x' => $dateStr, 'y' => $avgOrders];
+
+            $start->modify('+1 day');
+        }
+    } else {
+        foreach ($datewiseOrders as $date => $info) {
+            $totalOrders = $info['total_orders'];
+            $employeeCount = count($info['employee_ids']);
+            $avgOrders = $employeeCount > 0 ? round($totalOrders / $employeeCount, 2) : 0;
+
+            $filledTotal[] = ['x' => $date, 'y' => $totalOrders];
+            $filledAverage[] = ['x' => $date, 'y' => $avgOrders];
+        }
     }
 
     return [
-        'total_orders' => $barData,
-        'avg_orders'   => $lineData
+        'total_orders' => $filledTotal,
+        'avg_orders'   => $filledAverage
     ];
 }
 
 
-// public function get_all_orders_for_barline_chart($startDate = null, $endDate = null, $employeeId = null) {
-//     $this->db->select("w1w_withdrawal.order_date, 
-//         SUM(w1w_withdrawal.order_count) as total_orders, 
-//         AVG(w1w_withdrawal.order_count) as avg_orders");
-//     $this->db->from("w1w_withdrawal");
 
-//     if (!empty($employeeId)) {
-//         $this->db->where("w1w_withdrawal.employee_id", $employeeId);
-//     }
-//     if (!empty($startDate)) {
-//         $this->db->where("w1w_withdrawal.order_date >=", $startDate);
-//     }
-//     if (!empty($endDate)) {
-//         $this->db->where("w1w_withdrawal.order_date <=", $endDate);
-//     }
-
-//     $this->db->group_by("w1w_withdrawal.order_date");
-//     $this->db->order_by("w1w_withdrawal.order_date", "ASC");
-
-//     $query = $this->db->get();
-//     $result = $query->result();
-
-//     // Get employee full name if employeeId provided
-//     $employeeName = '';
-//     if (!empty($employeeId)) {
-//         $this->db->select("CONCAT(first_name, ' ', last_name) AS full_name");
-//         $this->db->from("employee");
-//         $this->db->where("em_code", $employeeId);
-//         $empQuery = $this->db->get();
-//         $empRow = $empQuery->row();
-//         $employeeName = $empRow ? $empRow->full_name : '';
-//     }
-
-//     $barData = [];
-//     $lineData = [];
-
-//     foreach ($result as $row) {
-//         $timestamp = strtotime($row->order_date) * 1000;
-//         $barData[] = [$timestamp, (int)$row->total_orders];
-//         $lineData[] = [$timestamp, round($row->avg_orders, 2)];
-//     }
-
-//     return [
-//         'total_orders' => $barData,
-//         'avg_orders'   => $lineData,
-//         'employee_name' => $employeeName
-//     ];
-// }
 
 
 

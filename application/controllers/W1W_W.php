@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property login_model $login_model
  * @property dashboard_model $dashboard_model
  * @property employee_model $employee_model
- * @property Atas_Model $Atas_Model
+ * @property w1w_w_Model $w1w_w_Model
  * @property CI_Session $session
  * @property CI_Input $input
  * @property CI_Form_validation $form_validation
@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 
 
-class Atas_Order extends CI_Controller
+class W1W_W extends CI_Controller
 {
     function __construct()
     {
@@ -24,7 +24,7 @@ class Atas_Order extends CI_Controller
         $this->load->model('dashboard_model');
         $this->load->model('employee_model');
         $this->load->model('settings_model');
-        $this->load->model('Atas_Model');
+        $this->load->model('w1w_w_Model');
         $this->load->model('leave_model');
         // $this->load->library('csvimport');
         // $this->load->library('form_validation');
@@ -38,7 +38,7 @@ class Atas_Order extends CI_Controller
         if ($this->session->userdata('user_login_access') == 1)
             redirect('dashboard/Dashboard');
         $data = array();
-        $data['orders'] = $this->Atas_Model->get_orders_with_employee_names();
+        $data['orders'] = $this->w1w_w_Model->get_orders_with_employee_names();
         $this->load->view('orders_view', $data);
         #$data['settingsvalue'] = $this->dashboard_model->GetSettingsValue();
         $this->load->view('login');
@@ -46,10 +46,10 @@ class Atas_Order extends CI_Controller
 
     public function Get_Data()
     {
-        $data['employee'] = $this->employee_model->emselectW();
-        $data['atas_order'] = $this->Atas_Model->Get_Atas();
+        $data['employee'] = $this->employee_model->emselectW1WWithdrawal();
+        $data['w1w_w'] = $this->w1w_w_Model->Get_w1w_w();
     }
-    public function Save_Atas()
+    public function Save_w1w_W()
     {
         if ($this->session->userdata('user_login_access') != false) {
             $this->load->library('form_validation');
@@ -74,7 +74,7 @@ class Atas_Order extends CI_Controller
                     'order_count' => $this->input->post('order_count'),
                 );
 
-                $this->Atas_Model->Add_atas($data);
+                $this->w1w_w_Model->Add_W1W_W($data);
                 $this->session->set_flashdata('feedback', 'Successfully Added');
                 log_action($this, 'Save', "Order for employee '{$data['employee_id']}' added.");
 
@@ -92,44 +92,44 @@ class Atas_Order extends CI_Controller
     }
 
 
-    function Atas_order()
+    function W1W_W_order()
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $data['employee'] = $this->employee_model->emselectAtas();
+            $data['employee'] = $this->employee_model->emselectW1WWithdrawal();
             if ($this->session->userdata('user_type') == 'EMPLOYEE') {
                 $id = $this->session->userdata('user_login_id');
-                $data['atas_order'] = $this->Atas_Model->Get_Atas();
+                $data['w1w_w_order'] = $this->w1w_w_Model->Get_w1w_w();
             } else {
-                $data['atas_order'] = $this->Atas_Model->Get_Atas();
+                $data['w1w_w_order'] = $this->w1w_w_Model->Get_w1w_w();
             }
 
-            $this->load->view('backend/atas_order', $data);
+            $this->load->view('backend/w1w_w', $data);
         } else {
             redirect(base_url(), 'refresh');
         }
     }
-public function Atas_order_count()
+public function w1w_w_order_count()
 {
-    $this->load->model('Atas_Model');
+    $this->load->model('w1w_w_model');
     $this->load->model('employee_model');  
 
-    $sum_order_count = $this->Atas_Model->get_sum_order_count();
-    $atas_order = $this->Atas_Model->Get_Atas();
+    $sum_order_count = $this->w1w_w_Model->get_sum_order_count();
+    $w1w_w = $this->w1w_w_Model->Get_w1w_w();
 
-    $employee = $this->employee_model->emselectAtas();
+    $employee = $this->employee_model->emselectW1WWithdrawal();
 
     $data = [
         'sum_order_count' => $sum_order_count,
-        'atas_order' => $atas_order,
+        'w1w_w' => $w1w_w,
         'employee' => $employee,
     ];
 
-    $this->load->view('backend/atas_order', $data);
+    $this->load->view('backend/w1w_w', $data);
 }
 
 
 
-    public function update_atas()
+    public function update_w1w_w()
     {
         if ($this->session->userdata('user_login_access') != False) {
             $id = $this->input->post('order_id');
@@ -142,7 +142,7 @@ public function Atas_order_count()
                 'order_count' => $this->input->post('order_count'),
             );
 
-            $this->Atas_Model->update_Atas($id, $data);
+            $this->w1w_w_Model->update_W1W_W($id, $data);
             log_action($this, 'Update', "Order for employee '{$data['employee_id']}' updated.");
 
             echo json_encode([
@@ -160,24 +160,24 @@ public function Atas_order_count()
     }
 
 
-    public function Edit_atas($id)
+    public function Edit_w1w_w($id)
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $data['employee'] = $this->employee_model->emselectAtas();
-            $data['order'] = $this->Atas_Model->get_order_by_id($id);
+            $data['employee'] = $this->employee_model->emselectW1WWithdrawal();
+            $data['order'] = $this->w1w_w_Model->get_order_by_id($id);
 
-            $this->load->view('backend/edit_atas_order', $data);
+            $this->load->view('backend/edit_w1w_w_order', $data);
         } else {
             redirect(base_url(), 'refresh');
         }
     }
 
-    public function Delete_Atas($id)
+    public function Delete_w1w_w($id)
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $this->Atas_Model->DeleteAtasOrder($id);
+            $this->w1w_w_Model->DeleteW1W_W($id);
             $this->session->set_flashdata('feedback', 'Order Deleted Successfully');
-            redirect('Atas_Order/Atas_Order');
+            redirect('W1W_W/W1W_W_order');
         } else {
             redirect(base_url(), 'refresh');
         }
@@ -193,7 +193,7 @@ public function Atas_order_count()
             $startDate = $this->input->get('date_from');
             $endDate = $this->input->get('date_to');
 
-            $data = $this->Atas_Model->get_all_orders_for_barline_chart($startDate, $endDate);
+            $data = $this->w1w_w_Model->get_all_orders_for_barline_chart($startDate, $endDate);
             echo json_encode($data);
         } else {
             show_error("Unauthorized access", 403);
@@ -206,8 +206,8 @@ public function get_filtered_order_sum()
         $startDate = $this->input->get('date_from');
         $endDate = $this->input->get('date_to');
 
-        $this->load->model('Atas_Model');
-        $sum = $this->Atas_Model->get_sum_order_count_by_date($startDate, $endDate);
+        $this->load->model('w1w_w_model');
+        $sum = $this->w1w_w_Model->get_sum_order_count_by_date($startDate, $endDate);
 
         echo json_encode(['total' => $sum]);
     } else {

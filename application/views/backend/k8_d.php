@@ -22,13 +22,13 @@
   <div class="message"></div>
   <div class="row page-titles">
     <div class="col-md-5 align-self-center">
-      <h5 class="text-themecolor"><i class="fa fa-archive" aria-hidden="true"></i> Atas Order Report</h>
+      <h5 class="text-themecolor"><i class="fa fa-archive" aria-hidden="true"></i> K8 Deposit Order Report</h>
     </div>
 
     <div class="col-md-7 align-self-center">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-        <li class="breadcrumb-item active">Atas Order</li>
+        <li class="breadcrumb-item active">K8 Deposit Order</li>
       </ol>
     </div>
   </div>
@@ -60,7 +60,7 @@
             </button>
           </div>
 
-          <form method="post" action="<?= base_url('Atas_Order/Save_Atas') ?>" id="orderForm">
+          <form method="post" action="<?= base_url('K8_D/Save_K8_D') ?>" id="orderForm">
             <div class="modal-body">
               <input type="hidden" name="order_id" id="order_id">
 
@@ -169,7 +169,7 @@
         <div class="card" style="--grad: #FFC107, #FF9800;">
           <center>
             <div class="title">
-              <i class="fas fa-users" style="color: #FF9800;"></i> Atas Project Employees
+              <i class="fas fa-users" style="color: #FF9800;"></i> K8 Deposit Project Employees
             </div>
           </center>
           <br>
@@ -179,7 +179,7 @@
               <h2>
                 <?php
                 $this->db->where('status', 'ACTIVE');
-                $this->db->where('project', 'Atas');
+                $this->db->where('project', 'K8 Deposit');
                 $this->db->from("employee");
                 echo $this->db->count_all_results();
                 ?>
@@ -188,7 +188,6 @@
           </div>
         </div>
 
-        <!-- ORDERS -->
         <div class="card" style="--grad: #2196F3, #03A9F4;">
           <center>
             <div class="title"> <i class="fa fa-list-alt" style="color: #03A9F4;"></i> Total Orders</div>
@@ -204,7 +203,7 @@
           </div>
         </div>
 
-        <!-- MISTAKES -->
+        
         <div class="card" style="--grad: #F44336, #E91E63;">
           <center>
             <div class="title"> <i class="fa fa-exclamation-triangle" style="color: #E91E63;"></i> Mistakes</div>
@@ -503,7 +502,7 @@
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($atas_order as $order): ?>
+              <?php foreach ($k8_d as $order): ?>
                 <tr>
 
                   <td><?= htmlspecialchars($order->first_name . ' ' . $order->last_name) ?></td>
@@ -516,7 +515,7 @@
                       <i class="bi bi-pencil-square"></i> </button>
 
 
-                    <a href="<?= base_url("Atas_Order/Delete_Atas/{$order->order_id}") ?>"
+                    <a href="<?= base_url("K8_D/Delete_k8_d/{$order->order_id}") ?>"
                       onclick="return confirm('Are you sure you want to delete this order?')"
                       class="btn btn-outline-danger btn-sm"> <i class="bi bi-trash"></i> </a>
 
@@ -552,7 +551,7 @@
     function editOrder(order) {
       $('#orderModal').modal('show');
       $('#modalTitle').text('Edit Order');
-      $('#orderForm').attr('action', '<?= base_url("Atas_Order/Update_Atas") ?>');
+      $('#orderForm').attr('action', '<?= base_url("K8_D/Update_k8_d") ?>');
 
       $('#order_id').val(order.order_id);
       $('#pc_position').val(order.pc_position);
@@ -713,7 +712,7 @@
   </script>
   <script>
     function fetchChartData() {
-      fetch(`<?= base_url('Atas_Order/get_all_orders_barline_chart') ?>`)
+      fetch(`<?= base_url('K8_D/get_all_orders_barline_chart') ?>`)
         .then(res => res.json())
         .then(data => {
           data.total_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
@@ -744,7 +743,7 @@
     date_to: endDate,
   });
 
-  let url = `<?= base_url('Atas_Order/get_all_orders_barline_chart') ?>?${params.toString()}`;
+  let url = `<?= base_url('K8_D/get_all_orders_barline_chart') ?>?${params.toString()}`;
 
   fetch(url)
     .then(response => response.json())
@@ -769,7 +768,7 @@
       alert("Something went wrong while fetching chart data.");
     });
 
-  let totalUrl = `<?= base_url('Atas_Order/get_filtered_order_sum') ?>?${params.toString()}`;
+  let totalUrl = `<?= base_url('K8_D/get_filtered_order_sum') ?>?${params.toString()}`;
 
   fetch(totalUrl)
     .then(res => res.json())
@@ -788,7 +787,7 @@
     const diffTime = Math.abs(end - start);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; 
 
-    reportLabel.textContent = `Order Duration for Atas Project -- ${startDate} to ${endDate} (${diffDays} day${diffDays > 1 ? 's' : ''})`;
+    reportLabel.textContent = `Order Duration for K8 Deposit Project -- ${startDate} to ${endDate} (${diffDays} day${diffDays > 1 ? 's' : ''})`;
   }
 }
 
@@ -808,7 +807,7 @@
 
     fetchChartData();
 
-    fetch(`<?= base_url('Atas_Order/get_filtered_order_sum') ?>`)
+    fetch(`<?= base_url('K8_D/get_filtered_order_sum') ?>`)
       .then(res => res.json())
       .then(data => {
         document.getElementById("totalOrderCount").textContent = data.total ?? 0;
@@ -846,10 +845,10 @@
             $('#feedbackMessage').text(res.message).fadeIn();
             setTimeout(() => $('#feedbackMessage').fadeOut(), 3000);
 
-            if (actionUrl.includes('Save_Atas')) {
+            if (actionUrl.includes('Save_k8_d')) {
              
               $('#orderForm')[0].reset();
-            } else if (actionUrl.includes('Update_Atas')) {
+            } else if (actionUrl.includes('Update_k8_d')) {
              
               $('#orderForm')[0].reset();
               $('#orderModal').modal('hide');

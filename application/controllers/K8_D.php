@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property login_model $login_model
  * @property dashboard_model $dashboard_model
  * @property employee_model $employee_model
- * @property Atas_Model $Atas_Model
+ * @property K8_D_Model $K8_D_Model
  * @property CI_Session $session
  * @property CI_Input $input
  * @property CI_Form_validation $form_validation
@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 
 
-class Atas_Order extends CI_Controller
+class K8_D extends CI_Controller
 {
     function __construct()
     {
@@ -24,32 +24,28 @@ class Atas_Order extends CI_Controller
         $this->load->model('dashboard_model');
         $this->load->model('employee_model');
         $this->load->model('settings_model');
-        $this->load->model('Atas_Model');
+        $this->load->model('K8_D_Model');
         $this->load->model('leave_model');
-        // $this->load->library('csvimport');
-        // $this->load->library('form_validation');
         $this->load->helper('log');
     }
 
     public function index()
     {
 
-        #Redirect to Admin dashboard after authentication
         if ($this->session->userdata('user_login_access') == 1)
-            redirect('dashboard/Dashboard');
+        redirect('dashboard/Dashboard');
         $data = array();
-        $data['orders'] = $this->Atas_Model->get_orders_with_employee_names();
+        $data['orders'] = $this->K8_D_Model->get_orders_with_employee_names();
         $this->load->view('orders_view', $data);
-        #$data['settingsvalue'] = $this->dashboard_model->GetSettingsValue();
         $this->load->view('login');
     }
 
     public function Get_Data()
     {
-        $data['employee'] = $this->employee_model->emselectW();
-        $data['atas_order'] = $this->Atas_Model->Get_Atas();
+        $data['employee'] = $this->employee_model->emselectK8D();
+        $data['k8_d'] = $this->K8_D_Model->Get_K8_D();
     }
-    public function Save_Atas()
+    public function Save_K8_D()
     {
         if ($this->session->userdata('user_login_access') != false) {
             $this->load->library('form_validation');
@@ -74,7 +70,7 @@ class Atas_Order extends CI_Controller
                     'order_count' => $this->input->post('order_count'),
                 );
 
-                $this->Atas_Model->Add_atas($data);
+                $this->K8_D_Model->Add_k8_d($data);
                 $this->session->set_flashdata('feedback', 'Successfully Added');
                 log_action($this, 'Save', "Order for employee '{$data['employee_id']}' added.");
 
@@ -92,44 +88,44 @@ class Atas_Order extends CI_Controller
     }
 
 
-    function Atas_order()
+    function K8_D()
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $data['employee'] = $this->employee_model->emselectAtas();
+            $data['employee'] = $this->employee_model->emselectK8D();
             if ($this->session->userdata('user_type') == 'EMPLOYEE') {
                 $id = $this->session->userdata('user_login_id');
-                $data['atas_order'] = $this->Atas_Model->Get_Atas();
+                $data['k8_d'] = $this->K8_D_Model->Get_K8_D();
             } else {
-                $data['atas_order'] = $this->Atas_Model->Get_Atas();
+                $data['k8_d'] = $this->K8_D_Model->Get_K8_D();
             }
 
-            $this->load->view('backend/atas_order', $data);
+            $this->load->view('backend/k8_d', $data);
         } else {
             redirect(base_url(), 'refresh');
         }
     }
-public function Atas_order_count()
-{
-    $this->load->model('Atas_Model');
-    $this->load->model('employee_model');  
+    public function k8_d_order_count()
+    {
+        $this->load->model('K8_D_Model');
+        $this->load->model('employee_model');
 
-    $sum_order_count = $this->Atas_Model->get_sum_order_count();
-    $atas_order = $this->Atas_Model->Get_Atas();
+        $sum_order_count = $this->K8_D_Model->get_sum_order_count();
+        $K8_D_Model_order = $this->K8_D_Model->Get_K8_D();
 
-    $employee = $this->employee_model->emselectAtas();
+        $employee = $this->employee_model->emselectK8D();
 
-    $data = [
-        'sum_order_count' => $sum_order_count,
-        'atas_order' => $atas_order,
-        'employee' => $employee,
-    ];
+        $data = [
+            'sum_order_count' => $sum_order_count,
+            'atas_order' => $K8_D_Model_order,
+            'employee' => $employee,
+        ];
 
-    $this->load->view('backend/atas_order', $data);
-}
+        $this->load->view('backend/k8_d', $data);
+    }
 
 
 
-    public function update_atas()
+    public function update_k8_d()
     {
         if ($this->session->userdata('user_login_access') != False) {
             $id = $this->input->post('order_id');
@@ -142,7 +138,7 @@ public function Atas_order_count()
                 'order_count' => $this->input->post('order_count'),
             );
 
-            $this->Atas_Model->update_Atas($id, $data);
+            $this->K8_D_Model->update_k8_d($id, $data);
             log_action($this, 'Update', "Order for employee '{$data['employee_id']}' updated.");
 
             echo json_encode([
@@ -160,24 +156,24 @@ public function Atas_order_count()
     }
 
 
-    public function Edit_atas($id)
+    public function Edit_k8_d($id)
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $data['employee'] = $this->employee_model->emselectAtas();
-            $data['order'] = $this->Atas_Model->get_order_by_id($id);
+            $data['employee'] = $this->employee_model->emselectK8D();
+            $data['order'] = $this->K8_D_Model->get_order_by_id($id);
 
-            $this->load->view('backend/edit_atas_order', $data);
+            $this->load->view('backend/edit_k8_d', $data);
         } else {
             redirect(base_url(), 'refresh');
         }
     }
 
-    public function Delete_Atas($id)
+    public function Delete_k8_d($id)
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $this->Atas_Model->DeleteAtasOrder($id);
+            $this->K8_D_Model->Deletek8_d($id);
             $this->session->set_flashdata('feedback', 'Order Deleted Successfully');
-            redirect('Atas_Order/Atas_Order');
+            redirect('K8_D/K8_D');
         } else {
             redirect(base_url(), 'refresh');
         }
@@ -193,27 +189,27 @@ public function Atas_order_count()
             $startDate = $this->input->get('date_from');
             $endDate = $this->input->get('date_to');
 
-            $data = $this->Atas_Model->get_all_orders_for_barline_chart($startDate, $endDate);
+            $data = $this->K8_D_Model->get_all_orders_for_barline_chart($startDate, $endDate);
             echo json_encode($data);
         } else {
             show_error("Unauthorized access", 403);
         }
     }
 
-public function get_filtered_order_sum()
-{
-    if ($this->session->userdata('user_login_access') != False) {
-        $startDate = $this->input->get('date_from');
-        $endDate = $this->input->get('date_to');
+    public function get_filtered_order_sum()
+    {
+        if ($this->session->userdata('user_login_access') != False) {
+            $startDate = $this->input->get('date_from');
+            $endDate = $this->input->get('date_to');
 
-        $this->load->model('Atas_Model');
-        $sum = $this->Atas_Model->get_sum_order_count_by_date($startDate, $endDate);
+            $this->load->model('K8_D_Model');
+            $sum = $this->K8_D_Model->get_sum_order_count_by_date($startDate, $endDate);
 
-        echo json_encode(['total' => $sum]);
-    } else {
-        show_error("Unauthorized access", 403);
+            echo json_encode(['total' => $sum]);
+        } else {
+            show_error("Unauthorized access", 403);
+        }
     }
-}
 
 
 

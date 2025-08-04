@@ -59,25 +59,7 @@
                             </ul>
                         </li>
                         <!-- Side bar project add feature -->
-                        <li>
-                            <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                                <i class="mdi mdi-briefcase-check"></i>
-                                <span class="hide-menu">Projects</span>
-                            </a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li><a href="<?php echo base_url(); ?>Projects/All_Projects">All Projects</a></li>
-                                <li><a href="<?php echo base_url(); ?>Projects/All_Tasks">Task List</a></li>
-
-                                <?php
-                                $CI =& get_instance();
-                                $CI->load->model('project_model');
-                                $projects = $CI->project_model->GetProjectsValue();
-                                foreach ($projects as $project) {
-                                    echo '<li><a href="' . base_url('Projects/view?P=' . base64_encode($project->id)) . '">' . htmlspecialchars($project->pro_name) . '</a></li>';
-                                }
-                                ?>
-                            </ul>
-                        </li>
+                       
 
 
                     <?php } else { ?>
@@ -124,28 +106,28 @@
                                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
                                             class="hide-menu">W Project</span></a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>W_Order/w_order">Order Report</a></li>
+                                        <li><a href="<?= base_url('W_Order/W_order_count') ?>">Order Report</a></li>
                                         <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                     </ul>
                                 </li>
                                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
                                             class="hide-menu">Atas Project</span></a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>Atas_Order/atas_order">Order Report</a></li>
+                                        <li><a href="<?php echo base_url(); ?>Atas_Order/Atas_order">Order Report</a></li>
                                         <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                     </ul>
                                 </li>
                                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
                                             class="hide-menu">W1W Deposit</span></a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>W1W_Order/w1w_order">Order Report</a></li>
+                                        <li><a href="<?php echo base_url(); ?>W1W_Deposite_Order/W1W_Deposite_order">Order Report</a></li>
                                         <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                     </ul>
                                 </li>
                                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
                                             class="hide-menu">W1W Withdrawal</span></a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>W1W_Withdrawal/w1w_withdrawal">Order
+                                        <li><a href="<?php echo base_url(); ?>W1W_W/W1W_W_order">Order
                                                 Report</a></li>
                                         <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                     </ul>
@@ -153,7 +135,7 @@
                                 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
                                             class="hide-menu">K8 Deposit </span></a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
+                                        <li><a href="<?php echo base_url(); ?>K8_D/K8_D">Order Report</a></li>
                                         <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
                                     </ul>
                                 </li>

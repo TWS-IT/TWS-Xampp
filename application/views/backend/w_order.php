@@ -93,7 +93,8 @@
                       <option value="">Select Here</option>
                       <?php foreach ($employee as $value): ?>
                         <option value="<?= $value->em_code ?>">
-                          <?= htmlspecialchars($value->first_name . ' ' . $value->last_name) ?></option>
+                          <?= htmlspecialchars($value->first_name . ' ' . $value->last_name) ?>
+                        </option>
                       <?php endforeach; ?>
                     </select>
                   </div>
@@ -124,8 +125,15 @@
             </div>
 
             <div class="modal-footer">
+
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
               <button type="submit" class="btn btn-success">Save</button>
+
+              <div id="feedbackMessage" class="alert alert-success"
+                style="display:none; position: fixed; top: 20px; right: 20px; z-index: 1050;"></div>
+
+
+
             </div>
           </form>
         </div>
@@ -150,7 +158,8 @@
                     placeholder="To">
                 </div>
                 <div class="form-group col-auto">
-                  <button id="filterChart()" class="btn btn-success">Apply Filter</button>
+                  <button id="filterChart()" class="btn btn-success" onclick="filterChart()">Apply Filter</button>
+                  <button id="filterChart" class="btn btn-danger" onclick="resetAndReload()">Reset Filter</button>
                 </div>
               </div>
             </div>
@@ -166,12 +175,10 @@
 
 
 
-    <!-- ---------------------------------------------------------------------------------------------------------------------- -->
 
 
 
-    <div class="container-fluid">
-      <!-- New Modern Dashboard Cards -->
+    <div class="container-fluid">  
       <div class="grid-container" style="margin-top: 20px;">
         <div class="card" style="--grad: #FFC107, #FF9800;">
           <center>
@@ -179,8 +186,6 @@
               <i class="fas fa-users" style="color: #FF9800;"></i> W Project Employees
             </div>
           </center>
-
-
           <br>
           <br>
           <div class="content">
@@ -188,6 +193,7 @@
               <h2>
                 <?php
                 $this->db->where('status', 'ACTIVE');
+                $this->db->where('project', 'W');
                 $this->db->from("employee");
                 echo $this->db->count_all_results();
                 ?>
@@ -206,11 +212,7 @@
           <div class="content">
             <center>
               <h2>
-                <?php
-                $this->db->where('leave_status', 'Approved');
-                $this->db->from("emp_leave");
-                echo $this->db->count_all_results();
-                ?>
+                <?= isset($sum_order_count) ? $sum_order_count : 0 ?>
               </h2>
             </center>
           </div>
@@ -234,21 +236,11 @@
             </center>
 
 
-            <!-- <p>Total Granted Mistakes</p> -->
-            <!-- Mistakes position filter dropdown -->
-            <!-- <select id="positionFilter" class="form-select custom-select-sm mt-2 custom-dropdown" style="width: 120px;">
-    <option value="">All</option>
-    <option value="W">W</option>
-    <option value="Atas">Atas</option>
-    <option value="K8 deposit">K8 deposit</option>
-    <option value="K8 withdrawal">K8 withdrawal</option>
-    <option value="TC">TC</option>
-</select> -->
 
           </div>
         </div>
       </div>
-      <!-- End Modern Cards -->
+ 
 
       <style>
         .grid-container {
@@ -275,10 +267,10 @@
         .card {
           --grad: red, blue;
           padding: 1rem;
-          /* reduced from 2rem */
+        
           background-image: linear-gradient(to bottom left, #e0e4e5, #f2f6f9);
           border-radius: 1rem;
-          /* reduced from 1.5rem */
+        
           display: grid;
           grid-template-areas:
             "title icon"
@@ -286,11 +278,11 @@
             "bar bar";
           grid-template-columns: 1fr auto;
           gap: 0.5rem;
-          /* reduced from 1rem */
+        
           color: #444;
           box-shadow: inset -2px 2px hsl(0 0 100% / 1), -20px 20px 40px hsl(0 0 0 / .25);
           font-size: 0.9rem;
-          /* optional: reduces text size slightly */
+        
         }
 
         .card .title {
@@ -331,7 +323,7 @@
           font-size: 14px;
           color: #333;
           appearance: none;
-          /* Removes default arrow */
+         
           -webkit-appearance: none;
           -moz-appearance: none;
           background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
@@ -373,10 +365,10 @@
             });
           }
 
-          // Initial load
+      
           loadMistakeCount();
 
-          // Update count when position is changed
+
           $('#positionFilter').on('change', function () {
             const selectedPosition = $(this).val();
             loadMistakeCount(selectedPosition);
@@ -391,10 +383,7 @@
 
 
 
-      <?php
-      // Dashboard Page - Full HTML converted to PHP wrapper
-      ?>
-
+ 
       <!DOCTYPE html>
       <html lang="en">
 
@@ -402,17 +391,9 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Dashboard</title>
-
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-        <!-- Bootstrap CSS -->
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">>
         <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- ApexCharts -->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-        <!-- Bootstrap Icons -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
         <style>
@@ -440,12 +421,12 @@
             font-weight: 600;
             color: #7267EF;
             background-color: transparent;
-            /* ← Add your desired background color here */
+        
             padding: 8px 12px;
             border-radius: 8px;
-            /* Optional: for rounded corners */
+          
             display: inline-block;
-            /* Ensures padding works neatly */
+            
           }
 
 
@@ -475,11 +456,11 @@
 
 
         <div class="row">
-          <!-- Row 4: Line Chart -->
+          
           <div class="col-md-6">
-            <div class="card p-3">
-              <h6 class="section-title">Project wise monthly Order report</h6>
-              <div class="highlight mb-2">105 Total Orders | 120 Total Mistakes</div>
+            <div class="card p-3 text-center">
+              <h6 class="section-title" id="reportLabel">Total Orders</h6>
+              <span id="totalOrderCount"><?= isset($sum_order_count) ? $sum_order_count : 0 ?></span> Total Orders
               <div id="lineChart" style="height: 300px;"></div>
             </div>
           </div>
@@ -509,6 +490,7 @@
         </div>
 
 
+
         <!-- <div class="row">
       <div class="col-md-6">
         <div class="card p-3">
@@ -527,9 +509,9 @@
           <div id="pieChart" style="height: 400px;"></div>
         </div>
       </div> -->
-    </div>
+    <!-- </div> -->
 
-    <!-- Row 6: Employee List -->
+ 
     <div class="row">
       <div class="col-12">
         <div class="card p-3">
@@ -651,7 +633,7 @@
   });
 </script> -->
 
-  <!-- DataTable Init -->
+
   <script>
     $(document).ready(function () {
       $('#ordersTable').DataTable({
@@ -721,7 +703,7 @@
     areaChart.render();
   </script>
 
-  <!-- Custom Styling -->
+
   <style>
     table.dataTable {
       border-collapse: collapse !important;
@@ -750,7 +732,6 @@
 
 
 
-  <!-- Initial Chart Loader -->
 
   <script>
     let chart;
@@ -848,49 +829,156 @@
   <script>
 
     function filterChart() {
-      let startDate = document.getElementById('date_from').value;
-      let endDate = document.getElementById('date_to').value;
+  let startDate = document.getElementById('date_from').value;
+  let endDate = document.getElementById('date_to').value;
 
-      if (!startDate || !endDate) {
-        alert("Please select both start and end dates.");
+  if (!startDate || !endDate) {
+    alert("Please select both start and end dates.");
+    return;
+  }
+
+  let params = new URLSearchParams({
+    date_from: startDate,
+    date_to: endDate,
+  });
+
+  let url = `<?= base_url('W_Order/get_all_orders_barline_chart') ?>?${params.toString()}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (!data.total_orders || !data.avg_orders) {
+        alert("No valid chart data received.");
         return;
       }
 
-      let params = new URLSearchParams({
-        date_from: startDate,
-        date_to: endDate,
-      });
+      data.total_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
+      data.avg_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
 
-      let url = `<?= base_url('W_Order/get_all_orders_barline_chart') ?>?${params.toString()}`;
+      if (chart) {
+        chart.updateOptions(getChartOptions(data));
+      } else {
+        chart = new ApexCharts(document.querySelector("#lineChart"), getChartOptions(data));
+        chart.render();
+      }
+    })
+    .catch(error => {
+      console.error("Error fetching chart data:", error);
+      alert("Something went wrong while fetching chart data.");
+    });
 
+  // === Total Orders Fetch ===
+  let totalUrl = `<?= base_url('W_Order/get_filtered_order_sum') ?>?${params.toString()}`;
 
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          if (!data.total_orders || !data.avg_orders) {
-            alert("No valid chart data received.");
-            return;
-          }
+  fetch(totalUrl)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("totalOrderCount").textContent = data.total ?? 0;
+    })
+    .catch(error => {
+      console.error("Error fetching total orders:", error);
+      alert("Failed to update total order count.");
+    });
 
-          data.total_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
-          data.avg_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
+  // === Update report label ===
+  const reportLabel = document.getElementById('reportLabel');
+  if (reportLabel) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // inclusive days
 
-          if (chart) {
-            chart.updateOptions(getChartOptions(data));
-          } else {
-            chart = new ApexCharts(document.querySelector("#lineChart"), getChartOptions(data));
-            chart.render();
-          }
-        })
-        .catch(error => {
-          console.error("Error fetching chart data:", error);
-          alert("Something went wrong while fetching chart data.");
-        });
-    }
+    reportLabel.textContent = `Order Duration for W Project ${startDate} to ${endDate} (${diffDays} day${diffDays > 1 ? 's' : ''})`;
+  }
+}
 
 
 
   </script>
+ <script>
+  function resetAndReload() {
+    // Reset date inputs
+    document.getElementById('date_from').value = '';
+    document.getElementById('date_to').value = '';
+
+    // Destroy chart if exists
+    if (chart) {
+      chart.destroy();
+    }
+
+    // Re-fetch and render full chart data
+    fetchChartData();
+
+    // === Reset Total Order Count ===
+    fetch(`<?= base_url('W_Order/get_filtered_order_sum') ?>`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("totalOrderCount").textContent = data.total ?? 0;
+      })
+      .catch(error => {
+        console.error("Error resetting total orders:", error);
+        alert("Failed to reset total order count.");
+      });
+
+    // === Reset Label ===
+    const reportLabel = document.getElementById('reportLabel');
+    if (reportLabel) {
+      reportLabel.textContent = "Total Orders";
+    }
+  }
+</script>
+
+
+
+  <script>
+    $('#orderForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const form = $(this);
+      const actionUrl = form.attr('action');
+
+      $.ajax({
+        url: actionUrl,
+        method: 'POST',
+        data: form.serialize(),
+        success: function (response) {
+          const res = typeof response === "string" ? JSON.parse(response) : response;
+
+          if (res.status === 'success') {
+            $('#feedbackMessage').text(res.message).fadeIn();
+            setTimeout(() => $('#feedbackMessage').fadeOut(), 3000);
+
+            if (actionUrl.includes('Save_W')) {
+              // ADD: Keep modal open and reset form
+              $('#orderForm')[0].reset();
+            } else if (actionUrl.includes('Update_W')) {
+              // UPDATE: Close modal and reset form
+              $('#orderForm')[0].reset();
+              $('#orderModal').modal('hide');
+            }
+
+            // Refresh the table data after add/update
+            fetchOrdersTable(); // You must have this function implemented
+          } else {
+            alert(res.message);
+          }
+        },
+        error: function () {
+          alert("Something went wrong. Please try again.");
+        }
+      });
+    });
+
+  </script>
+
+
+  <script>
+    $('#orderModal').on('hidden.bs.modal', function () {
+      location.reload();
+    });
+  </script>
+
+
 
 
 

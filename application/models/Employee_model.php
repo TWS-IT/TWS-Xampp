@@ -73,6 +73,8 @@ public function get_employees_with_orders()
   	return $result;
 }
 
+
+
   public function emselect_Mis() {
     $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE'";
     $query=$this->db->query($sql);
@@ -100,6 +102,19 @@ public function emselectW1WWithdrawal() {
   	return $result;
 }
 
+public function emselectK8D() {
+    $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE' AND `project` = 'K8 Deposit'";
+    $query=$this->db->query($sql);
+  	$result = $query->result();
+  	return $result;
+}
+
+public function emselectK8W() {
+    $sql = "SELECT * FROM `employee` WHERE `status` = 'ACTIVE' AND `project` = 'K8 Withrawal'";
+    $query=$this->db->query($sql);
+  	$result = $query->result();
+  	return $result;
+}
 
 
     public function emselectByID($emid){

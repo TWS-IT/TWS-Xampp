@@ -51,19 +51,20 @@ class W_Order extends CI_Controller
     }
     public function Save_W()
     {
-        if ($this->session->userdata('user_login_access') != False) {
+        if ($this->session->userdata('user_login_access') != false) {
             $this->load->library('form_validation');
 
-            // Validation rules based on form fields
             $this->form_validation->set_rules('pc_position', 'pc_position', 'trim|required|xss_clean');
             $this->form_validation->set_rules('employee_id', 'employee_id', 'trim|required|xss_clean');
             $this->form_validation->set_rules('order_date', 'order_date', 'required');
             $this->form_validation->set_rules('shift', 'shift', 'required');
             $this->form_validation->set_rules('order_count', 'order_count', 'required');
 
-
-            if ($this->form_validation->run() == FALSE) {
-                echo validation_errors();
+            if ($this->form_validation->run() == false) {
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => validation_errors()
+                ]);
             } else {
                 $data = array(
                     'pc_position' => $this->input->post('pc_position'),
@@ -73,15 +74,23 @@ class W_Order extends CI_Controller
                     'order_count' => $this->input->post('order_count'),
                 );
 
-                $this->W_model->Add_w($data);  // Make sure your model handles this
+                $this->W_model->Add_w($data);
                 $this->session->set_flashdata('feedback', 'Successfully Added');
                 log_action($this, 'Save', "Order for employee '{$data['employee_id']}' added.");
-                redirect('W_Order/W_order');
+
+                echo json_encode([
+                    'status' => 'success',
+                    'message' => $this->session->flashdata('feedback')
+                ]);
             }
         } else {
-            redirect(base_url(), 'refresh');
+            echo json_encode([
+                'status' => 'unauthorized',
+                'message' => 'Unauthorized Access'
+            ]);
         }
     }
+
 
     function W_order()
     {
@@ -99,6 +108,27 @@ class W_Order extends CI_Controller
             redirect(base_url(), 'refresh');
         }
     }
+public function W_order_count()
+{
+    $this->load->model('W_model');
+    $this->load->model('employee_model');  // load employee model
+
+    $sum_order_count = $this->W_model->get_sum_order_count();
+    $w_order = $this->W_model->Get_w();
+
+    $employee = $this->employee_model->emselectW();  // use your existing employee fetch function
+
+    $data = [
+        'sum_order_count' => $sum_order_count,
+        'w_order' => $w_order,
+        'employee' => $employee,
+    ];
+
+    $this->load->view('backend/w_order', $data);
+}
+
+
+
     public function update_W()
     {
         if ($this->session->userdata('user_login_access') != False) {
@@ -113,12 +143,22 @@ class W_Order extends CI_Controller
             );
 
             $this->W_model->update_W($id, $data);
-            $this->session->set_flashdata('feedback', 'Order Updated Successfully');
-            redirect('W_Order/W_order');
+            log_action($this, 'Update', "Order for employee '{$data['employee_id']}' updated.");
+
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Successfully Updated'
+            ]);
+            exit;
         } else {
-            redirect(base_url(), 'refresh');
+            echo json_encode([
+                'status' => 'unauthorized',
+                'message' => 'Unauthorized Access'
+            ]);
+            exit;
         }
     }
+
 
     public function Edit_W($id)
     {
@@ -147,18 +187,34 @@ class W_Order extends CI_Controller
 
 
 
-  public function get_all_orders_barline_chart()
+    public function get_all_orders_barline_chart()
+    {
+        if ($this->session->userdata('user_login_access') != False) {
+            $startDate = $this->input->get('date_from');
+            $endDate = $this->input->get('date_to');
+
+            $data = $this->W_model->get_all_orders_for_barline_chart($startDate, $endDate);
+            echo json_encode($data);
+        } else {
+            show_error("Unauthorized access", 403);
+        }
+    }
+
+public function get_filtered_order_sum()
 {
     if ($this->session->userdata('user_login_access') != False) {
         $startDate = $this->input->get('date_from');
         $endDate = $this->input->get('date_to');
-        
-        $data = $this->W_model->get_all_orders_for_barline_chart($startDate, $endDate);
-        echo json_encode($data);
+
+        $this->load->model('W_model');
+        $sum = $this->W_model->get_sum_order_count_by_date($startDate, $endDate);
+
+        echo json_encode(['total' => $sum]);
     } else {
         show_error("Unauthorized access", 403);
     }
 }
+
 
 
 

@@ -59,44 +59,31 @@ public function DeleteWOrder($id) {
     return $this->db->delete('w_order');
 }
 
-
-// 2nd
-// public function get_all_orders_for_barline_chart($startDate = null, $endDate = null) {
-//     $this->db->select("order_date, SUM(order_count) as total_orders, AVG(order_count) as avg_orders");
-//     $this->db->from("w_order");
-    
-//     if ($startDate && $endDate) {
-//         $this->db->where("order_date >=", $startDate);
-//         $this->db->where("order_date <=", $endDate);
-//     } else {
-//         $this->db->where("order_date >=", "2025-01-01");
-//     }
-    
-//     $this->db->group_by("order_date");
-//     $this->db->order_by("order_date", "ASC");
-
-//     $query = $this->db->get();
-//     $result = $query->result();
-
-//     $barData = [];
-//     $lineData = [];
-
-//     foreach ($result as $row) {
-//         $timestamp = strtotime($row->order_date) * 1000; // JavaScript uses ms
-//         $barData[] = [$timestamp, (int)$row->total_orders];
-//         $lineData[] = [$timestamp, round($row->avg_orders, 2)];
-//     }
-
-//     return [
-//         'total_orders' => $barData,
-//         'avg_orders'   => $lineData
-//     ];
-// }
-
-public function get_all_orders_for_barline_chart($startDate = null, $endDate = null)
+public function get_sum_order_count()
 {
-    // Fetch raw order data
-    $this->db->select('order_date, SUM(order_count) AS total_orders');
+    $sql = "SELECT SUM(order_count) AS total FROM w_order";
+    $query = $this->db->query($sql);
+    $result = $query->row_array();
+
+    return ($result && $result['total'] !== null) ? $result['total'] : 0;
+}
+public function get_orders_by_date_range($startDate, $endDate)
+{
+    $this->db->select('w_order.*, employee.full_name as employee_name');
+    $this->db->from('w_order');
+    $this->db->join('employee', 'employee.em_id = w_order.employee_id', 'left');
+
+    if (!empty($startDate) && !empty($endDate)) {
+        $this->db->where('order_date >=', $startDate);
+        $this->db->where('order_date <=', $endDate);
+    }
+
+    $query = $this->db->get();
+    return $query->result();
+}
+public function get_sum_order_count_by_date($startDate, $endDate)
+{
+    $this->db->select_sum('order_count');
     $this->db->from('w_order');
 
     if (!empty($startDate) && !empty($endDate)) {
@@ -104,48 +91,85 @@ public function get_all_orders_for_barline_chart($startDate = null, $endDate = n
         $this->db->where('order_date <=', $endDate);
     }
 
-    $this->db->group_by('order_date');
-    $this->db->order_by('order_date', 'ASC');
     $query = $this->db->get();
+    return $query->row()->order_count ?? 0;
+}
 
-    $rawOrders = $query->result();
 
-    // Step 1: Build a map of results
-    $orderMap = [];
-    foreach ($rawOrders as $row) {
-        $orderMap[$row->order_date] = (int) $row->total_orders;
+
+
+// public function get_total_mistakes()
+// {
+//     return $this->db->count_all('mistakes'); // Replace 'mistakes' with your actual table name
+// }
+
+
+
+public function get_all_orders_for_barline_chart($startDate = null, $endDate = null)
+{
+
+    $this->db->select('order_date, employee_id, SUM(order_count) AS total_orders');
+    $this->db->from('w_order');
+
+    if (!empty($startDate) && !empty($endDate)) {
+        $this->db->where('order_date >=', $startDate);
+        $this->db->where('order_date <=', $endDate);
     }
 
-    // Step 2: Fill all dates in the range
-    $filledOrders = [];
+    $this->db->group_by(['order_date', 'employee_id']);
+    $query = $this->db->get();
+    $rows = $query->result();
+
+    $datewiseOrders = [];
+
+    foreach ($rows as $row) {
+        $date = $row->order_date;
+        if (!isset($datewiseOrders[$date])) {
+            $datewiseOrders[$date] = [
+                'total_orders' => 0,
+                'employee_ids' => []
+            ];
+        }
+        $datewiseOrders[$date]['total_orders'] += (int) $row->total_orders;
+        $datewiseOrders[$date]['employee_ids'][$row->employee_id] = true;
+    }
+
+    $filledTotal = [];
+    $filledAverage = [];
+
     if (!empty($startDate) && !empty($endDate)) {
         $start = new DateTime($startDate);
         $end = new DateTime($endDate);
-        $end = $end->modify('+1 day'); // include the end date
+        $end = $end->modify('+1 day'); 
 
         while ($start < $end) {
             $dateStr = $start->format('Y-m-d');
-            $filledOrders[] = [
-                'x' => $dateStr,
-                'y' => isset($orderMap[$dateStr]) ? $orderMap[$dateStr] : 0
-            ];
+            $totalOrders = isset($datewiseOrders[$dateStr]) ? $datewiseOrders[$dateStr]['total_orders'] : 0;
+            $employeeCount = isset($datewiseOrders[$dateStr]) ? count($datewiseOrders[$dateStr]['employee_ids']) : 0;
+            $avgOrders = $employeeCount > 0 ? round($totalOrders / $employeeCount, 2) : 0;
+
+            $filledTotal[] = ['x' => $dateStr, 'y' => $totalOrders];
+            $filledAverage[] = ['x' => $dateStr, 'y' => $avgOrders];
+
             $start->modify('+1 day');
         }
     } else {
-        // No date filter: just return what was queried
-        foreach ($rawOrders as $row) {
-            $filledOrders[] = [
-                'x' => $row->order_date,
-                'y' => (int) $row->total_orders
-            ];
+        foreach ($datewiseOrders as $date => $info) {
+            $totalOrders = $info['total_orders'];
+            $employeeCount = count($info['employee_ids']);
+            $avgOrders = $employeeCount > 0 ? round($totalOrders / $employeeCount, 2) : 0;
+
+            $filledTotal[] = ['x' => $date, 'y' => $totalOrders];
+            $filledAverage[] = ['x' => $date, 'y' => $avgOrders];
         }
     }
 
     return [
-        'total_orders' => $filledOrders,
-        'avg_orders'   => $filledOrders  // Duplicate for now, or compute real average later
+        'total_orders' => $filledTotal,
+        'avg_orders'   => $filledAverage
     ];
 }
+
 
 
 
