@@ -92,20 +92,27 @@ class Dashboard extends CI_Controller {
 		}
 	}
     
-  public function get_order_comparison_chart()
+public function get_order_comparison_chart()
 {
     $query = $this->db->query("
         SELECT 
             d.order_date,
             IFNULL(w.total_orders, 0) AS w_order_count,
-            IFNULL(w1w.total_orders, 0) AS w1w_order_count,
+            IFNULL(w1w_deposit_order.total_orders, 0) AS w1w_d_order_count,
+            IFNULL(w1w_w.total_orders, 0) AS w1w_w_order_count,
+            IFNULL(k8_d.total_orders, 0) AS k8_d_order_count,
+             IFNULL(k8_w.total_orders, 0) AS k8_w_order_count,
             IFNULL(atas.total_orders, 0) AS atas_order_count
         FROM (
             SELECT DISTINCT order_date FROM (
                 SELECT order_date FROM w_order
                 UNION 
-                SELECT order_date FROM w1w_order
+                SELECT order_date FROM w1w_deposit_order
+                UNION
+                SELECT order_date FROM w1w_w
                 UNION 
+                SELECT order_date FROM k8_d
+                UNION
                 SELECT order_date FROM atas_order
             ) AS all_dates
         ) d
@@ -113,8 +120,17 @@ class Dashboard extends CI_Controller {
             SELECT order_date, SUM(order_count) AS total_orders FROM w_order GROUP BY order_date
         ) w ON w.order_date = d.order_date
         LEFT JOIN (
-            SELECT order_date, SUM(order_count) AS total_orders FROM w1w_order GROUP BY order_date
-        ) w1w ON w1w.order_date = d.order_date
+            SELECT order_date, SUM(order_count) AS total_orders FROM w1w_deposit_order GROUP BY order_date
+        ) w1w_deposit_order ON w1w_deposit_order.order_date = d.order_date
+        LEFT JOIN (
+            SELECT order_date, SUM(order_count) AS total_orders FROM w1w_w GROUP BY order_date
+        ) w1w_w ON w1w_w.order_date = d.order_date
+        LEFT JOIN (
+            SELECT order_date, SUM(order_count) AS total_orders FROM k8_d GROUP BY order_date
+        ) k8_d ON k8_d.order_date = d.order_date
+          LEFT JOIN (
+            SELECT order_date, SUM(order_count) AS total_orders FROM k8_w GROUP BY order_date
+        ) k8_w ON k8_w.order_date = d.order_date
         LEFT JOIN (
             SELECT order_date, SUM(order_count) AS total_orders FROM atas_order GROUP BY order_date
         ) atas ON atas.order_date = d.order_date

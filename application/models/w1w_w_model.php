@@ -102,7 +102,7 @@ public function get_all_orders_for_barline_chart($startDate = null, $endDate = n
 {
 
     $this->db->select('order_date, employee_id, SUM(order_count) AS total_orders');
-    $this->db->from('w_order');
+    $this->db->from('w1w_deposit_order');
 
     if (!empty($startDate) && !empty($endDate)) {
         $this->db->where('order_date >=', $startDate);

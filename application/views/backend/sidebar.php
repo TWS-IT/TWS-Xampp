@@ -1,4 +1,5 @@
 <aside class="left-sidebar">
+    
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -8,6 +9,8 @@
         <!-- User profile -->
         <?php
         $id = $this->session->userdata('user_login_id');
+       
+
         $basicinfo = $this->employee_model->GetBasic($id);
         ?>
         <div class="user-profile">
@@ -59,7 +62,7 @@
                             </ul>
                         </li>
                         <!-- Side bar project add feature -->
-                       
+
 
 
                     <?php } else { ?>
@@ -75,9 +78,9 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>employee/Employees">Employees </a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Disciplinary">Disciplinary </a></li>
-                                  <li> <a href="<?php echo base_url() ?>Perfomance/index"><i
-                                class="mdi mdi-speedometer"></i><span class="hide-menu">Perfomance<span
-                                    class="hide-menu"></a></li>
+                                <li> <a href="<?php echo base_url() ?>Perfomance/index"><i
+                                            class="mdi mdi-speedometer"></i><span class="hide-menu">Perfomance<span
+                                                class="hide-menu"></a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li>
                             </ul>
                         </li>
@@ -100,54 +103,84 @@
 
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
-                                    class="mdi mdi-briefcase-check"></i><span class="hide-menu">Project </span></a>
-                            <ul aria-expanded="false" class="collapse">
-                                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
-                                            class="hide-menu">W Project</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?= base_url('W_Order/W_order_count') ?>">Order Report</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
-                                    </ul>
-                                </li>
-                                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
-                                            class="hide-menu">Atas Project</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>Atas_Order/Atas_order">Order Report</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
-                                    </ul>
-                                </li>
-                                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
-                                            class="hide-menu">W1W Deposit</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>W1W_Deposite_Order/W1W_Deposite_order">Order Report</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
-                                    </ul>
-                                </li>
-                                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
-                                            class="hide-menu">W1W Withdrawal</span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>W1W_W/W1W_W_order">Order
-                                                Report</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
-                                    </ul>
-                                </li>
-                                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
-                                            class="hide-menu">K8 Deposit </span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>K8_D/K8_D">Order Report</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
-                                    </ul>
-                                </li>
-                                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><span
-                                            class="hide-menu">K8 Withdrawal </span></a>
-                                    <ul aria-expanded="false" class="collapse">
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Projects">Order Report</a></li>
-                                        <li><a href="<?php echo base_url(); ?>Projects/All_Tasks"> Shortage</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php
+                        $user_type = $this->session->userdata('user_type');
+                        if ($user_type === 'SUPER ADMIN' || $user_type === 'ADMIN'):
+                            ?>
+                            <li>
+                                <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                    <i class="mdi mdi-briefcase-check"></i><span class="hide-menu">Project</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse">
+                                 
+                                    <li>
+                                        <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                            <span class="hide-menu">W Project</span>
+                                        </a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?= base_url('W_Order/W_order_count') ?>">Order Report</a></li>
+                                            <li><a href="<?= base_url('Projects/All_Tasks') ?>">Shortage</a></li>
+                                        </ul>
+                                    </li>
+
+                             
+                                    <li>
+                                        <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                            <span class="hide-menu">Atas Project</span>
+                                        </a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?= base_url('Atas_Order/Atas_order') ?>">Order Report</a></li>
+                                            <li><a href="<?= base_url('Projects/All_Tasks') ?>">Shortage</a></li>
+                                        </ul>
+                                    </li>
+
+                               
+                                    <li>
+                                        <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                            <span class="hide-menu">W1W Deposit</span>
+                                        </a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?= base_url('W1W_Deposite_Order/W1W_Deposite_order') ?>">Order
+                                                    Report</a></li>
+                                            <li><a href="<?= base_url('Projects/All_Tasks') ?>">Shortage</a></li>
+                                        </ul>
+                                    </li>
+
+                               
+                                    <li>
+                                        <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                            <span class="hide-menu">W1W Withdrawal</span>
+                                        </a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?= base_url('W1W_W/W1W_W_order') ?>">Order Report</a></li>
+                                            <li><a href="<?= base_url('Projects/All_Tasks') ?>">Shortage</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                            <span class="hide-menu">K8 Deposit</span>
+                                        </a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?= base_url('K8_D/K8_D') ?>">Order Report</a></li>
+                                            <li><a href="<?= base_url('Projects/All_Tasks') ?>">Shortage</a></li>
+                                        </ul>
+                                    </li>
+
+                            
+                                    <!-- <li>
+                                        <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                                            <span class="hide-menu">K8 Withdrawal</span>
+                                        </a>
+                                        <ul aria-expanded="false" class="collapse">
+                                            <li><a href="<?= base_url('Projects/All_Projects') ?>">Order Report</a></li>
+                                            <li><a href="<?= base_url('Projects/All_Tasks') ?>">Shortage</a></li>
+                                        </ul>
+                                    </li> -->
+                                </ul>
+                            </li>
+                        <?php endif; ?>
+
 
                         <li>
                             <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
@@ -169,7 +202,7 @@
 
 
                     <?php } ?>
-                  
+
                     <li> <a href="<?php echo base_url() ?>notice/All_notice"><i class="mdi mdi-clipboard"></i><span
                                 class="hide-menu">Notice <span class="hide-menu"></a></li>
                     <!-- <li> <a href="<?php echo base_url(); ?>settings/Settings" ><i class="mdi mdi-settings"></i><span class="hide-menu">Settings <span class="hide-menu"></a></li> -->

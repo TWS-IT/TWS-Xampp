@@ -1,14 +1,14 @@
 <?php
-class W1W_Deposit_Model extends CI_Model{
+class K8_W_Model extends CI_Model{
      function __construct()
     {
         parent::__construct();
         
     }
-  public function Get_W1W_D() {
-    $this->db->select('w1w_deposit_order.*, employee.first_name, employee.last_name');
-    $this->db->from('w1w_deposit_order');
-    $this->db->join('employee', 'employee.em_code = w1w_deposit_order.employee_id', 'left');
+  public function Get_Atas() {
+    $this->db->select('atas_order.*, employee.first_name, employee.last_name');
+    $this->db->from('atas_order');
+    $this->db->join('employee', 'employee.em_code = atas_order.employee_id', 'left');
     $query = $this->db->get();
     return $query->result();
 }
@@ -21,15 +21,15 @@ class W1W_Deposit_Model extends CI_Model{
       $result = $query->row();
       return $result;
     } 
-     public function Add_W1W_D($data)
+     public function Add_atas($data)
     {
-        $this->db->insert('w1w_deposit_order', $data);
+        $this->db->insert('atas_order', $data);
     }
 
     public function get_orders_with_employee_names() {
-    $this->db->select('w1w_deposit_order.order_id, w1w_deposit_order.employee_id, employee.employee_name, w1w_deposit_order.order_date, w1w_deposit_order.shift, w1w_deposit_order.order_count, w1w_deposit_order.pc_position');
-    $this->db->from('w1w_deposit_order');
-    $this->db->join('employee', 'employee.employee_id = w1w_deposit_order.employee_id', 'left');
+    $this->db->select('atas_order.order_id, atas_order.employee_id, employee.employee_name, atas_order.order_date, atas_order.shift, atas_order.order_count, atas_order.pc_position');
+    $this->db->from('atas_order');
+    $this->db->join('employee', 'employee.employee_id = atas_order.employee_id', 'left');
     $query = $this->db->get();
     return $query->result();
 }
@@ -43,25 +43,25 @@ class W1W_Deposit_Model extends CI_Model{
     $query = $this->db->get('employee');
     return $query->result();
 }
-public function update_W1W_D($id,$data) {
+public function update_Atas($id,$data) {
         $this->db->where('order_id', $id);
-		$this->db->update('w1w_deposit_order',$data);  
+		$this->db->update('atas_order',$data);  
 }
 public function get_order_by_id($id) {
-    $this->db->select('w1w_deposit_order.*, employee.first_name, employee.last_name');
-    $this->db->from('w1w_deposit_order');
-    $this->db->join('employee', 'employee.em_code = w1w_deposit_order.employee_id', 'left');
-    $this->db->where('w1w_deposit_order.order_id', $id);
+    $this->db->select('atas_order.*, employee.first_name, employee.last_name');
+    $this->db->from('atas_order');
+    $this->db->join('employee', 'employee.em_code = atas_order.employee_id', 'left');
+    $this->db->where('atas_order.order_id', $id);
     return $this->db->get()->row();
 }
-public function DeleteW1WDOrder($id) {
+public function DeleteAtasOrder($id) {
     $this->db->where('order_id', $id);
-    return $this->db->delete('w1w_deposit_order');
+    return $this->db->delete('atas_order');
 }
 
 public function get_sum_order_count()
 {
-    $sql = "SELECT SUM(order_count) AS total FROM w1w_deposit_order";
+    $sql = "SELECT SUM(order_count) AS total FROM atas_order";
     $query = $this->db->query($sql);
     $result = $query->row_array();
 
@@ -69,9 +69,9 @@ public function get_sum_order_count()
 }
 public function get_orders_by_date_range($startDate, $endDate)
 {
-    $this->db->select('w1w_deposit_order.*, employee.full_name as employee_name');
-    $this->db->from('w1w_deposit_order');
-    $this->db->join('employee', 'employee.em_id = w1w_deposit_order.employee_id', 'left');
+    $this->db->select('atas_order.*, employee.full_name as employee_name');
+    $this->db->from('atas_order');
+    $this->db->join('employee', 'employee.em_id = atas_order.employee_id', 'left');
 
     if (!empty($startDate) && !empty($endDate)) {
         $this->db->where('order_date >=', $startDate);
@@ -84,7 +84,7 @@ public function get_orders_by_date_range($startDate, $endDate)
 public function get_sum_order_count_by_date($startDate, $endDate)
 {
     $this->db->select_sum('order_count');
-    $this->db->from('w1w_deposit_order');
+    $this->db->from('atas_order');
 
     if (!empty($startDate) && !empty($endDate)) {
         $this->db->where('order_date >=', $startDate);
@@ -102,7 +102,7 @@ public function get_all_orders_for_barline_chart($startDate = null, $endDate = n
 {
 
     $this->db->select('order_date, employee_id, SUM(order_count) AS total_orders');
-    $this->db->from('w1w_deposit_order');
+    $this->db->from('atas_order');
 
     if (!empty($startDate) && !empty($endDate)) {
         $this->db->where('order_date >=', $startDate);
@@ -162,6 +162,13 @@ public function get_all_orders_for_barline_chart($startDate = null, $endDate = n
         'avg_orders'   => $filledAverage
     ];
 }
+
+
+
+
+
+
+
 
 
 }

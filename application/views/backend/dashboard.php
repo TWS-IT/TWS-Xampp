@@ -175,7 +175,7 @@
     padding: 6px 10px;
     font-size: 14px;
     color: #333;
-    appearance: none; /* Removes default arrow */
+    appearance: none; 
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E");
@@ -349,8 +349,6 @@
 });
         </script>
 
-
-
 <script>
 $(document).ready(function () {
   $.ajax({
@@ -361,8 +359,10 @@ $(document).ready(function () {
 
       const categories = data.map(row => row.order_date);
       const w = data.map(row => parseInt(row.w_order_count));
-      const w1w = data.map(row => parseInt(row.w1w_order_count));
-    //   const k8 = data.map(row => parseInt(row.k8_order_count));
+      const w1w_d = data.map(row => parseInt(row.w1w_d_order_count));
+      const w1w_w = data.map(row => parseInt(row.w1w_w_order_count));
+      const k8_d = data.map(row => parseInt(row.k8_d_order_count));
+      const k8_w = data.map(row => parseInt(row.k8_w_order_count));
       const atas = data.map(row => parseInt(row.atas_order_count));
 
       const options = {
@@ -372,9 +372,10 @@ $(document).ready(function () {
         },
         series: [
           { name: 'W', data: w },
-          { name: 'W1W', data: w1w },
-        //   { name: '
-        // K8', data: k8 },
+          { name: 'W1W Deposit', data: w1w_d },
+          { name: 'W1W Withdrawal', data: w1w_w },
+          { name: 'K8 Deposit', data: k8_d },
+          { name: 'K8 Withdrawal', data: k8_w },
           { name: 'Atas', data: atas }
         ],
         xaxis: {
@@ -387,10 +388,18 @@ $(document).ready(function () {
         stroke: { curve: 'smooth' },
         legend: {
           position: 'top'
+        },
+        tooltip: {
+          shared: true,
+          intersect: false
         }
       };
 
       new ApexCharts(document.querySelector("#orderChart"), options).render();
+    },
+    error: function (xhr, status, error) {
+      console.error("Failed to fetch chart data:", error);
+      alert("Error loading order chart.");
     }
   });
 });

@@ -11,8 +11,8 @@ class Perfomance extends CI_Controller
         $this->load->model('settings_model');
         $this->load->model('atas_model');
         $this->load->model('W_model');
-        $this->load->model('w1w_model');
-        $this->load->model('w1w_w_model');
+        $this->load->model('W1W_Deposit_Model');
+        $this->load->model('w1w_w_Model');
         $this->load->model('employee_model');
         $this->load->model('leave_model');
         $this->load->helper(array('form', 'url'));
