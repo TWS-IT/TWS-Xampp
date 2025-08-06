@@ -3,6 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Emp_Perfomance extends CI_Controller
 {
+     private $project_tables = [
+        'w_order',
+        'atas_order',
+        'w1w_deposit_order',
+        'w1w_w',
+        'k8_d',
+        'k8_w',
+    ];
     public function __construct()
     {
         parent::__construct();
@@ -136,27 +144,88 @@ public function json_chart_data($em_code)
         return;
     }
 
-    // Query performance data directly from your table
-    $query = $this->db->query("
-        SELECT DATE(order_date) AS date, SUM(order_count) AS total_orders
-        FROM w_order
-        WHERE employee_id = ?
-        GROUP BY DATE(order_date)
-        ORDER BY DATE(order_date) ASC
-    ", [$em_code]);
+    $combined_data = [];
 
+    foreach ($this->project_tables as $table) {
+        $query = $this->db->query("
+            SELECT DATE(order_date) AS date, SUM(order_count) AS total_orders
+            FROM $table
+            WHERE employee_id = ?
+            GROUP BY DATE(order_date)
+            ORDER BY DATE(order_date) ASC
+        ", [$em_code]);
+
+        foreach ($query->result() as $row) {
+            if (isset($combined_data[$row->date])) {
+                $combined_data[$row->date] += (int)$row->total_orders;
+            } else {
+                $combined_data[$row->date] = (int)$row->total_orders;
+            }
+        }
+    }
+
+    // Sort by date ascending
+    ksort($combined_data);
+
+    // Format for chartjs (or frontend)
     $performance_data = [];
-
-    foreach ($query->result() as $row) {
+    foreach ($combined_data as $date => $total_orders) {
         $performance_data[] = [
-            'x' => strtotime($row->date) * 1000, 
-            'y' => (int) $row->total_orders
+            'x' => strtotime($date) * 1000,
+            'y' => $total_orders
         ];
     }
 
     header('Content-Type: application/json');
     echo json_encode($performance_data);
 }
+public function get_shift_order_data($em_code, $shift = null)
+{
+    if (!$em_code) {
+        show_error("Employee code is required", 400);
+        return;
+    }
+
+    $combined_results = [];
+
+    foreach ($this->project_tables as $table) {
+        $this->db->select("employee_id, order_date, shift, pc_position, SUM(order_count) as order_count", false);
+        $this->db->from($table);
+        $this->db->where("employee_id", $em_code);
+
+        if (!empty($shift)) {
+            $this->db->where("shift", $shift);
+        }
+
+        $this->db->group_by(["order_date", "shift", "pc_position"]);
+        $this->db->order_by("order_date", "ASC");
+
+        $query = $this->db->get();
+
+        foreach ($query->result() as $row) {
+            // Use a key to combine rows by date, shift and position
+            $key = $row->order_date . '|' . $row->shift . '|' . $row->pc_position;
+
+            if (isset($combined_results[$key])) {
+                // Add order_count if duplicate group found across tables
+                $combined_results[$key]->order_count += $row->order_count;
+            } else {
+                // Add new record
+                $combined_results[$key] = $row;
+            }
+        }
+    }
+
+    // Sort combined results by order_date ascending
+    usort($combined_results, function($a, $b) {
+        return strtotime($a->order_date) - strtotime($b->order_date);
+    });
+
+    header('Content-Type: application/json');
+    echo json_encode(array_values($combined_results));
+}
+
+
 
 
 

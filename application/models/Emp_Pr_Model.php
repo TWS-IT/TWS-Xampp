@@ -60,6 +60,37 @@ public function get_daily_order_count($emp_code, $date)
 }
 
 
+public function get_orders_by_shift($employee_id, $shift)
+{
+    $shift_times = [
+        'morning' => ['06:00:00', '14:00:00'],
+        'noon'    => ['14:00:01', '22:00:00'],
+        'night'   => ['22:00:01', '05:59:59']
+    ];
+
+    $time_range = $shift_times[strtolower($shift)];
+
+    $query = $this->db->query("
+        SELECT 
+            DATE(order_date) AS order_date,
+            SUM(order_count) AS order_count,
+            GROUP_CONCAT(pc_position) AS pc_position
+        FROM w_order
+        WHERE employee_id = ?
+        AND (
+            (TIME(order_date) BETWEEN ? AND ?)
+            OR
+            (? = 'night' AND TIME(order_date) BETWEEN '00:00:00' AND '05:59:59')
+        )
+        GROUP BY DATE(order_date)
+        ORDER BY order_date ASC
+    ", [$employee_id, $time_range[0], $time_range[1], strtolower($shift)]);
+
+    return $query->result();
+}
+
+
+
 
 
 }

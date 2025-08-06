@@ -74,45 +74,61 @@
         </div>
     </div>
 
+    <div class="container-fluid">
+        <div class="tab-content">
+            <div class="tab-pane active" id="home" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
 
 
-<div class="text-right mb-12">
-    <span class="badge badge-pill badge-primary shift-filter" data-shift="Morning">Morning</span>
-    <span class="badge badge-pill badge-warning shift-filter" data-shift="Noon">Noon</span>
-    <span class="badge badge-pill badge-dark shift-filter" data-shift="Night">Night</span>
-</div>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="col text-end">
+                                    <button class="btn btn-sm btn-outline-primary shift-filter active"
+                                        data-shift="">All</button>
+                                    <button class="btn btn-sm btn-outline-info shift-filter"
+                                        data-shift="morning">Morning</button>
+                                    <button class="btn btn-sm btn-outline-warning shift-filter"
+                                        data-shift="noon">Noon</button>
+                                    <button class="btn btn-sm btn-outline-dark shift-filter"
+                                        data-shift="night">Night</button>
+                                </div>
 
-<div class="table-wrapper">
-<div class="col-md-4">
-  <table class="table-bordered table">
-    <thead>
-        <tr>
-            <th rowspan="2">Name</th>
-            <?php foreach ($dates as $date): ?>
-                <th><?= date('d-M', strtotime($date)) ?></th>
-            <?php endforeach; ?>
-        </tr>
-        <tr>
-            <?php foreach ($dates as $date): ?>
-                <th><?= date('D', strtotime($date)) ?></th>
-            <?php endforeach; ?>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><strong><?= $employee->name ?></strong></td>
-            <?php foreach ($orders as $order): ?>
-                <td class="order-cell" data-shift="<?= $order['shift'] ?>">
-                    <?= $order['order_count'] ?><br>
-                    <small><?= $order['pc_position'] ?></small>
-                </td>
-            <?php endforeach; ?>
-        </tr>
-    </tbody>
-</table>
 
-</div>
-</div>
+                                <div class="text-end mb-2">
+                                    <span class="fw-bold">Shift Total Orders:</span>
+                                    <span id="shift-total-orders" class="text-blue">0</span>
+                                </div>
+                            </div>
+
+                                <div class="table-wrapper">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                                            <table class="table table-bordered text-center" id="shift-order-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Shift</th>
+                                                        <th>PC Position</th>
+                                                        <th>Order Count</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Order data rows will be appended here by JS -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               
+            </div>
+
+
+        </div>
+    </div>
 </div>
 
 
@@ -144,17 +160,19 @@
         },
         annotations: {
             yaxis: [{
-                // y: 50, 
-                borderColor: '#999',
+                y: 25, 
+                borderColor: '#ff0000',
                 label: {
                     borderColor: '#999',
                     style: {
                         color: '#fff',
-                        background: '#999'
+                        background: '#ff0000'
                     },
-                    //   text: 'Threshold 50'
+                      text: 'Low performance'
                 }
+                
             }]
+           
         },
 
         tooltip: {
@@ -277,7 +295,7 @@
     body {
         font-family: Arial, sans-serif;
         margin: 0;
-        
+
     }
 
     .table-wrapper {
@@ -339,20 +357,19 @@
     }
 
     .shift-filter {
-    cursor: pointer;
-    margin: 0 5px;
-    padding: 5px 10px;
-    font-size: 14px;
-}
+        cursor: pointer;
+        margin: 0 5px;
+        padding: 5px 10px;
+        font-size: 14px;
+    }
 
-.shift-filter.active {
-    border: 2px solid #333;
-}
-
+    .shift-filter.active {
+        border: 2px solid #333;
+    }
 </style>
 
 
-<script>
+<!-- <script>
     document.querySelectorAll('.shift-filter').forEach(btn => {
     btn.addEventListener('click', function () {
         document.querySelectorAll('.shift-filter').forEach(b => b.classList.remove('active'));
@@ -370,6 +387,54 @@
     });
 });
 
+</script> -->
+
+<script>
+    const em_code = "<?= $em_code ?>";
+
+    function loadShiftOrders(shift = '') {
+        fetch(`<?= base_url('Emp_Perfomance/get_shift_order_data/') ?>${em_code}/${shift}`)
+            .then(res => res.json())
+            .then(data => {
+                const tableBody = document.querySelector('#shift-order-table tbody');
+                tableBody.innerHTML = '';
+
+                let totalOrders = 0;
+
+                if (data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4">No data found for selected shift.</td></tr>';
+                    document.getElementById('shift-total-orders').textContent = '0';
+                    return;
+                }
+
+                data.forEach(item => {
+                    totalOrders += parseInt(item.order_count);
+                    const row = `
+                        <tr>
+                            <td>${item.order_date}</td>
+                            <td>${item.shift}</td>
+                            <td>${item.pc_position}</td>
+                            <td>${item.order_count}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+
+                document.getElementById('shift-total-orders').textContent = totalOrders;
+            });
+    }
+
+    document.querySelectorAll('.shift-filter').forEach(button => {
+        button.addEventListener('click', function () {
+            document.querySelectorAll('.shift-filter').forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            const selectedShift = this.getAttribute('data-shift');
+            loadShiftOrders(selectedShift);
+        });
+    });
+
+
+    loadShiftOrders();
 </script>
 
 
