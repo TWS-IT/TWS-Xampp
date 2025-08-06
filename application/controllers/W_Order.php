@@ -33,9 +33,17 @@ class W_Order extends CI_Controller
 
     public function index()
     {
+         $user = $this->session->userdata('user');
+     if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
 
-        #Redirect to Admin dashboard after authentication
-        if ($this->session->userdata('user_login_access') == 1)
+ show_error('You are not authorized to view this page.', 403);
+            return;
+
+
+     }
+     else {
+
+ if ($this->session->userdata('user_login_access') == 1)
             redirect('dashboard/Dashboard');
         $data = array();
         $data['orders'] = $this->W_model->get_orders_with_employee_names();
@@ -43,6 +51,10 @@ class W_Order extends CI_Controller
         #$data['settingsvalue'] = $this->dashboard_model->GetSettingsValue();
         $this->load->view('login');
     }
+     }
+
+       
+       
 
     public function Get_Data()
     {
@@ -51,6 +63,16 @@ class W_Order extends CI_Controller
     }
     public function Save_W()
     {
+         $user = $this->session->userdata('user');
+     if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
+
+ show_error('You are not authorized to view this page.', 403);
+            return;
+
+
+     }
+     else {
+
         if ($this->session->userdata('user_login_access') != false) {
             $this->load->library('form_validation');
 
@@ -89,6 +111,8 @@ class W_Order extends CI_Controller
                 'message' => 'Unauthorized Access'
             ]);
         }
+     }
+        
     }
 
 
@@ -110,13 +134,23 @@ class W_Order extends CI_Controller
     }
 public function W_order_count()
 {
+     $user = $this->session->userdata('user');
+     if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
+
+ show_error('You are not authorized to view this page.', 403);
+            return;
+
+
+     }
+     else {
+
     $this->load->model('W_model');
-    $this->load->model('employee_model');  // load employee model
+    $this->load->model('employee_model');  
 
     $sum_order_count = $this->W_model->get_sum_order_count();
     $w_order = $this->W_model->Get_w();
 
-    $employee = $this->employee_model->emselectW();  // use your existing employee fetch function
+    $employee = $this->employee_model->emselectW(); 
 
     $data = [
         'sum_order_count' => $sum_order_count,
@@ -125,13 +159,26 @@ public function W_order_count()
     ];
 
     $this->load->view('backend/w_order', $data);
+
+     }
+
 }
 
 
 
     public function update_W()
     {
-        if ($this->session->userdata('user_login_access') != False) {
+         $user = $this->session->userdata('user');
+     if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
+
+ show_error('You are not authorized to view this page.', 403);
+            return;
+
+
+     }
+     else {
+
+         if ($this->session->userdata('user_login_access') != False) {
             $id = $this->input->post('order_id');
 
             $data = array(
@@ -157,11 +204,23 @@ public function W_order_count()
             ]);
             exit;
         }
+     }
+       
     }
 
 
     public function Edit_W($id)
     {
+         $user = $this->session->userdata('user');
+     if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
+
+ show_error('You are not authorized to view this page.', 403);
+            return;
+
+
+     }
+     else {
+
         if ($this->session->userdata('user_login_access') != False) {
             $data['employee'] = $this->employee_model->emselectW();
             $data['order'] = $this->W_model->get_order_by_id($id);
@@ -170,17 +229,29 @@ public function W_order_count()
         } else {
             redirect(base_url(), 'refresh');
         }
+     }
+        
     }
 
     public function Delete_W($id)
     {
-        if ($this->session->userdata('user_login_access') != False) {
+         if ($this->session->userdata('user_login_access') != False) {
+            $data['employee'] = $this->employee_model->emselectW();
+            $data['order'] = $this->W_model->get_order_by_id($id);
+
+            $this->load->view('backend/edit_w_order', $data);
+        }
+        else {
+             if ($this->session->userdata('user_login_access') != False) {
             $this->W_model->DeleteWOrder($id);
             $this->session->set_flashdata('feedback', 'Order Deleted Successfully');
             redirect('W_Order/W_order');
         } else {
             redirect(base_url(), 'refresh');
         }
+        }
+
+       
     }
 
 

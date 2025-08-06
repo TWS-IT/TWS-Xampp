@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Perfomance extends CI_Controller
+class Emp_Perfomance extends CI_Controller
 {
 
     public function __construct()
@@ -33,5 +33,3 @@ class Perfomance extends CI_Controller
         $this->load->view('backend/footer');
     }
 }
-
-?>

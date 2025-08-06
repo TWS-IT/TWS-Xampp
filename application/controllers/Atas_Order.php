@@ -108,24 +108,36 @@ class Atas_Order extends CI_Controller
             redirect(base_url(), 'refresh');
         }
     }
-public function Atas_order_count()
-{
-    $this->load->model('Atas_Model');
-    $this->load->model('employee_model');  
+    public function Atas_order_count()
+    {
 
-    $sum_order_count = $this->Atas_Model->get_sum_order_count();
-    $atas_order = $this->Atas_Model->Get_Atas();
+        $user = $this->session->userdata('user');
+        if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
 
-    $employee = $this->employee_model->emselectAtas();
+            show_error('You are not authorized to view this page.', 403);
+            return;
 
-    $data = [
-        'sum_order_count' => $sum_order_count,
-        'atas_order' => $atas_order,
-        'employee' => $employee,
-    ];
 
-    $this->load->view('backend/atas_order', $data);
-}
+        } else {
+
+            $this->load->model('Atas_Model');
+            $this->load->model('employee_model');
+
+            $sum_order_count = $this->Atas_Model->get_sum_order_count();
+            $atas_order = $this->Atas_Model->Get_Atas();
+
+            $employee = $this->employee_model->emselectAtas();
+
+            $data = [
+                'sum_order_count' => $sum_order_count,
+                'atas_order' => $atas_order,
+                'employee' => $employee,
+            ];
+
+            $this->load->view('backend/atas_order', $data);
+        }
+
+    }
 
 
 
@@ -200,20 +212,20 @@ public function Atas_order_count()
         }
     }
 
-public function get_filtered_order_sum()
-{
-    if ($this->session->userdata('user_login_access') != False) {
-        $startDate = $this->input->get('date_from');
-        $endDate = $this->input->get('date_to');
+    public function get_filtered_order_sum()
+    {
+        if ($this->session->userdata('user_login_access') != False) {
+            $startDate = $this->input->get('date_from');
+            $endDate = $this->input->get('date_to');
 
-        $this->load->model('Atas_Model');
-        $sum = $this->Atas_Model->get_sum_order_count_by_date($startDate, $endDate);
+            $this->load->model('Atas_Model');
+            $sum = $this->Atas_Model->get_sum_order_count_by_date($startDate, $endDate);
 
-        echo json_encode(['total' => $sum]);
-    } else {
-        show_error("Unauthorized access", 403);
+            echo json_encode(['total' => $sum]);
+        } else {
+            show_error("Unauthorized access", 403);
+        }
     }
-}
 
 
 

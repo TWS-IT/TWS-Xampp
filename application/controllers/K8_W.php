@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @property login_model $login_model
  * @property dashboard_model $dashboard_model
  * @property employee_model $employee_model
- * @property K8_D_Model $K8_D_Model
+ * @property K8_W_Model $K8_W_Model
  * @property CI_Session $session
  * @property CI_Input $input
  * @property CI_Form_validation $form_validation
@@ -14,7 +14,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  */
 
 
-class K8_D extends CI_Controller
+class K8_W extends CI_Controller
 {
     function __construct()
     {
@@ -24,28 +24,31 @@ class K8_D extends CI_Controller
         $this->load->model('dashboard_model');
         $this->load->model('employee_model');
         $this->load->model('settings_model');
-        $this->load->model('K8_D_Model');
+        $this->load->model('K8_W_Model');
         $this->load->model('leave_model');
+       
         $this->load->helper('log');
     }
 
     public function index()
     {
 
+        
         if ($this->session->userdata('user_login_access') == 1)
             redirect('dashboard/Dashboard');
         $data = array();
-        $data['orders'] = $this->K8_D_Model->get_orders_with_employee_names();
+        $data['orders'] = $this->K8_W_Model->get_orders_with_employee_names();
         $this->load->view('orders_view', $data);
+        
         $this->load->view('login');
     }
 
     public function Get_Data()
     {
-        $data['employee'] = $this->employee_model->emselectK8D();
-        $data['k8_d'] = $this->K8_D_Model->Get_K8_D();
+        $data['employee'] = $this->employee_model->emselectK8W();
+        $data['k8_w'] = $this->K8_W_Model->Get_K8_W();
     }
-    public function Save_K8_D()
+    public function Save_K8_W()
     {
         if ($this->session->userdata('user_login_access') != false) {
             $this->load->library('form_validation');
@@ -70,7 +73,7 @@ class K8_D extends CI_Controller
                     'order_count' => $this->input->post('order_count'),
                 );
 
-                $this->K8_D_Model->Add_k8_d($data);
+                $this->K8_W_Model->Add_K8_W($data);
                 $this->session->set_flashdata('feedback', 'Successfully Added');
                 log_action($this, 'Save', "Order for employee '{$data['employee_id']}' added.");
 
@@ -88,23 +91,23 @@ class K8_D extends CI_Controller
     }
 
 
-    function K8_D()
+    function K8_W_order()
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $data['employee'] = $this->employee_model->emselectK8D();
+            $data['employee'] = $this->employee_model->emselectW1WWithdrawal();
             if ($this->session->userdata('user_type') == 'EMPLOYEE') {
                 $id = $this->session->userdata('user_login_id');
-                $data['k8_d'] = $this->K8_D_Model->Get_K8_D();
+                $data['k8_w'] = $this->K8_W_Model->Get_K8_W();
             } else {
-                $data['k8_d'] = $this->K8_D_Model->Get_K8_D();
+                $data['k8_w'] = $this->K8_W_Model->Get_K8_W();
             }
 
-            $this->load->view('backend/k8_d', $data);
+            $this->load->view('backend/k8_w', $data);
         } else {
             redirect(base_url(), 'refresh');
         }
     }
-    public function k8_d_order_count()
+    public function K8_W_order_count()
     {
 
         $user = $this->session->userdata('user');
@@ -115,29 +118,29 @@ class K8_D extends CI_Controller
 
 
         } else {
-            $this->load->model('K8_D_Model');
+
+            $this->load->model('K8_W_Model');
             $this->load->model('employee_model');
 
-            $sum_order_count = $this->K8_D_Model->get_sum_order_count();
-            $K8_D_Model_order = $this->K8_D_Model->Get_K8_D();
+            $sum_order_count = $this->K8_W_Model->get_sum_order_count();
+            $k8_w_order = $this->K8_W_Model->Get_K8_W();
 
-            $employee = $this->employee_model->emselectK8D();
+            $employee = $this->employee_model->emselectK8W();
 
             $data = [
                 'sum_order_count' => $sum_order_count,
-                'atas_order' => $K8_D_Model_order,
+                'k8_w' => $k8_w_order,
                 'employee' => $employee,
             ];
 
-            $this->load->view('backend/k8_d', $data);
-
+            $this->load->view('backend/k8_w', $data);
         }
 
     }
 
 
 
-    public function update_k8_d()
+    public function update_K8_W()
     {
         if ($this->session->userdata('user_login_access') != False) {
             $id = $this->input->post('order_id');
@@ -150,7 +153,7 @@ class K8_D extends CI_Controller
                 'order_count' => $this->input->post('order_count'),
             );
 
-            $this->K8_D_Model->update_k8_d($id, $data);
+            $this->K8_W_Model->update_K8_W($id, $data);
             log_action($this, 'Update', "Order for employee '{$data['employee_id']}' updated.");
 
             echo json_encode([
@@ -168,24 +171,24 @@ class K8_D extends CI_Controller
     }
 
 
-    public function Edit_k8_d($id)
+    public function Edit_K8_W($id)
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $data['employee'] = $this->employee_model->emselectK8D();
-            $data['order'] = $this->K8_D_Model->get_order_by_id($id);
+            $data['employee'] = $this->employee_model->emselectK8W();
+            $data['order'] = $this->K8_W_Model->get_order_by_id($id);
 
-            $this->load->view('backend/edit_k8_d', $data);
+            $this->load->view('backend/edit_k8_W_order', $data);
         } else {
             redirect(base_url(), 'refresh');
         }
     }
 
-    public function Delete_k8_d($id)
+    public function Delete_K8_W($id)
     {
         if ($this->session->userdata('user_login_access') != False) {
-            $this->K8_D_Model->Deletek8_d($id);
+            $this->K8_W_Model->DeleteK8_W($id);
             $this->session->set_flashdata('feedback', 'Order Deleted Successfully');
-            redirect('K8_D/K8_D');
+            redirect('K8_W/K8_W_Order');
         } else {
             redirect(base_url(), 'refresh');
         }
@@ -201,7 +204,7 @@ class K8_D extends CI_Controller
             $startDate = $this->input->get('date_from');
             $endDate = $this->input->get('date_to');
 
-            $data = $this->K8_D_Model->get_all_orders_for_barline_chart($startDate, $endDate);
+            $data = $this->K8_W_Model->get_all_orders_for_barline_chart($startDate, $endDate);
             echo json_encode($data);
         } else {
             show_error("Unauthorized access", 403);
@@ -214,8 +217,8 @@ class K8_D extends CI_Controller
             $startDate = $this->input->get('date_from');
             $endDate = $this->input->get('date_to');
 
-            $this->load->model('K8_D_Model');
-            $sum = $this->K8_D_Model->get_sum_order_count_by_date($startDate, $endDate);
+            $this->load->model('K8_W_Model');
+            $sum = $this->K8_W_Model->get_sum_order_count_by_date($startDate, $endDate);
 
             echo json_encode(['total' => $sum]);
         } else {

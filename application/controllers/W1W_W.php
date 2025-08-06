@@ -94,6 +94,7 @@ class W1W_W extends CI_Controller
 
     function W1W_W_order()
     {
+        
         if ($this->session->userdata('user_login_access') != False) {
             $data['employee'] = $this->employee_model->emselectW1WWithdrawal();
             if ($this->session->userdata('user_type') == 'EMPLOYEE') {
@@ -110,7 +111,18 @@ class W1W_W extends CI_Controller
     }
 public function w1w_w_order_count()
 {
-    $this->load->model('w1w_w_model');
+    
+    $user = $this->session->userdata('user');
+     if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
+
+ show_error('You are not authorized to view this page.', 403);
+            return;
+
+
+     }
+     else {
+
+   $this->load->model('w1w_w_model');
     $this->load->model('employee_model');  
 
     $sum_order_count = $this->w1w_w_Model->get_sum_order_count();
@@ -125,6 +137,8 @@ public function w1w_w_order_count()
     ];
 
     $this->load->view('backend/w1w_w', $data);
+     }
+ 
 }
 
 

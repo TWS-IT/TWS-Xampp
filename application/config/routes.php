@@ -54,7 +54,11 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['W_Order/W_order'] = 'W_Order/W_order_count';
 $route['Atas_Order/Atas_order'] = 'Atas_Order/Atas_order_count';
+$route['K8_W/K8_W_order'] = 'K8_W/K8_W_order_count';
 $route['W_Order/get_mistake_chart_data'] = 'W_Order/get_mistake_chart_data';
 $route['W_Order/get_all_orders_barline_chart_se'] = 'W_Order/get_all_orders_barline_chart_se';
+$route['emp_perfomance/(:any)'] = 'Emp_Perfomance/emp_perfomance/$1';
+$route['employee/chart/(:any)'] = 'Emp_Perfomance/chart_view/$1';
+
 
 

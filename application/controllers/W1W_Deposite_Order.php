@@ -111,7 +111,16 @@ class W1W_Deposite_Order extends CI_Controller
 
     public function W1W_Deposit_order_count()
 {
-    $this->load->model('W1W_Deposit_Model');
+    $user = $this->session->userdata('user');
+     if (!$user || !in_array($user['em_role'], ['ADMIN', 'SUPER ADMIN'])) {
+
+ show_error('You are not authorized to view this page.', 403);
+            return;
+
+
+     }
+     else{
+ $this->load->model('W1W_Deposit_Model');
     $this->load->model('employee_model');  
 
     $sum_order_count = $this->W1W_Deposit_Model->get_sum_order_count();
@@ -126,6 +135,9 @@ class W1W_Deposite_Order extends CI_Controller
     ];
 
     $this->load->view('backend/w1w_deposit_order', $data);
+
+     }
+   
 }
 
 

@@ -78,8 +78,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>employee/Employees">Employees </a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Disciplinary">Disciplinary </a></li>
-                                <li> <a href="<?php echo base_url() ?>Perfomance/index"><i
-                                            class="mdi mdi-speedometer"></i><span class="hide-menu">Perfomance<span
+                                <li> <a href="<?php echo base_url() ?>Perfomance/index"><span class="hide-menu">Perfomance<span
                                                 class="hide-menu"></a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li>
                             </ul>
@@ -168,15 +167,15 @@
                                     </li>
 
                             
-                                    <!-- <li>
+                                    <li>
                                         <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
                                             <span class="hide-menu">K8 Withdrawal</span>
                                         </a>
                                         <ul aria-expanded="false" class="collapse">
-                                            <li><a href="<?= base_url('Projects/All_Projects') ?>">Order Report</a></li>
+                                            <li><a href="<?= base_url('K8_W/K8_W_order') ?>">Order Report</a></li>
                                             <li><a href="<?= base_url('Projects/All_Tasks') ?>">Shortage</a></li>
                                         </ul>
-                                    </li> -->
+                                    </li>
                                 </ul>
                             </li>
                         <?php endif; ?>
