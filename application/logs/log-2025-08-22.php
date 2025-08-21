@@ -32371,3 +32371,250 @@ INFO - 2025-08-22 04:49:32 --> Model Class Initialized
 DEBUG - 2025-08-22 04:49:32 --> Form_validation class already loaded. Second attempt ignored.
 INFO - 2025-08-22 04:49:32 --> Final output sent to browser
 DEBUG - 2025-08-22 04:49:32 --> Total execution time: 0.0322
+INFO - 2025-08-22 04:53:04 --> Config Class Initialized
+INFO - 2025-08-22 04:53:04 --> Hooks Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> UTF-8 Support Enabled
+INFO - 2025-08-22 04:53:04 --> Utf8 Class Initialized
+INFO - 2025-08-22 04:53:04 --> URI Class Initialized
+INFO - 2025-08-22 04:53:04 --> Router Class Initialized
+INFO - 2025-08-22 04:53:04 --> Output Class Initialized
+INFO - 2025-08-22 04:53:04 --> Security Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-08-22 04:53:04 --> Input Class Initialized
+INFO - 2025-08-22 04:53:04 --> Language Class Initialized
+INFO - 2025-08-22 04:53:04 --> Loader Class Initialized
+INFO - 2025-08-22 04:53:04 --> Helper loaded: url_helper
+INFO - 2025-08-22 04:53:04 --> Helper loaded: security_helper
+INFO - 2025-08-22 04:53:04 --> Database Driver Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-08-22 04:53:04 --> Session: Class initialized using 'files' driver.
+INFO - 2025-08-22 04:53:04 --> Controller Class Initialized
+INFO - 2025-08-22 04:53:04 --> Model Class Initialized
+INFO - 2025-08-22 04:53:04 --> Helper loaded: form_helper
+INFO - 2025-08-22 04:53:04 --> Form Validation Class Initialized
+INFO - 2025-08-22 04:53:04 --> Model Class Initialized
+INFO - 2025-08-22 04:53:04 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:04 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:04 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:04 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:04 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:04 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:04 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:04 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:04 --> Upload Class Initialized
+INFO - 2025-08-22 04:53:04 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/header.php
+INFO - 2025-08-22 04:53:04 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/sidebar.php
+INFO - 2025-08-22 04:53:04 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/footer.php
+INFO - 2025-08-22 04:53:04 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/employees.php
+INFO - 2025-08-22 04:53:04 --> Final output sent to browser
+DEBUG - 2025-08-22 04:53:04 --> Total execution time: 0.0546
+INFO - 2025-08-22 04:53:05 --> Config Class Initialized
+INFO - 2025-08-22 04:53:05 --> Hooks Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> UTF-8 Support Enabled
+INFO - 2025-08-22 04:53:05 --> Utf8 Class Initialized
+INFO - 2025-08-22 04:53:05 --> URI Class Initialized
+INFO - 2025-08-22 04:53:05 --> Router Class Initialized
+INFO - 2025-08-22 04:53:05 --> Output Class Initialized
+INFO - 2025-08-22 04:53:05 --> Security Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-08-22 04:53:05 --> Input Class Initialized
+INFO - 2025-08-22 04:53:05 --> Language Class Initialized
+INFO - 2025-08-22 04:53:05 --> Loader Class Initialized
+INFO - 2025-08-22 04:53:05 --> Helper loaded: url_helper
+INFO - 2025-08-22 04:53:05 --> Helper loaded: security_helper
+INFO - 2025-08-22 04:53:05 --> Database Driver Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-08-22 04:53:05 --> Session: Class initialized using 'files' driver.
+INFO - 2025-08-22 04:53:05 --> Controller Class Initialized
+INFO - 2025-08-22 04:53:05 --> Model Class Initialized
+INFO - 2025-08-22 04:53:05 --> Helper loaded: form_helper
+INFO - 2025-08-22 04:53:05 --> Form Validation Class Initialized
+INFO - 2025-08-22 04:53:05 --> Model Class Initialized
+INFO - 2025-08-22 04:53:05 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:05 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:05 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:05 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:05 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:05 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:05 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:05 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:05 --> Upload Class Initialized
+INFO - 2025-08-22 04:53:05 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/header.php
+INFO - 2025-08-22 04:53:05 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/sidebar.php
+INFO - 2025-08-22 04:53:05 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/footer.php
+INFO - 2025-08-22 04:53:05 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/add-employee.php
+INFO - 2025-08-22 04:53:05 --> Final output sent to browser
+DEBUG - 2025-08-22 04:53:05 --> Total execution time: 0.0274
+INFO - 2025-08-22 04:53:11 --> Config Class Initialized
+INFO - 2025-08-22 04:53:11 --> Hooks Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> UTF-8 Support Enabled
+INFO - 2025-08-22 04:53:11 --> Utf8 Class Initialized
+INFO - 2025-08-22 04:53:11 --> URI Class Initialized
+INFO - 2025-08-22 04:53:11 --> Router Class Initialized
+INFO - 2025-08-22 04:53:11 --> Output Class Initialized
+INFO - 2025-08-22 04:53:11 --> Security Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-08-22 04:53:11 --> Input Class Initialized
+INFO - 2025-08-22 04:53:11 --> Language Class Initialized
+INFO - 2025-08-22 04:53:11 --> Loader Class Initialized
+INFO - 2025-08-22 04:53:11 --> Helper loaded: url_helper
+INFO - 2025-08-22 04:53:11 --> Helper loaded: security_helper
+INFO - 2025-08-22 04:53:11 --> Database Driver Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-08-22 04:53:11 --> Session: Class initialized using 'files' driver.
+INFO - 2025-08-22 04:53:11 --> Controller Class Initialized
+INFO - 2025-08-22 04:53:11 --> Model Class Initialized
+INFO - 2025-08-22 04:53:11 --> Helper loaded: form_helper
+INFO - 2025-08-22 04:53:11 --> Form Validation Class Initialized
+INFO - 2025-08-22 04:53:11 --> Model Class Initialized
+INFO - 2025-08-22 04:53:11 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:11 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:11 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:11 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:11 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:11 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:11 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:11 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:11 --> Upload Class Initialized
+INFO - 2025-08-22 04:53:11 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/header.php
+INFO - 2025-08-22 04:53:11 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/sidebar.php
+INFO - 2025-08-22 04:53:11 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/footer.php
+INFO - 2025-08-22 04:53:11 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/employees.php
+INFO - 2025-08-22 04:53:11 --> Final output sent to browser
+DEBUG - 2025-08-22 04:53:11 --> Total execution time: 0.1360
+INFO - 2025-08-22 04:53:12 --> Config Class Initialized
+INFO - 2025-08-22 04:53:12 --> Hooks Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> UTF-8 Support Enabled
+INFO - 2025-08-22 04:53:12 --> Utf8 Class Initialized
+INFO - 2025-08-22 04:53:12 --> URI Class Initialized
+INFO - 2025-08-22 04:53:12 --> Router Class Initialized
+INFO - 2025-08-22 04:53:12 --> Output Class Initialized
+INFO - 2025-08-22 04:53:12 --> Security Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-08-22 04:53:12 --> Input Class Initialized
+INFO - 2025-08-22 04:53:12 --> Language Class Initialized
+INFO - 2025-08-22 04:53:12 --> Loader Class Initialized
+INFO - 2025-08-22 04:53:12 --> Helper loaded: url_helper
+INFO - 2025-08-22 04:53:12 --> Helper loaded: security_helper
+INFO - 2025-08-22 04:53:12 --> Database Driver Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-08-22 04:53:12 --> Session: Class initialized using 'files' driver.
+INFO - 2025-08-22 04:53:12 --> Controller Class Initialized
+INFO - 2025-08-22 04:53:12 --> Model Class Initialized
+INFO - 2025-08-22 04:53:12 --> Helper loaded: form_helper
+INFO - 2025-08-22 04:53:12 --> Form Validation Class Initialized
+INFO - 2025-08-22 04:53:12 --> Model Class Initialized
+INFO - 2025-08-22 04:53:12 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:12 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:12 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:12 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:12 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:12 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:12 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:12 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:12 --> Upload Class Initialized
+INFO - 2025-08-22 04:53:12 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/header.php
+INFO - 2025-08-22 04:53:12 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/sidebar.php
+INFO - 2025-08-22 04:53:12 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/em_modal.php
+INFO - 2025-08-22 04:53:12 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/footer.php
+INFO - 2025-08-22 04:53:12 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/employee_view.php
+INFO - 2025-08-22 04:53:12 --> Final output sent to browser
+DEBUG - 2025-08-22 04:53:12 --> Total execution time: 0.1425
+INFO - 2025-08-22 04:53:31 --> Config Class Initialized
+INFO - 2025-08-22 04:53:31 --> Hooks Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> UTF-8 Support Enabled
+INFO - 2025-08-22 04:53:31 --> Utf8 Class Initialized
+INFO - 2025-08-22 04:53:31 --> URI Class Initialized
+INFO - 2025-08-22 04:53:31 --> Router Class Initialized
+INFO - 2025-08-22 04:53:31 --> Output Class Initialized
+INFO - 2025-08-22 04:53:31 --> Security Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-08-22 04:53:31 --> Input Class Initialized
+INFO - 2025-08-22 04:53:31 --> Language Class Initialized
+INFO - 2025-08-22 04:53:31 --> Loader Class Initialized
+INFO - 2025-08-22 04:53:31 --> Helper loaded: url_helper
+INFO - 2025-08-22 04:53:31 --> Helper loaded: security_helper
+INFO - 2025-08-22 04:53:31 --> Database Driver Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-08-22 04:53:31 --> Session: Class initialized using 'files' driver.
+INFO - 2025-08-22 04:53:31 --> Controller Class Initialized
+INFO - 2025-08-22 04:53:31 --> Model Class Initialized
+INFO - 2025-08-22 04:53:31 --> Helper loaded: form_helper
+INFO - 2025-08-22 04:53:31 --> Form Validation Class Initialized
+INFO - 2025-08-22 04:53:31 --> Model Class Initialized
+INFO - 2025-08-22 04:53:31 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:31 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:31 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:31 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:31 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:31 --> Upload Class Initialized
+DEBUG - 2025-08-22 04:53:31 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:31 --> Language file loaded: language/english/form_validation_lang.php
+DEBUG - 2025-08-22 04:53:31 --> Upload class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:31 --> Final output sent to browser
+DEBUG - 2025-08-22 04:53:31 --> Total execution time: 0.0511
+INFO - 2025-08-22 04:53:35 --> Config Class Initialized
+INFO - 2025-08-22 04:53:35 --> Hooks Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> UTF-8 Support Enabled
+INFO - 2025-08-22 04:53:35 --> Utf8 Class Initialized
+INFO - 2025-08-22 04:53:35 --> URI Class Initialized
+INFO - 2025-08-22 04:53:35 --> Router Class Initialized
+INFO - 2025-08-22 04:53:35 --> Output Class Initialized
+INFO - 2025-08-22 04:53:35 --> Security Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> Global POST, GET and COOKIE data sanitized
+INFO - 2025-08-22 04:53:35 --> Input Class Initialized
+INFO - 2025-08-22 04:53:35 --> Language Class Initialized
+INFO - 2025-08-22 04:53:35 --> Loader Class Initialized
+INFO - 2025-08-22 04:53:35 --> Helper loaded: url_helper
+INFO - 2025-08-22 04:53:35 --> Helper loaded: security_helper
+INFO - 2025-08-22 04:53:35 --> Database Driver Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.
+INFO - 2025-08-22 04:53:35 --> Session: Class initialized using 'files' driver.
+INFO - 2025-08-22 04:53:35 --> Controller Class Initialized
+INFO - 2025-08-22 04:53:35 --> Model Class Initialized
+INFO - 2025-08-22 04:53:35 --> Helper loaded: form_helper
+INFO - 2025-08-22 04:53:35 --> Form Validation Class Initialized
+INFO - 2025-08-22 04:53:35 --> Model Class Initialized
+INFO - 2025-08-22 04:53:35 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:35 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:35 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:35 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:35 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:35 --> Model Class Initialized
+DEBUG - 2025-08-22 04:53:35 --> Form_validation class already loaded. Second attempt ignored.
+DEBUG - 2025-08-22 04:53:35 --> Form_validation class already loaded. Second attempt ignored.
+INFO - 2025-08-22 04:53:35 --> Upload Class Initialized
+INFO - 2025-08-22 04:53:35 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/header.php
+INFO - 2025-08-22 04:53:35 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/sidebar.php
+INFO - 2025-08-22 04:53:35 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/em_modal.php
+INFO - 2025-08-22 04:53:35 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/footer.php
+INFO - 2025-08-22 04:53:35 --> File loaded: C:\xampp\htdocs\TWS1\application\views\backend/employee_view.php
+INFO - 2025-08-22 04:53:35 --> Final output sent to browser
+DEBUG - 2025-08-22 04:53:35 --> Total execution time: 0.0985
