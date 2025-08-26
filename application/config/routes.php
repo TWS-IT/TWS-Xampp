@@ -59,13 +59,20 @@ $route['W_Order/get_mistake_chart_data'] = 'W_Order/get_mistake_chart_data';
 $route['W_Order/get_all_orders_barline_chart_se'] = 'W_Order/get_all_orders_barline_chart_se';
 $route['emp_perfomance/(:any)'] = 'Emp_Perfomance/emp_perfomance/$1';
 $route['employee/chart/(:any)'] = 'Emp_Perfomance/chart_view/$1';
+<<<<<<< HEAD
 // $route['dropdown'] = 'YourController/showEnumDropdown';
+=======
+$route['dropdown'] = 'YourController/showEnumDropdown';
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 $route['W_Order/showMistakeChart/(:any)'] = 'W_Order/showMistakeChart/$1';
 $route['Atas_Order/showMistakeChart/(:any)'] = 'Atas_Order/showMistakeChart/$1';
 $route['Warning/Add_Warning'] = 'Warning/save';
 $route['order_report'] = 'Order/order_report';
 $route['order_report/filter'] = 'Order/filter_orders';
+<<<<<<< HEAD
 $route['ir/resolved'] = 'IR/resolved_ir';
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 $route['order_report/get_all_orders_barline_chart'] = 'Order_report/get_all_orders_barline_chart';
 
 

@@ -13,7 +13,11 @@
 
         $basicinfo = $this->employee_model->GetBasic($id);
         ?>
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         <div class="user-profile">
             <!-- User profile image -->
             <div class="profile-img text-center">
@@ -22,7 +26,11 @@
                 $image_path = 'assets/images/users/' . $image_name;
                 $full_path = FCPATH . $image_path;
                 if (!empty($image_name) && file_exists($full_path)) {
+<<<<<<< HEAD
 
+=======
+                    // Image exists — show it
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                     echo '<img src="' . base_url($image_path) . '" alt="user" />';
                 } else {
 
@@ -81,12 +89,19 @@
                                     class="mdi mdi-account-multiple"></i><span class="hide-menu">Employees </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="<?php echo base_url(); ?>employee/Employees">Employees </a></li>
+<<<<<<< HEAD
 
                                 <li> <a href="<?php echo base_url() ?>Perfomance/index"><span
                                             class="hide-menu">Perfomance<span class="hide-menu"></a></li>
                                 <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li>
                                 <li><a href="<?php echo base_url('IR/resolved_ir'); ?>"> Resolved Incident Reports</a></li>
 
+=======
+                                
+                                <li> <a href="<?php echo base_url() ?>Perfomance/index"><span
+                                            class="hide-menu">Perfomance<span class="hide-menu"></a></li>
+                                <li><a href="<?php echo base_url(); ?>employee/Inactive_Employee">Inactive User </a></li>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                             </ul>
                         </li>
                         <!-- <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
@@ -204,21 +219,37 @@
                             <li><a href="<?php echo base_url('Daily_Mistake/daily_mistake'); ?>">Daily Mistake
                                     Record</a></li>
 
+<<<<<<< HEAD
 
                             <li><a href="<?php echo base_url(); ?>employee/Disciplinary">Disciplinary </a></li>
                             <li><a href="<?php echo base_url(); ?>IR"> Incident Reports Pending</a></li>
                             <li><a href="<?php echo base_url(); ?>Warning"> Warning Letter</a></li>
 
+=======
+                            <?php if (in_array($this->session->userdata('user_type'), ['SUPER ADMIN', 'ADMIN'])): ?>
+                                <li><a href="<?php echo base_url(); ?>employee/Disciplinary">Disciplinary </a></li>
+                                <li><a href="<?php echo base_url(); ?>IR"> Incident Reports </a></li>
+                                <li><a href="<?php echo base_url(); ?>Warning"> Warning Letter</a></li>
+                            <?php endif; ?>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
                         </ul>
                     </li>
 
                     <li>
+<<<<<<< HEAD
                         <a href="<?php echo base_url('Order_report'); ?>">
                             <i class="mdi mdi-chart-line"></i>
                             <span class="hide-menu">Order Report</span>
                         </a>
                     </li>
+=======
+    <a href="<?php echo base_url('Order_report'); ?>">
+        <i class="mdi mdi-chart-line"></i>
+        <span class="hide-menu">Order Report</span>
+    </a>
+</li>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 
                     <li> <a href="<?php echo base_url() ?>notice/All_notice"><i class="mdi mdi-clipboard"></i><span

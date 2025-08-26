@@ -4,6 +4,10 @@ class Order_model extends CI_Model
 
     public function get_orders($project_id = 0, $shift = 'ALL', $date_from = null, $date_to = null)
     {
+<<<<<<< HEAD
+=======
+        // $this->db->select('d.*, p.pro_name, e.em_code', 'e.first_name', 'e.last_name');
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         $this->db->from('daily_order d');
         $this->db->join('project p', 'd.project_id = p.id', 'left');
         $this->db->join('employee e', 'd.employee_code = e.em_code', 'left');
@@ -19,7 +23,11 @@ class Order_model extends CI_Model
         ');
 
 
+<<<<<<< HEAD
         if ($project_id !== 'ALL') { 
+=======
+        if ($project_id !== 'ALL') {   // <-- allow ALL
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             $this->db->where('d.project_id', $project_id);
         }
 
@@ -74,12 +82,17 @@ class Order_model extends CI_Model
 
         $avg_orders = [];
         foreach ($total_orders as $row) {
+<<<<<<< HEAD
             $avg_orders[] = ['x' => $row['x'], 'y' => round($row['y'] / 2)];
+=======
+            $avg_orders[] = ['x' => $row['x'], 'y' => round($row['y'] / 2)]; 
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         }
 
         return ['total_orders' => $total_orders, 'avg_orders' => $avg_orders];
     }
 
+<<<<<<< HEAD
     public function get_mistake_chart_data($projectId = 'ALL', $startDate = null, $endDate = null)
     {
         $this->db->select('date, COUNT(*) as total');
@@ -110,4 +123,30 @@ class Order_model extends CI_Model
     }
 
     
+=======
+public function getMistakesByProject($projectId = 'ALL')
+{
+    $this->db->select('m.id, m.mistake_type, m.date, m.project_id, p.pro_name');
+    $this->db->from('mistake_records m');
+    $this->db->join('project p', 'm.project_id = p.id', 'left');
+
+    if (!empty($projectId) && strtoupper($projectId) !== 'ALL') {
+        $this->db->where('m.project_id', $projectId);
+    }
+
+    $query = $this->db->get();
+    return $query->result_array();
+}
+
+
+public function get_all_projects()
+{
+    $this->db->select('id, pro_name');
+    $this->db->from('project');
+    $this->db->order_by('pro_name', 'ASC');
+    return $this->db->get()->result();
+}
+
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 }

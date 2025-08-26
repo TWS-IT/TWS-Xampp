@@ -1,16 +1,27 @@
 <?php $this->load->view('backend/header'); ?>
 <?php $this->load->view('backend/sidebar'); ?>
 
+<<<<<<< HEAD
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+=======
+<!-- Select2 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery (required) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Select2 JS -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
+<<<<<<< HEAD
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
@@ -33,10 +44,13 @@
 
 
 
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 
 <div class="page-wrapper">
 
+<<<<<<< HEAD
   <div class="profile-tab sticky-top" role="tablist" style="z-index: 1020;">
     <div class="row page-titles">
       <div class="col-md-5 align-self-center">
@@ -202,6 +216,48 @@
     <div class="grid-container" style="margin-top: 20px;">
 
 
+=======
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h5 class="text-themecolor"><i class="mdi mdi-chart-line"></i> Order Report</h5>
+    </div>
+    <div class="col-md-7 align-self-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+        <li class="breadcrumb-item active">Order Report</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs profile-tab" role="tablist" id="projectTabs">
+    <!-- <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#all" role="tab" onclick="selectProject('ALL')">All
+        Projects</a>
+    </li> -->
+    <?php foreach ($projects as $project): ?>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#project<?= $project->id ?>" role="tab"
+          onclick="selectProject(<?= (int) $project->id ?>)">
+          <?= htmlspecialchars($project->pro_name) ?>
+        </a>
+      </li>
+    <?php endforeach; ?>
+  </ul>
+
+  <!-- Add Order -->
+  <div class="mt-3 mb-3">
+    <button type="button" class="btn btn-info text-white" data-toggle="modal" data-target="#orderModal">
+      <i class="fa fa-plus"></i> Add Order
+    </button>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="container-fluid">
+    <div class="grid-container" style="margin-top: 20px;">
+
+      <!-- EMPLOYEES -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
       <div class="card" style="--grad: #FFC107, #FF9800;">
         <center>
           <div class="title">
@@ -217,7 +273,11 @@
         </div>
       </div>
 
+<<<<<<< HEAD
 
+=======
+      <!-- ORDERS -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
       <div class="card" style="--grad: #2196F3, #03A9F4;">
         <center>
           <div class="title">
@@ -232,7 +292,11 @@
         </div>
       </div>
 
+<<<<<<< HEAD
 
+=======
+      <!-- MISTAKES -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
       <div class="card" style="--grad: #F44336, #E91E63;">
         <center>
           <div class="title">
@@ -250,6 +314,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
 
   <div class="row">
 
@@ -344,6 +409,100 @@
 
 
 
+=======
+  <div class="row">
+  <div class="col-md-6">
+    <div id="lineChart" style="height: 300px;"></div>
+  </div>
+
+
+  <!-- --------------------------------------------------------- -->
+<!-- <div class="col-md-12">
+    <div class="card p-3 text-center shadow-sm rounded">
+        <h6 class="section-title">Mistakes Rate</h6>
+        <div class="highlight" id="mistakesRate">0</div>
+        <p class="text-muted small">Total mistakes of the employees</p>
+        <div id="mistakeAreaChart" style="height: 300px;"></div>
+    </div>
+</div> -->
+<div class="col-md-6">
+  <div class="card p-3 text-center shadow-sm rounded">
+    <h6 class="section-title">Mistakes Chart</h6>
+    <div id="mistakeChart" style="height: 300px;"></div>
+  </div>
+</div>
+
+<script>
+let mistakeChart = null;
+
+function loadMistakeChart(projectId = "ALL") {
+    fetch(`<?= base_url('Order_report/mistake_chart_data') ?>?project_id=${projectId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (!data || !data.length) {
+                document.querySelector("#mistakeChart").innerHTML = "<p class='text-muted'>No mistake data available</p>";
+                return;
+            }
+
+            const dailyCounts = {};
+            data.forEach(d => {
+                const date = new Date(d.date);
+                const key = date.getFullYear() + '-' +
+                            (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
+                            date.getDate().toString().padStart(2, '0');
+                dailyCounts[key] = (dailyCounts[key] || 0) + 1;
+            });
+
+            const seriesData = Object.keys(dailyCounts)
+                .sort((a, b) => new Date(a) - new Date(b))
+                .map(date => [new Date(date).getTime(), dailyCounts[date]]);
+
+            const options = {
+                chart: { type: 'area', height: 300, zoom: { enabled: true } },
+                series: [{ name: 'Mistakes', data: seriesData }],
+                dataLabels: { enabled: false },
+                stroke: { curve: 'smooth' },
+                xaxis: { type: 'datetime', title: { text: 'Date' } },
+                yaxis: { title: { text: 'Mistakes' }, min: 0 },
+                tooltip: { x: { format: 'dd MMM yyyy' } },
+                colors: ['#FF0000']
+            };
+
+            document.querySelector("#mistakeChart").innerHTML = "";
+            new ApexCharts(document.querySelector("#mistakeChart"), options).render();
+        })
+        .catch(err => console.error("Error loading mistake chart:", err));
+}
+
+// 🔄 Hook into your existing project selection
+function selectProject(projectId) {
+    currentProjectId = projectId;
+    updateSummary(projectId);
+    loadOrders(projectId);
+    fetchChartData(projectId);   // existing orders chart
+    loadMistakeChart(projectId); // new mistakes chart
+}
+
+// First load
+document.addEventListener("DOMContentLoaded", () => {
+    loadMistakeChart("ALL");
+});
+
+
+</script>
+
+
+
+
+<!-- --------------------------------------------------------------------- -->
+
+
+  <!-- Orders table -->
+  <div id="orderTable" class="mt-3"></div>
+</div>
+
+<!-- Add Order Modal -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -358,10 +517,18 @@
         <div class="modal-body">
           <div class="row g-3">
 
+<<<<<<< HEAD
             <div class="col-md-6">
               <label class="form-label fw-bold">Employee Name</label>
               <select id="employee_code" name="employee_code" class="w-100" required>
                 <option></option>
+=======
+            <!-- Employee -->
+            <div class="col-md-6">
+              <label class="form-label fw-bold">Employee Name</label>
+              <select id="employee_code" name="employee_code" class="w-100" required>
+                <option></option> <!-- real empty option for placeholder -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                 <?php foreach ($employee as $e): ?>
                   <option value="<?= (int) $e->id ?>" data-code="<?= htmlspecialchars($e->em_code) ?>"
                     data-search="<?= htmlspecialchars($e->first_name . ' ' . $e->last_name . ' ' . $e->em_code) ?>">
@@ -371,12 +538,20 @@
               </select>
             </div>
 
+<<<<<<< HEAD
+=======
+            <!-- Employee Code -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             <div class="col-md-6">
               <label class="form-label fw-bold">Employee Code</label>
               <input type="text" id="employee_code_display" class="form-control bg-light" placeholder="Select Employee"
                 readonly>
             </div>
 
+<<<<<<< HEAD
+=======
+            <!-- Project -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             <div class="col-md-6" id="projectSelectWrapper" style="display:none;">
               <label class="form-label fw-bold">Project</label>
               <select class="form-control" id="modal_project_select">
@@ -387,17 +562,29 @@
               </select>
             </div>
 
+<<<<<<< HEAD
+=======
+            <!-- Employee Position -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             <div class="col-md-6">
               <label class="form-label fw-bold">Employee Position</label>
               <input type="text" name="pc_position" id="pc_position" class="form-control" placeholder="AAA203C"
                 required>
             </div>
 
+<<<<<<< HEAD
+=======
+            <!-- Order Date -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             <div class="col-md-6">
               <label class="form-label fw-bold">Order Date</label>
               <input type="date" name="order_date" id="order_date" class="form-control" required>
             </div>
 
+<<<<<<< HEAD
+=======
+            <!-- Shift -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             <div class="col-md-6">
               <label class="form-label fw-bold">Shift</label>
               <select class="form-control" name="shift" id="shift" required>
@@ -408,6 +595,10 @@
               </select>
             </div>
 
+<<<<<<< HEAD
+=======
+            <!-- Order Count -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             <div class="col-md-6">
               <label class="form-label fw-bold">Order Count</label>
               <input type="number" name="order_count" id="order_count" class="form-control" min="0"
@@ -502,6 +693,7 @@
         data.avg_orders.sort((a, b) => new Date(a.x) - new Date(b.x));
 
         const options = {
+<<<<<<< HEAD
           chart: {
             height: 370,
             type: 'line',
@@ -519,6 +711,27 @@
         };
 
 
+=======
+          chart: { height: 450, type: 'line' },
+          stroke: { width: [0, 4], curve: 'smooth' },
+          colors: ['#7267EF', '#c7d9ff'],
+          stroke: {
+            width: [0, 3],
+            curve: 'smooth'
+          },
+          series: [
+            { name: 'Total Orders', type: 'column', data: data.total_orders.map(d => d.y) },
+            { name: 'Average Orders', type: 'line', data: data.avg_orders.map(d => d.y) }
+          ],
+          xaxis: { categories: data.total_orders.map(d => d.x) },
+          yaxis: [
+            { title: { text: 'Total Orders' } },
+            // { opposite: true, title: { text: 'Average Orders' } }
+          ],
+          tooltip: { shared: true, intersect: false }
+        };
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         if (chart) {
           chart.updateOptions(options);
         } else {
@@ -532,14 +745,24 @@
       .catch(err => console.error("Error fetching chart data:", err));
   }
 
+<<<<<<< HEAD
+=======
+  // Project Selection
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
   function selectProject(projectId) {
     currentProjectId = projectId;
     updateSummary(projectId);
     loadOrders(projectId);
     fetchChartData(projectId);
+<<<<<<< HEAD
     fetchMistakeChart(projectId);
   }
 
+=======
+  }
+
+  // Summary Counts
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
   function updateSummary(projectId) {
     fetch(`<?= base_url("Order_report/get_summary_counts") ?>?project_id=${projectId}`)
       .then(res => res.json())
@@ -552,6 +775,7 @@
       });
   }
 
+<<<<<<< HEAD
   function loadOrders(projectId) {
     const params = new URLSearchParams({ project_id: projectId, shift: 'ALL' });
 
@@ -561,12 +785,24 @@
         let html = `<table id="ordersTable" class="display nowrap table table-bordered table-striped" style="width:100%">
                     <thead>
                       <tr>
+=======
+  // Load Orders Table
+  function loadOrders(projectId) {
+    const params = new URLSearchParams({ project_id: projectId, shift: 'ALL' });
+    fetch(`<?= base_url("Order_report/get_orders") ?>?${params.toString()}`)
+      .then(res => res.json())
+      .then(data => {
+        let html = `<table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                         <th>Project</th>
                         <th>Employee</th>
                         <th>Date</th>
                         <th>Shift</th>
                         <th>Total Orders</th>
                         <th>Position</th>
+<<<<<<< HEAD
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -616,11 +852,33 @@
   }
 
 
+=======
+                    </tr>
+                </thead>
+                <tbody>`;
+        data.orders.forEach(o => {
+          html += `<tr>
+                    <td>${o.pro_name ?? ''}</td>
+                    <td>${(o.first_name ?? '')} ${(o.last_name ?? '')} (${o.em_code ?? ''})</td>
+                    <td>${o.order_date ?? ''}</td>
+                    <td>${(o.shift ?? '').charAt(0).toUpperCase() + (o.shift ?? '').slice(1)}</td>
+                    <td>${o.order_count ?? 0}</td>
+                    <td>${o.pc_position ?? ''}</td>
+                </tr>`;
+        });
+        html += '</tbody></table>';
+        document.getElementById('orderTable').innerHTML = html;
+      });
+  }
+
+  // Initial Load
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
   document.addEventListener('DOMContentLoaded', () => {
     selectProject('ALL');
   });
 </script>
 
+<<<<<<< HEAD
 <script>
   $(document).ready(function () {
     function initOrderTable() {
@@ -638,21 +896,39 @@
   });
 </script>
 
+=======
+
+<!-- typing features -->
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 <script>
   function initEmployeeSelect() {
     var $el = $('#employee_code');
 
+<<<<<<< HEAD
+=======
+    // If already initialized, destroy first (prevents weird behavior)
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
     if ($el.hasClass('select2-hidden-accessible')) {
       $el.select2('destroy');
     }
 
     $el.select2({
+<<<<<<< HEAD
       dropdownParent: $('#orderModal'),
       placeholder: 'Select Employee',
       allowClear: true,
       width: '100%',
       minimumResultsForSearch: 0,
 
+=======
+      dropdownParent: $('#orderModal'),        // important in modals
+      placeholder: 'Select Employee',
+      allowClear: true,
+      width: '100%',
+      minimumResultsForSearch: 0,              // always show search
+
+      // Match by name (text), data-code, or data-search
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
       matcher: function (params, data) {
         if (!params.term || !params.term.trim()) return data;
         if (typeof data.text === 'undefined') return null;
@@ -665,6 +941,10 @@
         return (text.indexOf(term) > -1 || code.indexOf(term) > -1 || extra.indexOf(term) > -1) ? data : null;
       },
 
+<<<<<<< HEAD
+=======
+      // Show code next to the name
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
       templateResult: function (data) {
         if (!data.id) return data.text;
         var code = data.element ? data.element.getAttribute('data-code') : '';
@@ -679,12 +959,20 @@
       }
     });
 
+<<<<<<< HEAD
+=======
+    // Keep your code display field in sync
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
     $el.on('change', function () {
       var code = $(this).find(':selected').data('code') || '';
       $('#employee_code_display').val(code);
     });
   }
 
+<<<<<<< HEAD
+=======
+  // Initialize when modal is fully shown (element is in DOM)
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
   $('#orderModal').on('shown.bs.modal', initEmployeeSelect);
 
 </script>
@@ -703,8 +991,13 @@
         if (data.success) {
           alert("Order saved successfully!");
           $('#orderModal').modal('hide');
+<<<<<<< HEAD
           loadOrders(currentProjectId);
           updateSummary(currentProjectId);
+=======
+          loadOrders(currentProjectId); // refresh table
+          updateSummary(currentProjectId); // refresh counts
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         } else {
           alert(data.message || "Failed to save order.");
         }
@@ -719,11 +1012,16 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+<<<<<<< HEAD
     let today = new Date().toISOString().split('T')[0];
+=======
+    let today = new Date().toISOString().split('T')[0]; // yyyy-mm-dd
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
     document.getElementById('order_date').value = today;
   });
 </script>
 
+<<<<<<< HEAD
 <!-- Mistake chart -->
 <script>
   let mistakeChart = null;
@@ -839,6 +1137,8 @@
 
 </script>
 
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 <style>
   .select2-container--default .select2-selection--single {
     height: 34px;
@@ -938,6 +1238,7 @@
 
 
 
+<<<<<<< HEAD
 <style>
   .grid-container {
     width: min(90%, 1200px);
@@ -1149,5 +1450,7 @@
     background: linear-gradient(135deg, #dc2626, #ef4444);
   }
 </style>
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 <?php $this->load->view('backend/footer'); ?>

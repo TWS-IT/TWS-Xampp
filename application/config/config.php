@@ -84,8 +84,11 @@ $config['url_suffix'] = '';
 |
 */
 $config['language']	= 'english';
+<<<<<<< HEAD
 $config['upload_path'] = './assets/images/users/';
 
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 /*
 |--------------------------------------------------------------------------

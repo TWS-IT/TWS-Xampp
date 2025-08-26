@@ -27,6 +27,7 @@ class IR_model extends CI_Model
     }
 
     // Get all Incident Reports with employee details
+<<<<<<< HEAD
    public function getAllIRs()
 {
     $this->db->select('ir.id, ir.ir_details, ir.ir_date, ir.status, ir.approved_by, ir.approved_at, ir.created_at, ir.ir_file, 
@@ -40,6 +41,17 @@ class IR_model extends CI_Model
     return $this->db->get()->result();
 }
 
+=======
+    public function getAllIRs()
+    {
+        $this->db->select('ir.id, ir.ir_details, ir.ir_date, ir.status, ir.approved_by, ir.approved_at, ir.created_at, 
+                       employee.first_name, employee.last_name, employee.em_code, employee.em_email, employee.em_role, employee.project');
+        $this->db->from('ir');
+        $this->db->join('employee', 'ir.emp_id = employee.em_id', 'left');
+        $this->db->order_by('ir.created_at', 'DESC');
+        return $this->db->get()->result();
+    }
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
     // Get IR by Employee ID
     public function getIRByEmpId($emp_id)
@@ -50,6 +62,7 @@ class IR_model extends CI_Model
         $this->db->where('ir.emp_id', $emp_id);
         return $this->db->get()->row();
     }
+<<<<<<< HEAD
         public function getAllProjects()
     {
       $this->db->select('id, pro_name');
@@ -59,6 +72,8 @@ class IR_model extends CI_Model
     
     }
 
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
     // Get IR by IR ID
     public function getIRById($id)

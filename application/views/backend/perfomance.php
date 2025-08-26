@@ -45,7 +45,11 @@
                                         <td><?= $row['full_name'] ?></td>
                                         <td><?= $row['project'] ?></td>
                                         <td><?= $row['total_orders'] ?></td>
+<<<<<<< HEAD
                                         <td><?= $row['mistakes'] ?? 0 ?></td>
+=======
+                                        <td><?= $row['mistakes'] ?></td>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                                         <td><?= $row['efficiency'] ?>%</td>
                                         <td class="text-center">
                                             <a href="<?= base_url('Emp_Perfomance/emp_perfomance/' . $row['em_code']); ?>"

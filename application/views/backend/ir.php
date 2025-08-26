@@ -22,6 +22,7 @@
     <div class="container-fluid">
         <div class="row m-b-10">
             <div class="col-12">
+<<<<<<< HEAD
                 <!-- New IR button (opens modal) -->
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#irModal">
                     <i class="fa fa-plus"></i> New IR
@@ -33,6 +34,13 @@
                 </a>
             </div>
 
+=======
+                <button type="button" class="btn btn-info">
+                    <i class="fa fa-plus"></i>
+                    <a data-toggle="modal" data-target="#irModal" class="text-white"> New IR</a>
+                </button>
+            </div>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         </div>
 
         <div class="row">
@@ -41,6 +49,18 @@
                     <div class="card-header">
                         <h4 class="m-b-0 text-white"> IR List</h4>
                     </div>
+<<<<<<< HEAD
+=======
+                    <label for="statusFilter">Filter by Status:</label>
+                    <div class="dropdown-3d-wrapper">
+                        <select id="statusFilter" class="dropdown-3d">
+                            <option value="">All</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 
 
@@ -58,7 +78,10 @@
                                         <th>Approved By</th>
                                         <th>Approved At</th>
                                         <th>Created At</th>
+<<<<<<< HEAD
                                         <th>IR File</th>
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                                         <th>Project</th> <!-- Added Project Column -->
                                         <?php if ($this->session->userdata('user_type') != 'EMPLOYEE'): ?>
                                             <th>Action</th>
@@ -89,6 +112,7 @@
 
                                             <td><?php echo $value->approved_at; ?></td>
                                             <td><?php echo $value->created_at; ?></td>
+<<<<<<< HEAD
                                             <td>
                                                 <?php if (!empty($value->ir_file)): ?>
                                                     <a href="<?php echo base_url($value->ir_file); ?>" target="_blank">
@@ -103,6 +127,9 @@
 
 
                                             <td><?php echo $value->pro_name; ?></td>
+=======
+                                            <td><?php echo $value->project; ?></td>
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                                             <td class="jsgrid-align-center">
                                                 <?php if ($this->session->userdata('user_type') != 'EMPLOYEE'): ?>
                                                     <button class="btn btn-sm btn-warning editbtn"
@@ -142,16 +169,24 @@
                     <h4 class="modal-title">Incident Report</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
+<<<<<<< HEAD
                 <form method="post" action="<?php echo base_url('IR/Add_IR'); ?>" id="irForm"
                     enctype="multipart/form-data">
 
+=======
+                <form method="post" action="<?php echo base_url('IR/Add_IR'); ?>" id="irForm">
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                     <div class="modal-body">
                         <div class="form-group row">
                             <label class="col-md-3 control-label">Employee</label>
                             <select class="form-control custom-select col-md-8" name="emid" id="emid" required>
                                 <option value="">Select Here</option>
                                 <?php foreach ($employee as $value): ?>
+<<<<<<< HEAD
                                     <option value="<?php echo $value->em_code; ?>">
+=======
+                                    <option value="<?php echo $value->em_id; ?>">
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                                         <?php echo $value->first_name . ' ' . $value->last_name; ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -169,6 +204,7 @@
                             <label class="col-md-3 control-label">Prevent Mistake</label>
                             <textarea name="prevent" id="prevent" class="form-control col-md-8"></textarea>
                         </div>
+<<<<<<< HEAD
 
                         <div class="form-group row">
                             <label class="col-md-3 control-label">Working Project</label>
@@ -199,6 +235,15 @@
 
 
 
+=======
+                        <!-- Add this field to your modal body -->
+                        <div class="form-group row">
+                            <label class="col-md-3 control-label">Working Project</label>
+                            <input type="text" name="working_project" id="working_project" class="form-control col-md-8"
+                                readonly>
+                        </div>
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="action" id="action">
                     </div>
@@ -216,13 +261,18 @@
 
 <script>
     $(document).ready(function () {
+<<<<<<< HEAD
 
+=======
+        // Initialize DataTable once and store in a variable
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         var table = $('#irTable').DataTable({
             "aaSorting": [[8, 'desc']],
             dom: 'Bfrtip',
             buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
         });
 
+<<<<<<< HEAD
         $('#statusFilter').on('change', function () {
             var status = $(this).val().toLowerCase();
             table.column(4).search(status).draw();
@@ -234,14 +284,49 @@
             var form = $('#irForm')[0]; // Get the form element
             var formData = new FormData(form); // Create FormData object including file
 
+=======
+        // Filter by status
+        $('#statusFilter').on('change', function () {
+            var status = $(this).val().toLowerCase();
+            table.column(4).search(status).draw(); // Column 4 is Status
+        });
+
+        // When employee dropdown changes, fetch project
+        $('#emid').change(function () {
+            var em_id = $(this).val();
+            if (em_id) {
+                $.ajax({
+                    url: '<?php echo base_url('ir/get_employee_project/'); ?>' + em_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        $('#working_project').val(response.project || '');
+                    },
+                    error: function () {
+                        alert('Error fetching project data');
+                    }
+                });
+            } else {
+                $('#working_project').val('');
+            }
+        });
+
+        // Submit IR form
+        $('#submitIR').click(function (e) {
+            e.preventDefault();
+            var formData = $('#irForm').serialize();
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             $('#submitIR').prop('disabled', true);
 
             $.ajax({
                 url: "<?php echo base_url('IR/Add_IR'); ?>",
                 type: "POST",
                 data: formData,
+<<<<<<< HEAD
                 processData: false, // Important for file upload
                 contentType: false, // Important for file upload
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                 success: function () {
                     $('#irModal').modal('hide');
                     location.reload(); // Refresh table
@@ -291,7 +376,11 @@
                         $('#irForm').find('[name="ir_date"]').val(response.irvalue.ir_date);
                         $('#irForm').find('[name="ir_details"]').val(response.irvalue.ir_details);
                         $('#irForm').find('[name="prevent"]').val(response.irvalue.prevent);
+<<<<<<< HEAD
                         $('#irForm').find('[name="project_id"]').val(response.irvalue.project_id);
+=======
+                        $('#irForm').find('[name="working_project"]').val(response.irvalue.project);
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                     } else {
                         alert('Failed to load incident data');
                     }
@@ -324,6 +413,7 @@
 </script>
 <script>
 
+<<<<<<< HEAD
     // $(document).ready(function () {
     //     // When the employee dropdown changes
     //     $('#emid').change(function () {
@@ -355,6 +445,39 @@
     //         }
     //     });
     // });
+=======
+    $(document).ready(function () {
+        // When the employee dropdown changes
+        $('#emid').change(function () {
+            var em_id = $(this).val();  // Get the selected employee ID
+
+            if (em_id) {
+                // AJAX call to fetch the working project for the selected employee
+                $.ajax({
+                    url: '<?php echo base_url('ir/get_employee_project/'); ?>' + em_id,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.project) {
+                            // Update the Working Project field with the returned project
+                            $('#working_project').val(response.project);
+                        } else {
+                            // Clear the field if no project is found
+                            $('#working_project').val('');
+                        }
+                    },
+                    error: function () {
+                        // Handle any errors here
+                        alert('Error fetching project data');
+                    }
+                });
+            } else {
+                // Clear the field if no employee is selected
+                $('#working_project').val('');
+            }
+        });
+    });
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 
 </script>
@@ -385,6 +508,7 @@
     }
 </style>
 <style>
+<<<<<<< HEAD
     .dropdown-3d {
         padding: 3px 8px;
         /* smaller padding */
@@ -444,6 +568,61 @@
         font-size: 12px;
         color: #555;
     }
+=======
+  .dropdown-3d {
+    padding: 3px 8px;        /* smaller padding */
+    font-size: 12px;         /* smaller font */
+    height: 28px;            /* set exact height */
+    line-height: 22px;       /* align text vertically */
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    background: linear-gradient(to bottom, #f9f9f9 0%, #e0e0e0 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    appearance: none;        /* remove default arrow */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    min-width: 80px;         /* width of dropdown */
+    position: relative;      /* needed for custom arrow */
+}
+
+/* Hover effect */
+.dropdown-3d:hover {
+    background: linear-gradient(to bottom, #ffffff 0%, #dcdcdc 100%);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+    transform: translateY(-1px);
+}
+
+/* Focus effect */
+.dropdown-3d:focus {
+    border-color: #007bff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* Optional: smaller options */
+.dropdown-3d option {
+    padding: 3px 5px;
+    font-size: 12px;
+}
+
+/* Custom arrow using wrapper for better cross-browser support */
+.dropdown-3d-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown-3d-wrapper::after {
+    content: "▾";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 12px;
+    color: #555;
+}
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 </style>
 
 
@@ -451,6 +630,7 @@
 
 <script>
     $(document).ready(function () {
+<<<<<<< HEAD
         // Make Employee dropdown searchable inside modal
         $('#emid').select2({
             placeholder: "Select Employee",
@@ -466,11 +646,29 @@
         });
 
     });
+=======
+    // Make Employee dropdown searchable inside modal
+    $('#emid').select2({
+        placeholder: "Select Employee",
+        allowClear: true,
+        width: '66.8%',
+        dropdownParent: $('#irModal'),
+        minimumResultsForSearch: 0 
+    });
+    $('#emid').on('select2:open', function () {
+    setTimeout(function () {
+        document.querySelector('.select2-container--open .select2-search__field').focus();
+    }, 100);
+});
+
+});
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 </script>
 
 <style>
     /* Style the Select2 container */
+<<<<<<< HEAD
     .select2-container--default .select2-selection--single {
         height: 34px;
         /* match input height */
@@ -574,6 +772,111 @@
         background-color: #007bff !important;
         color: #fff !important;
     }
+=======
+.select2-container--default .select2-selection--single {
+    height: 34px;                   /* match input height */
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    background: linear-gradient(to bottom, #f9f9f9 0%, #e0e0e0 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-size: 13px;
+    padding-left: 6px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Arrow styling */
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 3px;
+    right: 8px;
+}
+
+/* Hover effect */
+.select2-container--default .select2-selection--single:hover {
+    background: linear-gradient(to bottom, #ffffff 0%, #dcdcdc 100%);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+    transform: translateY(-1px);
+}
+
+/* Focus effect */
+.select2-container--default.select2-container--open .select2-selection--single {
+    border-color: #007bff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* Dropdown menu */
+.select2-dropdown {
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-size: 13px;
+}
+
+/* Options */
+.select2-results__option {
+    padding: 5px 10px;
+    font-size: 13px;
+}
+
+/* Highlighted option */
+.select2-results__option--highlighted {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
+
+
+/* form controll stylr */
+.form-control,
+.select2-container--default .select2-selection--single {
+    height: 38px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    background: linear-gradient(to bottom, #f9f9f9 0%, #e0e0e0 100%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    font-size: 14px;
+    padding: 6px 10px;
+    transition: all 0.2s ease;
+}
+
+/* 🔹 Hover & Focus effects */
+.form-control:hover,
+.select2-container--default .select2-selection--single:hover {
+    background: linear-gradient(to bottom, #ffffff 0%, #dcdcdc 100%);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+    transform: translateY(-1px);
+}
+
+.form-control:focus,
+.select2-container--default.select2-container--open .select2-selection--single {
+    border-color: #007bff;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    outline: none;
+}
+
+/* 🔹 Fix Select2 text alignment */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 36px; 
+    padding-left: 6px;
+}
+
+/* 🔹 Dropdown styling */
+.select2-dropdown {
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-size: 14px;
+}
+
+.select2-results__option {
+    padding: 6px 10px;
+}
+
+.select2-results__option--highlighted {
+    background-color: #007bff !important;
+    color: #fff !important;
+}
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 </style>
 
 <?php $this->load->view('backend/footer'); ?>

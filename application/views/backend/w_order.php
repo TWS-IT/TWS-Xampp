@@ -10,11 +10,22 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+<<<<<<< HEAD
+=======
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- DataTables CSS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
 
+<<<<<<< HEAD
+=======
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 <!-- DataTables JS -->
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
@@ -248,6 +259,22 @@
           gap: 2rem;
           margin-top: 2rem;
         }
+<<<<<<< HEAD
+=======
+
+        /* @keyframes shake {
+    0% { transform: translate(0px, 0px); }
+    20% { transform: translate(-2px, 0px); }
+    40% { transform: translate(2px, 0px); }
+    60% { transform: translate(-2px, 0px); }
+    80% { transform: translate(2px, 0px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+.card:hover {
+    animation: shake 0.5s ease-in-out;
+} */
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         .card {
           --grad: red, blue;
           padding: 1rem;

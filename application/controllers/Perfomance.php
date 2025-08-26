@@ -24,6 +24,7 @@ class Perfomance extends CI_Controller
         }
     }
 
+<<<<<<< HEAD
    public function index()
 {
     // Get all performance data
@@ -41,6 +42,16 @@ class Perfomance extends CI_Controller
     $this->load->view('backend/footer');
 }
 
+=======
+    public function index()
+    {
+        $data['performance_data'] = $this->Perfomance_model->get_all_performance_data();
+        $this->load->view('backend/header');
+        // $this->load->view('backend/sidebar');
+        $this->load->view('backend/perfomance', $data);
+        $this->load->view('backend/footer');
+    }
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 }
 
 ?>

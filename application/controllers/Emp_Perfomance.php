@@ -3,7 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Emp_Perfomance extends CI_Controller
 {
+<<<<<<< HEAD
     private $project_tables = [
+=======
+     private $project_tables = [
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         'w_order',
         'atas_order',
         'w1w_deposit_order',
@@ -53,13 +57,18 @@ class Emp_Perfomance extends CI_Controller
         $this->load->view('backend/emp_perfomance', $data);
     }
 
+<<<<<<< HEAD
 public function emp_perfomance($em_code = null)
+=======
+  public function emp_perfomance($em_code = null)
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 {
     if (!$em_code) {
         show_error("Employee code is missing.", 400);
         return;
     }
 
+<<<<<<< HEAD
     // Fetch employee info (project name optional)
     $employee = $this->db
         ->select('employee.*, project.pro_name')
@@ -68,12 +77,17 @@ public function emp_perfomance($em_code = null)
         ->where('em_code', $em_code)
         ->get()
         ->row();
+=======
+    
+    $employee = $this->db->get_where('employee', ['em_code' => $em_code])->row();
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
     if (!$employee) {
         show_error("Invalid employee code", 404);
         return;
     }
 
+<<<<<<< HEAD
     $daily_target = 100;  // Default daily target
     $mistake_weight = 2;
     $ir_weight = 5;
@@ -117,11 +131,18 @@ public function emp_perfomance($em_code = null)
     $efficiency = max(0, min(100, $raw_efficiency - $penalty));
 
     // Profile image
+=======
+  
+    $total_orders = $this->Emp_Pr_Model->get_total_orders($employee->em_code);
+
+   
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
     $image_path = 'assets/images/users/' . $employee->em_image;
     $profile_img = (!empty($employee->em_image) && file_exists(FCPATH . $image_path))
         ? base_url($image_path)
         : base_url('assets/images/users/user.png');
 
+<<<<<<< HEAD
     $data = [
         'profile_img' => $profile_img,
         'first_name' => $employee->first_name,
@@ -195,6 +216,79 @@ public function emp_perfomance($em_code = null)
 
         foreach ($this->project_tables as $table) {
             $query = $this->db->query("
+=======
+   
+    $data = [
+        'profile_img'  => $profile_img,
+        'first_name'   => $employee->first_name,
+        'last_name'    => $employee->last_name,
+        'des_id'       => $employee->des_id,
+        'pro_name'      => $employee->pro_name,
+        'total_orders' => $total_orders,
+        'em_code'      => $employee->em_code,
+        'employee'     => $employee,
+        'employee_name' => $employee->first_name, 
+    ];
+
+   
+    $this->load->view('backend/emp_perfomance', $data);
+}
+
+public function chart_view($em_code = null)
+{
+    if (!$em_code) {
+        show_error("Employee code is required", 400);
+        return;
+    }
+
+    $employee = $this->db->get_where('employee', ['em_code' => $em_code])->row();
+
+    if (!$employee) {
+        show_error("Invalid employee code", 404);
+        return;
+    }
+
+   
+    $performance_data = [];
+    $dates = [];
+
+   for ($day = 1; $day <= 31; $day++) {
+    $date = date('Y-m-d', strtotime("2025-07-$day"));
+    $order_count = $this->Emp_Pr_Model->get_daily_order_count($employee->em_code, $date);
+    $dates[] = $day;
+    $performance_data[] = $order_count;
+}
+
+
+    $data = [
+        
+        
+        'employee_name' => $employee->first_name,
+        'dates' => $dates,
+        'performance_data' => $performance_data
+    ];
+
+    $this->load->view('backend/employee_performance', $data);
+}
+
+public function json_chart_data($em_code)
+{
+    if (!$em_code) {
+        show_error("Employee code is required", 400);
+        return;
+    }
+
+    $employee = $this->db->get_where('employee', ['em_code' => $em_code])->row();
+    if (!$employee) {
+        show_error("Invalid employee code", 404);
+        return;
+    }
+
+    $combined_data = [];
+
+    foreach ($this->project_tables as $table) {
+        $query = $this->db->query("
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
             SELECT DATE(order_date) AS date, SUM(order_count) AS total_orders
             FROM $table
             WHERE employee_id = ?
@@ -202,6 +296,7 @@ public function emp_perfomance($em_code = null)
             ORDER BY DATE(order_date) ASC
         ", [$em_code]);
 
+<<<<<<< HEAD
             foreach ($query->result() as $row) {
                 if (isset($combined_data[$row->date])) {
                     $combined_data[$row->date] += (int) $row->total_orders;
@@ -227,6 +322,33 @@ public function emp_perfomance($em_code = null)
         echo json_encode($performance_data);
     }
    public function get_shift_order_data($em_code, $shift = null)
+=======
+        foreach ($query->result() as $row) {
+            if (isset($combined_data[$row->date])) {
+                $combined_data[$row->date] += (int)$row->total_orders;
+            } else {
+                $combined_data[$row->date] = (int)$row->total_orders;
+            }
+        }
+    }
+
+    // Sort by date ascending
+    ksort($combined_data);
+
+    // Format for chartjs (or frontend)
+    $performance_data = [];
+    foreach ($combined_data as $date => $total_orders) {
+        $performance_data[] = [
+            'x' => strtotime($date) * 1000,
+            'y' => $total_orders
+        ];
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($performance_data);
+}
+public function get_shift_order_data($em_code, $shift = null)
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 {
     if (!$em_code) {
         show_error("Employee code is required", 400);
@@ -236,9 +358,15 @@ public function emp_perfomance($em_code = null)
     $combined_results = [];
 
     foreach ($this->project_tables as $table) {
+<<<<<<< HEAD
         $this->db->select("employee_code, order_date, shift, pc_position, SUM(order_count) as order_count", false);
         $this->db->from($table);
         $this->db->where("employee_code", $em_code); // Fixed column name
+=======
+        $this->db->select("employee_id, order_date, shift, pc_position, SUM(order_count) as order_count", false);
+        $this->db->from($table);
+        $this->db->where("employee_id", $em_code);
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
         if (!empty($shift)) {
             $this->db->where("shift", $shift);
@@ -250,18 +378,33 @@ public function emp_perfomance($em_code = null)
         $query = $this->db->get();
 
         foreach ($query->result() as $row) {
+<<<<<<< HEAD
             $key = $row->order_date . '|' . $row->shift . '|' . $row->pc_position;
 
             if (isset($combined_results[$key])) {
                 $combined_results[$key]->order_count += $row->order_count;
             } else {
+=======
+            // Use a key to combine rows by date, shift and position
+            $key = $row->order_date . '|' . $row->shift . '|' . $row->pc_position;
+
+            if (isset($combined_results[$key])) {
+                // Add order_count if duplicate group found across tables
+                $combined_results[$key]->order_count += $row->order_count;
+            } else {
+                // Add new record
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
                 $combined_results[$key] = $row;
             }
         }
     }
 
     // Sort combined results by order_date ascending
+<<<<<<< HEAD
     usort($combined_results, function ($a, $b) {
+=======
+    usort($combined_results, function($a, $b) {
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         return strtotime($a->order_date) - strtotime($b->order_date);
     });
 
@@ -273,4 +416,9 @@ public function emp_perfomance($em_code = null)
 
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 }

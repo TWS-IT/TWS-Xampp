@@ -13,18 +13,31 @@ class Order_report extends CI_Controller
         $this->load->helper('url');
     }
 
+<<<<<<< HEAD
 
+=======
+    // Default page
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
     public function index()
     {
         $data['projects'] = $this->db->get('project')->result();
         $data['employee'] = $this->db->get('employee')->result();
+<<<<<<< HEAD
         // $data['projects'] = $this->Order_model->get_all_projects();
+=======
+        $data['projects'] = $this->Order_model->get_all_projects();
+        // $this->load->view('order_report', $data);
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 
         $this->load->view('backend/header');
         $this->load->view('backend/order_report', $data);
     }
 
+<<<<<<< HEAD
+=======
+    // Fetch filtered orders for AJAX
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
     public function get_orders()
     {
         $project_id = $this->input->get('project_id') ?? 0;
@@ -69,6 +82,10 @@ class Order_report extends CI_Controller
             return;
         }
 
+<<<<<<< HEAD
+=======
+        // Lookup employee by ID
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
         $employee = $this->db->get_where('employee', ['id' => (int) $employee_id])->row();
         if (!$employee) {
             echo json_encode(['status' => 'error', 'message' => 'Invalid employee selected.']);
@@ -89,6 +106,7 @@ class Order_report extends CI_Controller
     }
 
 
+<<<<<<< HEAD
     public function update_order()
     {
         $id = $this->input->post('id', true); // daily_order row id
@@ -134,6 +152,8 @@ class Order_report extends CI_Controller
     }
 
 
+=======
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 
 
     public function get_summary_counts()
@@ -195,6 +215,7 @@ class Order_report extends CI_Controller
         echo json_encode($data);
     }
 
+<<<<<<< HEAD
     public function get_mistakes_chart()
     {
         if (!$this->session->userdata('user_login_access')) {
@@ -209,4 +230,33 @@ class Order_report extends CI_Controller
 
         echo json_encode($data);
     }
+=======
+    public function showMistakeChart($projectId = 'ALL')
+    {
+        $projectId = urldecode($projectId);
+        $this->load->model('Order_model');
+
+        try {
+            $data = $this->Order_model->getMistakesByProject($projectId);
+            header('Content-Type: application/json');
+            echo json_encode($data);
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+    }
+
+public function mistake_chart_data()
+{
+    $projectId = $this->input->get('project_id') ?? 'ALL';
+    $this->load->model('Order_model');
+    $data = $this->Order_model->getMistakesByProject($projectId);
+
+    header('Content-Type: application/json');
+    echo json_encode($data);
+}
+
+
+
+
+>>>>>>> d2b80f29b3e75409dba6e05677707d905edac65f
 }
