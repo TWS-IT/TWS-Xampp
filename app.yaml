@@ -1,0 +1,6 @@
+kind: wasmer.io/App.v0
+name: TWS-Xampp
+owner: tws-it
+package: .
+scaling:
+  mode: single_concurrency
